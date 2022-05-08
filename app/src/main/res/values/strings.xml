@@ -1,5 +1,14 @@
 <resources>
-    <string name="app_name">BulletinBoard</string>
+    <string name="app_name">Ads Board</string>
     <!-- Menu Drawer Strings -->
-    <string name="app_categoty_advertisements">Advertisements</string>
+    <string name="app_category_ads">Category Ads</string>
+    <string name="app_my_ads">My Ads</string>
+    <string name="app_ads_car">Cars</string>
+    <string name="app_ads_pc">PC</string>
+    <string name="app_ads_smatphone">Smatphones</string>
+    <string name="app_ads_household_appliance">Household appliances</string>
+    <string name="app_category_settings">Settings Account</string>
+    <string name="app_set_ac_sign_up">Registration</string>
+    <string name="app_set_ac_sign_in">Sign in</string>
+    <string name="app_set_ac_sign_out">Sign out</string>
 </resources>
