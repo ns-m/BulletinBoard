@@ -11,4 +11,9 @@
     <string name="app_set_ac_sign_up">Registration</string>
     <string name="app_set_ac_sign_in">Sign in</string>
     <string name="app_set_ac_sign_out">Sign out</string>
+    <!-- Other Strings -->
+    <string name="app_user_avatar">User avatar</string>
+    <string name="app_text_view_user">example@example.com</string>
+    <string name="app_open">Open</string>
+    <string name="app_close">Close</string>
 </resources>

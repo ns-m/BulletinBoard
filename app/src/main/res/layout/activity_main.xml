@@ -9,8 +9,14 @@
     tools:openDrawer="start"
     tools:context=".MainActivity">
 
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        layout="@layout/main_content"/>
+
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/navView"
+        app:headerLayout="@layout/nav_header_main"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         app:menu="@menu/drawer_main_menu"
