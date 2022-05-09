@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "36684523390",
+    "project_id": "bulletinboard-09052022",
+    "storage_bucket": "bulletinboard-09052022.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:36684523390:android:418f384c317abcc744752f",
+        "android_client_info": {
+          "package_name": "com.kmv.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "36684523390-gtrsc4cj5e4ml9irsl2klc7h1fnihsds.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyARglwSDsDxk3Hr7aDHXMTjzb54e9u_bDw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "36684523390-gtrsc4cj5e4ml9irsl2klc7h1fnihsds.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
