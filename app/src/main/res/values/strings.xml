@@ -11,6 +11,13 @@
     <string name="app_set_ac_sign_up">Registration</string>
     <string name="app_set_ac_sign_in">Sign in</string>
     <string name="app_set_ac_sign_out">Sign out</string>
+    <!-- Sing Dialog -->
+    <string name="app_sign_title">Sign Title</string>
+    <string name="app_sign_email_hint">Email</string>
+    <string name="app_sign_psswrd_hint">Password</string>
+    <string name="app_sign_up_action">Make registration</string>
+    <string name="app_sign_in_action">Login</string>
+    <string name="app_sign_psswrd_forget">Are you forgot password?</string>
     <!-- Other Strings -->
     <string name="app_user_avatar">User avatar</string>
     <string name="app_text_view_user">example@example.com</string>
