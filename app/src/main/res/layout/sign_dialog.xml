@@ -20,7 +20,7 @@
     <EditText
         android:id="@+id/editTxSignEmail"
         android:layout_width="0dp"
-        android:layout_height="@dimen/miniBttnHeight"
+        android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
@@ -31,12 +31,13 @@
         android:textColorHint="#757575"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tViewSignTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/tViewSignTitle"
+        tools:ignore="TouchTargetSizeCheck" />
 
     <EditText
         android:id="@+id/editTxSignPassword"
         android:layout_width="0dp"
-        android:layout_height="@dimen/miniBttnHeight"
+        android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:autofillHints=""
         android:ems="10"
@@ -45,17 +46,21 @@
         android:textColorHint="#757575"
         app:layout_constraintEnd_toEndOf="@+id/editTxSignEmail"
         app:layout_constraintStart_toStartOf="@+id/editTxSignEmail"
-        app:layout_constraintTop_toBottomOf="@+id/editTxSignEmail" />
+        app:layout_constraintTop_toBottomOf="@+id/editTxSignEmail"
+        tools:ignore="TouchTargetSizeCheck" />
 
     <Button
         android:id="@+id/bttnSignUpSignIn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
+        android:layout_marginBottom="8dp"
         android:text="@string/app_sign_up_action"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/editTxSignEmail"
         app:layout_constraintStart_toStartOf="@+id/editTxSignPassword"
-        app:layout_constraintTop_toBottomOf="@+id/editTxSignPassword" />
+        app:layout_constraintTop_toBottomOf="@+id/editTxSignPassword"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/bttnFogotRsswrd"
@@ -63,6 +68,7 @@
         android:layout_height="wrap_content"
         android:text="@string/app_sign_psswrd_forget"
         android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/editTxSignEmail"
         app:layout_constraintStart_toStartOf="@+id/editTxSignEmail"
         app:layout_constraintTop_toBottomOf="@+id/bttnSignUpSignIn" />

@@ -8,9 +8,12 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import com.google.android.material.navigation.NavigationView
 import com.kmv.myapplication.databinding.ActivityMainBinding
+import com.kmv.myapplication.dialogs_support.DialogConsts
+import com.kmv.myapplication.dialogs_support.DialogSupport
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     private lateinit var binding: ActivityMainBinding
+    private val dialogSupport = DialogSupport(this)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -42,10 +45,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 Toast.makeText(this, "Pushed key ${item.itemId}", Toast.LENGTH_LONG).show()
             }
             R.id.id_set_ac_sign_up-> {
-                Toast.makeText(this, "Pushed key ${item.itemId}", Toast.LENGTH_LONG).show()
+                dialogSupport.createSingDialog(DialogConsts.SIGN_UP_STATE)
             }
             R.id.id_set_ac_sign_in -> {
-                Toast.makeText(this, "Pushed key ${item.itemId}", Toast.LENGTH_LONG).show()
+                dialogSupport.createSingDialog(DialogConsts.SIGN_IN_STATE)
             }
             R.id.id_set_ac_sign_out -> {
                 Toast.makeText(this, "Pushed key ${item.itemId}", Toast.LENGTH_LONG).show()
