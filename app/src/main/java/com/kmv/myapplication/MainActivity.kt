@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.auth.FirebaseAuth
 import com.kmv.myapplication.databinding.ActivityMainBinding
 import com.kmv.myapplication.dialogs_support.DialogConsts
 import com.kmv.myapplication.dialogs_support.DialogSupport
@@ -14,6 +15,7 @@ import com.kmv.myapplication.dialogs_support.DialogSupport
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     private lateinit var binding: ActivityMainBinding
     private val dialogSupport = DialogSupport(this)
+    val mainAuth = FirebaseAuth.getInstance()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
