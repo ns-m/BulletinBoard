@@ -12,6 +12,7 @@ class AccountAuthentication(act:MainActivity) {
             act.mainAuth.createUserWithEmailAndPassword(userEmail, userPsswd).addOnCompleteListener { task ->
                 if (task.isSuccessful){
                     sendEmailVerification(task.result.user!!)
+                    act.uiUpdate(task.result.user)
                 }else{
                     Toast.makeText(act, act.resources.getString(R.string.app_sign_up_error), Toast.LENGTH_LONG).show()
                 }

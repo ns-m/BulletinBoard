@@ -11,6 +11,7 @@
     <string name="app_set_ac_sign_up">Registration</string>
     <string name="app_set_ac_sign_in">Sign in</string>
     <string name="app_set_ac_sign_out">Sign out</string>
+    <string name="app_not_regs">Log in or register!</string>
     <!-- Sing Dialog -->
     <string name="app_sign_title">Sign Title</string>
     <string name="app_sign_email_hint">Email</string>
