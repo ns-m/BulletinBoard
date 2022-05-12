@@ -12,6 +12,7 @@ class DialogSupport(act:MainActivity) {
     fun createSingDialog(intCode:Int){
         val dialogBuilder = AlertDialog.Builder(act)
         val binding = SignDialogBinding.inflate(act.layoutInflater)
+        dialogBuilder.setView(binding.root)
         if (intCode == DialogConsts.SIGN_UP_STATE){
             binding.tViewSignTitle.text = act.resources.getString(R.string.app_set_ac_sign_up)
             binding.bttnSignUpSignIn.text = act.resources.getString(R.string.app_sign_up_action)
@@ -19,7 +20,9 @@ class DialogSupport(act:MainActivity) {
             binding.tViewSignTitle.text = act.resources.getString(R.string.app_set_ac_sign_in)
             binding.bttnSignUpSignIn.text = act.resources.getString(R.string.app_sign_in_action)
         }
+        val dialogCrt = dialogBuilder.create()
         binding.bttnSignUpSignIn.setOnClickListener {
+            dialogCrt.dismiss()
             if (intCode == DialogConsts.SIGN_UP_STATE){
                 accAuth.signUpWithEmail(binding.editTxSignEmail.text.toString(),
                     binding.editTxSignPassword.text.toString())
@@ -27,7 +30,6 @@ class DialogSupport(act:MainActivity) {
 
             }
         }
-        dialogBuilder.setView(binding.root)
         dialogBuilder.show()
     }
 }

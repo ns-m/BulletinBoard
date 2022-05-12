@@ -25,6 +25,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         setContentView(binding.root)
         init()
     }
+    override fun onStart(){
+        super.onStart()
+        uiUpdate(mainAuth.currentUser)
+    }
     private fun init(){
         val toggle = ActionBarDrawerToggle(this, binding.drawerLayout, binding.mainContent.toolbarAds, R.string.app_open, R.string.app_close)
         binding.drawerLayout.addDrawerListener(toggle)

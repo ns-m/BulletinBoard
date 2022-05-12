@@ -8,7 +8,7 @@ import com.kmv.myapplication.R
 class AccountAuthentication(act:MainActivity) {
     private val act = act
     fun signUpWithEmail(userEmail:String, userPsswd:String){
-        if (userEmail.isNotEmpty() && userPsswd.length > 6){
+        if (userEmail.isNotEmpty() && userPsswd.isNotEmpty()){
             act.mainAuth.createUserWithEmailAndPassword(userEmail, userPsswd).addOnCompleteListener { task ->
                 if (task.isSuccessful){
                     sendEmailVerification(task.result.user!!)
