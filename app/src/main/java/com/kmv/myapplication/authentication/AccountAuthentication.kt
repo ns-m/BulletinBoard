@@ -19,6 +19,17 @@ class AccountAuthentication(act:MainActivity) {
             }
         }
     }
+    fun signInWithEmail(userEmail:String, userPsswd:String){
+        if (userEmail.isNotEmpty() && userPsswd.isNotEmpty()){
+            act.mainAuth.signInWithEmailAndPassword(userEmail, userPsswd).addOnCompleteListener { task ->
+                if (task.isSuccessful){
+                    act.uiUpdate(task.result.user)
+                }else{
+                    Toast.makeText(act, act.resources.getString(R.string.app_sign_in_error), Toast.LENGTH_LONG).show()
+                }
+            }
+        }
+    }
     private fun sendEmailVerification(userFireB:FirebaseUser){
         userFireB.sendEmailVerification().addOnCompleteListener {task ->
             if (task.isSuccessful){

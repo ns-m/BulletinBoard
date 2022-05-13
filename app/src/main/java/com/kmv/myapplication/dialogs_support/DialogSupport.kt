@@ -1,6 +1,7 @@
 package com.kmv.myapplication.dialogs_support
 
 import android.app.AlertDialog
+import android.widget.Toast
 import com.kmv.myapplication.MainActivity
 import com.kmv.myapplication.R
 import com.kmv.myapplication.authentication.AccountAuthentication
@@ -27,7 +28,9 @@ class DialogSupport(act:MainActivity) {
                 accAuth.signUpWithEmail(binding.editTxSignEmail.text.toString(),
                     binding.editTxSignPassword.text.toString())
             }else{
-
+                accAuth.signInWithEmail(binding.editTxSignEmail.text.toString(),
+                    binding.editTxSignPassword.text.toString())
+                Toast.makeText(this, R.string.app_login_accept, Toast.LENGTH_LONG).show()
             }
         }
         dialogBuilder.show()

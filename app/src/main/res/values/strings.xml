@@ -20,6 +20,7 @@
     <string name="app_sign_in_action">Login</string>
     <string name="app_sign_psswrd_forget">Are you forgot password?</string>
     <string name="app_sign_up_error">Failed to register</string>
+    <string name="app_sign_in_error">Failed to login</string>
     <string name="app_sign_up_send_email">Confirmation email sent to you, please confirm your registration</string>
     <string name="app_sign_up_error_send_email">Failed to send email</string>
     <!-- Other Strings -->
@@ -27,4 +28,5 @@
     <string name="app_text_view_user">example@example.com</string>
     <string name="app_open">Open</string>
     <string name="app_close">Close</string>
+    <string name="app_login_accept">Login successfully completed</string>
 </resources>
