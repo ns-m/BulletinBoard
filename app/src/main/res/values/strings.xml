@@ -15,6 +15,7 @@
     <!-- Sing Dialog -->
     <string name="app_sign_title">Sign Title</string>
     <string name="app_sign_email_hint">Email</string>
+    <string name="app_sign_email_reset_psswrd_send">Password recovery email has been sent</string>
     <string name="app_sign_psswrd_hint">Password</string>
     <string name="app_sign_up_action">Make registration</string>
     <string name="app_sign_in_action">Login</string>
@@ -23,6 +24,7 @@
     <string name="app_sign_in_error">Failed to login</string>
     <string name="app_sign_up_send_email">Confirmation email sent to you, please confirm your registration</string>
     <string name="app_sign_up_error_send_email">Failed to send email</string>
+    <string name="tx_view_message">Please specify the email address for password recovery</string>
     <!-- Other Strings -->
     <string name="app_user_avatar">User avatar</string>
     <string name="app_text_view_user">example@example.com</string>

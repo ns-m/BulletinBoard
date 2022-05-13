@@ -1,6 +1,7 @@
 package com.kmv.myapplication.dialogs_support
 
 import android.app.AlertDialog
+import android.view.View
 import android.widget.Toast
 import com.kmv.myapplication.MainActivity
 import com.kmv.myapplication.R
@@ -14,25 +15,50 @@ class DialogSupport(act:MainActivity) {
         val dialogBuilder = AlertDialog.Builder(act)
         val binding = SignDialogBinding.inflate(act.layoutInflater)
         dialogBuilder.setView(binding.root)
+        setDialogState(intCode, binding)
+        val dialogCrt = dialogBuilder.create()
+        binding.bttnSignUpSignIn.setOnClickListener {
+            setOnClickSignUpIn(intCode, binding, dialogCrt)
+        }
+        binding.bttnFogotRsswrd.setOnClickListener {
+            setOnClickResetPsswrd(binding, dialogCrt)
+        }
+        dialogBuilder.show()
+    }
+
+    private fun setOnClickResetPsswrd(binding: SignDialogBinding, dialogCrt: AlertDialog?) {
+        if (binding.editTxSignEmail.text.isNotEmpty()){
+            act.mainAuth.sendPasswordResetEmail(binding.editTxSignEmail.text.toString()).addOnCompleteListener {tast->
+                if(tast.isSuccessful){
+                    Toast.makeText(act, R.string.app_sign_email_reset_psswrd_send, Toast.LENGTH_LONG).show()
+                }
+            }
+            dialogCrt?.dismiss()
+        }else{
+            binding.txViewDialogMssg.visibility = View.VISIBLE
+        }
+    }
+
+    private fun setOnClickSignUpIn(intCode: Int, binding: SignDialogBinding, dialogCrt: AlertDialog?) {
+        dialogCrt?.dismiss()
+        if (intCode == DialogConsts.SIGN_UP_STATE){
+            accAuth.signUpWithEmail(binding.editTxSignEmail.text.toString(),
+                binding.editTxSignPassword.text.toString())
+        }else{
+            accAuth.signInWithEmail(binding.editTxSignEmail.text.toString(),
+                binding.editTxSignPassword.text.toString())
+            /*Toast.makeText(this, R.string.app_login_accept, Toast.LENGTH_LONG).show()*/
+        }
+    }
+
+    private fun setDialogState(intCode: Int, binding: SignDialogBinding) {
         if (intCode == DialogConsts.SIGN_UP_STATE){
             binding.tViewSignTitle.text = act.resources.getString(R.string.app_set_ac_sign_up)
             binding.bttnSignUpSignIn.text = act.resources.getString(R.string.app_sign_up_action)
         }else{
             binding.tViewSignTitle.text = act.resources.getString(R.string.app_set_ac_sign_in)
             binding.bttnSignUpSignIn.text = act.resources.getString(R.string.app_sign_in_action)
+            binding.bttnFogotRsswrd.visibility = View.VISIBLE
         }
-        val dialogCrt = dialogBuilder.create()
-        binding.bttnSignUpSignIn.setOnClickListener {
-            dialogCrt.dismiss()
-            if (intCode == DialogConsts.SIGN_UP_STATE){
-                accAuth.signUpWithEmail(binding.editTxSignEmail.text.toString(),
-                    binding.editTxSignPassword.text.toString())
-            }else{
-                accAuth.signInWithEmail(binding.editTxSignEmail.text.toString(),
-                    binding.editTxSignPassword.text.toString())
-                Toast.makeText(this, R.string.app_login_accept, Toast.LENGTH_LONG).show()
-            }
-        }
-        dialogBuilder.show()
     }
 }
