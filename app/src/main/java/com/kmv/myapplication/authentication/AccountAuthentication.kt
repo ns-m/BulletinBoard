@@ -1,6 +1,7 @@
 package com.kmv.myapplication.authentication
 
 import android.widget.Toast
+import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseUser
@@ -9,6 +10,7 @@ import com.kmv.myapplication.R
 
 class AccountAuthentication(act:MainActivity) {
     private val act = act
+    private lateinit var signInClient: GoogleSignInClient
     fun signUpWithEmail(userEmail:String, userPsswd:String){
         if (userEmail.isNotEmpty() && userPsswd.isNotEmpty()){
             act.mainAuth.createUserWithEmailAndPassword(userEmail, userPsswd).addOnCompleteListener { task ->
@@ -34,7 +36,8 @@ class AccountAuthentication(act:MainActivity) {
     }
     private fun getSignInClient():GoogleSignInClient{
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(act.getString(R.string.default_web_client_id))
+            .requestIdToken(act.getString(R.string.default_web_client_id)).build()
+        return GoogleSignIn.getClient(act, gso)
     }
     private fun sendEmailVerification(userFireB:FirebaseUser){
         userFireB.sendEmailVerification().addOnCompleteListener {task ->
