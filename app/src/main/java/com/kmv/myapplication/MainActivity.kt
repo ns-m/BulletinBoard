@@ -14,6 +14,7 @@ import com.google.firebase.auth.FirebaseUser
 import com.kmv.myapplication.databinding.ActivityMainBinding
 import com.kmv.myapplication.dialogs_support.DialogConsts
 import com.kmv.myapplication.dialogs_support.DialogSupport
+import com.kmv.myapplication.dialogs_support.GoogleAccConsts
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     private lateinit var binding: ActivityMainBinding
@@ -28,6 +29,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if(requestCode == GoogleAccConsts.SIGN_IN_REQUEST_CODE)
         super.onActivityResult(requestCode, resultCode, data)
     }
     override fun onStart(){

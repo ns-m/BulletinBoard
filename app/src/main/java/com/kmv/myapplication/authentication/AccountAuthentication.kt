@@ -7,6 +7,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseUser
 import com.kmv.myapplication.MainActivity
 import com.kmv.myapplication.R
+import com.kmv.myapplication.dialogs_support.GoogleAccConsts
 
 class AccountAuthentication(act:MainActivity) {
     private val act = act
@@ -38,6 +39,11 @@ class AccountAuthentication(act:MainActivity) {
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(act.getString(R.string.default_web_client_id)).build()
         return GoogleSignIn.getClient(act, gso)
+    }
+    fun singInWithGoogle(){
+        signInClient = getSignInClient()
+        val intent = signInClient.signInIntent
+        act.startActivityForResult(intent, GoogleAccConsts.SIGN_IN_REQUEST_CODE)
     }
     private fun sendEmailVerification(userFireB:FirebaseUser){
         userFireB.sendEmailVerification().addOnCompleteListener {task ->
