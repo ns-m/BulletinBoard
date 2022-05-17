@@ -10,7 +10,7 @@ import com.kmv.myapplication.databinding.SignDialogBinding
 
 class DialogSupport(act:MainActivity) {
     private val act = act
-    private val accAuth = AccountAuthentication(act)
+    val accAuth = AccountAuthentication(act)
     fun createSingDialog(intCode:Int){
         val dialogBuilder = AlertDialog.Builder(act)
         val binding = SignDialogBinding.inflate(act.layoutInflater)
