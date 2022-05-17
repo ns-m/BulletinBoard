@@ -23,6 +23,9 @@ class DialogSupport(act:MainActivity) {
         binding.bttnFogotRsswrd.setOnClickListener {
             setOnClickResetPsswrd(binding, dialogCrt)
         }
+        binding.bttnFogotRsswrd.setOnClickListener {
+            accAuth.singInWithGoogle()
+        }
         dialogBuilder.show()
     }
 
@@ -30,7 +33,7 @@ class DialogSupport(act:MainActivity) {
         if (binding.editTxSignEmail.text.isNotEmpty()){
             act.mainAuth.sendPasswordResetEmail(binding.editTxSignEmail.text.toString()).addOnCompleteListener {tast->
                 if(tast.isSuccessful){
-                    Toast.makeText(act, R.string.app_sign_email_reset_psswrd_send, Toast.LENGTH_LONG).show()
+                    Toast.makeText(act, R.string.sign_email_reset_psswrd_send, Toast.LENGTH_LONG).show()
                 }
             }
             dialogCrt?.dismiss()
@@ -53,11 +56,11 @@ class DialogSupport(act:MainActivity) {
 
     private fun setDialogState(intCode: Int, binding: SignDialogBinding) {
         if (intCode == DialogConsts.SIGN_UP_STATE){
-            binding.tViewSignTitle.text = act.resources.getString(R.string.app_set_ac_sign_up)
-            binding.bttnSignUpSignIn.text = act.resources.getString(R.string.app_sign_up_action)
+            binding.tViewSignTitle.text = act.resources.getString(R.string.set_ac_sign_up)
+            binding.bttnSignUpSignIn.text = act.resources.getString(R.string.sign_up_action)
         }else{
-            binding.tViewSignTitle.text = act.resources.getString(R.string.app_set_ac_sign_in)
-            binding.bttnSignUpSignIn.text = act.resources.getString(R.string.app_sign_in_action)
+            binding.tViewSignTitle.text = act.resources.getString(R.string.set_ac_sign_in)
+            binding.bttnSignUpSignIn.text = act.resources.getString(R.string.sign_in_action)
             binding.bttnFogotRsswrd.visibility = View.VISIBLE
         }
     }

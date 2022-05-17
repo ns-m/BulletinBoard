@@ -29,7 +29,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if(requestCode == GoogleAccConsts.SIGN_IN_REQUEST_CODE)
+        if(requestCode == GoogleAccConsts.SIGN_IN_REQUEST_CODE){
+            ""
+        }
         super.onActivityResult(requestCode, resultCode, data)
     }
     override fun onStart(){
