@@ -32,25 +32,33 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if(requestCode == GoogleAccConsts.SIGN_IN_REQUEST_CODE){
+        if (requestCode == GoogleAccConsts.SIGN_IN_REQUEST_CODE) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
                 val account = task.getResult(ApiException::class.java)
-                if (account != null){
+                if (account != null) {
                     dialogSupport.accAuth.signInFirebaseWithGoogle(account.idToken!!)
                 }
-            }catch (e:ApiException){
+            } catch (e: ApiException) {
                 Log.d("MyLog", "Api error : ${e.message}")
             }
         }
         super.onActivityResult(requestCode, resultCode, data)
     }
-    override fun onStart(){
+
+    override fun onStart() {
         super.onStart()
         uiUpdate(mainAuth.currentUser)
     }
-    private fun init(){
-        val toggle = ActionBarDrawerToggle(this, binding.drawerLayout, binding.mainContent.toolbarAds, R.string.open, R.string.close)
+
+    private fun init() {
+        val toggle = ActionBarDrawerToggle(
+            this,
+            binding.drawerLayout,
+            binding.mainContent.toolbarAds,
+            R.string.open,
+            R.string.close
+        )
         binding.drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
         binding.navView.setNavigationItemSelectedListener(this)
@@ -58,9 +66,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
+        when (item.itemId) {
             R.id.id_my_ads -> {
-                Toast.makeText(this, "Pushed key ${item.itemId.toString()}", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Pushed key ${item.itemId.toString()}", Toast.LENGTH_LONG)
+                    .show()
             }
             R.id.id_ads_car -> {
                 Toast.makeText(this, "Pushed key ${item.itemId}", Toast.LENGTH_LONG).show()
@@ -74,7 +83,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.id_ads_household_appliance -> {
                 Toast.makeText(this, "Pushed key ${item.itemId}", Toast.LENGTH_LONG).show()
             }
-            R.id.id_set_ac_sign_up-> {
+            R.id.id_set_ac_sign_up -> {
                 dialogSupport.createSingDialog(DialogConsts.SIGN_UP_STATE)
             }
             R.id.id_set_ac_sign_in -> {
@@ -88,10 +97,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         binding.drawerLayout.closeDrawer(GravityCompat.START)
         return true
     }
-    fun uiUpdate(user: FirebaseUser?){
-        txVwAccount.text = if(user == null){
+
+    fun uiUpdate(user: FirebaseUser?) {
+        txVwAccount.text = if (user == null) {
             resources.getString(R.string.not_regs)
-        }else{
+        } else {
             user.email
         }
     }
