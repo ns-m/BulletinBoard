@@ -4,9 +4,7 @@ import android.widget.Toast
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.auth.GithubAuthProvider
-import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.auth.*
 import com.kmv.myapplication.MainActivity
 import com.kmv.myapplication.R
 import com.kmv.myapplication.dialogs_support.GoogleAccConsts
@@ -22,6 +20,9 @@ class AccountAuthentication(act:MainActivity) {
                     act.uiUpdate(task.result.user)
                 }else{
                     Toast.makeText(act, act.resources.getString(R.string.sign_up_error), Toast.LENGTH_LONG).show()
+                    if (task.exception is FirebaseAuthUserCollisionException){
+                        val exception = task.exception as FirebaseAuthUserCollisionException
+                    }
                 }
             }
         }
@@ -39,7 +40,7 @@ class AccountAuthentication(act:MainActivity) {
     }
     private fun getSignInClient():GoogleSignInClient{
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(act.getString(R.string.default_web_client_id)).build()
+            .requestIdToken(act.getString(R.string.default_web_client_id)).requestEmail().build()
         return GoogleSignIn.getClient(act, gso)
     }
     fun singInWithGoogle(){
@@ -52,6 +53,7 @@ class AccountAuthentication(act:MainActivity) {
         act.mainAuth.signInWithCredential(credential).addOnCompleteListener{task->
             if (task.isSuccessful){
                 Toast.makeText(act, "Sign in done", Toast.LENGTH_LONG).show()
+                act.uiUpdate(task.result?.user)
             }
         }
     }
