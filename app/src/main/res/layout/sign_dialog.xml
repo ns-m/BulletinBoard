@@ -47,7 +47,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txViewDialogMssg"
-        tools:ignore="TouchTargetSizeCheck" />
+        tools:ignore="TouchTargetSizeCheck,TextContrastCheck" />
 
     <EditText
         android:id="@+id/editTxSignPassword"
@@ -64,7 +64,7 @@
         app:layout_constraintEnd_toEndOf="@+id/editTxSignEmail"
         app:layout_constraintStart_toStartOf="@+id/editTxSignEmail"
         app:layout_constraintTop_toBottomOf="@+id/editTxSignEmail"
-        tools:ignore="TouchTargetSizeCheck" />
+        tools:ignore="TouchTargetSizeCheck,TextContrastCheck" />
 
     <com.google.android.gms.common.SignInButton
         android:id="@+id/bttnSignInGoogle"

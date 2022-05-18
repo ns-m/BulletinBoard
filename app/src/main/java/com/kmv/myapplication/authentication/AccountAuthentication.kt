@@ -5,6 +5,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.GithubAuthProvider
 import com.google.firebase.auth.GoogleAuthProvider
 import com.kmv.myapplication.MainActivity
 import com.kmv.myapplication.R
@@ -48,7 +49,7 @@ class AccountAuthentication(act:MainActivity) {
     }
     fun signInFirebaseWithGoogle(token:String){
         val credential = GoogleAuthProvider.getCredential(token, null)
-        act.mainAuth.signInWithCredential(credential).addOnCompleteListener {task->
+        act.mainAuth.signInWithCredential(credential).addOnCompleteListener{task->
             if (task.isSuccessful){
                 Toast.makeText(act, "Sign in done", Toast.LENGTH_LONG).show()
             }

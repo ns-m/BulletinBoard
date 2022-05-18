@@ -23,7 +23,7 @@ class DialogSupport(act:MainActivity) {
         binding.bttnFogotRsswrd.setOnClickListener {
             setOnClickResetPsswrd(binding, dialogCrt)
         }
-        binding.bttnFogotRsswrd.setOnClickListener {
+        binding.bttnSignInGoogle.setOnClickListener {
             accAuth.singInWithGoogle()
         }
         dialogBuilder.show()

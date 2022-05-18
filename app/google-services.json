@@ -7,12 +7,20 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:36684523390:android:418f384c317abcc744752f",
+        "mobilesdk_app_id": "1:36684523390:android:b91e6d1abe345a6544752f",
         "android_client_info": {
           "package_name": "com.kmv.myapplication"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "36684523390-2dr8nsggsg0f1sdgm6d0b0b17tkqc795.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.kmv.myapplication",
+            "certificate_hash": "26934acbe223d28ffdb4d1c22eb8a0a353a73f0d"
+          }
+        },
         {
           "client_id": "36684523390-gtrsc4cj5e4ml9irsl2klc7h1fnihsds.apps.googleusercontent.com",
           "client_type": 3

@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     dialogSupport.accAuth.signInFirebaseWithGoogle(account.idToken!!)
                 }
             }catch (e:ApiException){
-                Log.d("MyLog", "Api error: ${e.message}")
+                Log.d("MyLog", "Api error : ${e.message}")
             }
         }
         super.onActivityResult(requestCode, resultCode, data)
