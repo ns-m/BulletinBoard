@@ -43,6 +43,17 @@ class AccountAuthentication(act: MainActivity) {
                                 ).show()
                             }
                         }
+                        if (task.exception is FirebaseAuthWeakPasswordException) {
+                            val exception =
+                                task.exception as FirebaseAuthWeakPasswordException
+                            if (exception.errorCode == FirebaseAuthConstants.ERROR_WEAK_PASSWORD) {
+                                Toast.makeText(
+                                    act,
+                                    FirebaseAuthConstants.ERROR_WEAK_PASSWORD,
+                                    Toast.LENGTH_LONG
+                                ).show()
+                            }
+                        }
                     }
                 }
         }
@@ -56,12 +67,19 @@ class AccountAuthentication(act: MainActivity) {
                         act.uiUpdate(task.result.user)
                     } else {
                         if (task.exception is FirebaseAuthInvalidCredentialsException) {
+                            Log.d("MyLog", "Exception : ${task.exception}")
                             val exception =
                                 task.exception as FirebaseAuthInvalidCredentialsException
                             if (exception.errorCode == FirebaseAuthConstants.ERROR_INVALID_EMAIL) {
                                 Toast.makeText(
                                     act,
                                     FirebaseAuthConstants.ERROR_INVALID_EMAIL,
+                                    Toast.LENGTH_LONG
+                                ).show()
+                            }else if (exception.errorCode == FirebaseAuthConstants.ERROR_WRONG_PASSWORD) {
+                                Toast.makeText(
+                                    act,
+                                    FirebaseAuthConstants.ERROR_WRONG_PASSWORD,
                                     Toast.LENGTH_LONG
                                 ).show()
                             }
