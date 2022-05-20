@@ -26,11 +26,13 @@ class AccountAuthentication(act: MainActivity) {
                         if (task.exception is FirebaseAuthUserCollisionException) {
                             val exception = task.exception as FirebaseAuthUserCollisionException
                             if (exception.errorCode == FirebaseAuthConstants.ERROR_EMAIL_ALREADY_IN_USE) {
-                                Toast.makeText(
+                                /*Toast.makeText(
                                     act,
                                     FirebaseAuthConstants.ERROR_EMAIL_ALREADY_IN_USE,
                                     Toast.LENGTH_LONG
-                                ).show()
+                                ).show()*/
+                                //Connect email and google acc
+                                connectEmailGoogleAcc(userEmail, userPsswd)
                             }
                         } else if (task.exception is FirebaseAuthInvalidCredentialsException) {
                             val exception =
@@ -131,4 +133,18 @@ class AccountAuthentication(act: MainActivity) {
 
         }
     }
+
+    private fun connectEmailGoogleAcc(email:String, password:String){
+        val credential = EmailAuthProvider.getCredential(email, password)
+        if (act.mainAuth.currentUser != null){
+        act.mainAuth.currentUser?.linkWithCredential(credential)?.addOnCompleteListener { task->
+            if (task.isSuccessful){
+                Toast.makeText(act, act.resources.getString(R.string.connect_done), Toast.LENGTH_LONG).show()
+            }
+        }
+    }else{
+            Toast.makeText(act, act.resources.getString(R.string.you_need_signin_google), Toast.LENGTH_LONG).show()
+        }
+    }
+//end class
 }
