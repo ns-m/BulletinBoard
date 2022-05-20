@@ -25,6 +25,7 @@ class DialogSupport(act: MainActivity) {
         }
         binding.bttnSignInGoogle.setOnClickListener {
             accAuth.singInWithGoogle()
+            dialogCrt.dismiss()
         }
         dialogBuilder.show()
     }

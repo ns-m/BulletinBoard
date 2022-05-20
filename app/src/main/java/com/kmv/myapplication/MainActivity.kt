@@ -92,6 +92,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.id_set_ac_sign_out -> {
                 uiUpdate(null)
                 mainAuth.signOut()
+                dialogSupport.accAuth.singOutGoogle()
             }
         }
         binding.drawerLayout.closeDrawer(GravityCompat.START)

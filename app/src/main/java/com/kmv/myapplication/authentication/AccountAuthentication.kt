@@ -103,6 +103,10 @@ class AccountAuthentication(act: MainActivity) {
         act.startActivityForResult(intent, GoogleAccConsts.SIGN_IN_REQUEST_CODE)
     }
 
+    fun singOutGoogle() {
+        getSignInClient().signOut()
+    }
+
     fun signInFirebaseWithGoogle(token: String) {
         val credential = GoogleAuthProvider.getCredential(token, null)
         act.mainAuth.signInWithCredential(credential).addOnCompleteListener { task ->
