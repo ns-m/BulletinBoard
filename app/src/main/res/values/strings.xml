@@ -34,6 +34,9 @@
     <string name="login_accept">Login successfully completed</string>
     <string name="connect_done">Email successfully connect to Google account</string>
     <string name="you_need_signin_google">You must SignIn to Google account</string>
-    <!-- Main Strings -->
+    <!-- Main New Ads Strings -->
     <string name="new_ad">New ad</string>
+    <!-- Edit Ads -->
+    <string name="desc_edit_ad">Edit ad page</string>
+    <string name="desc_country_select">Select country</string>
 </resources>
