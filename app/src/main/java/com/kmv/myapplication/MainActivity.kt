@@ -36,6 +36,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.id_new_ads){
             val intent = Intent(this, EditAdsAct::class.java)
+            startActivity(intent)
         }
         return super.onOptionsItemSelected(item)
     }

@@ -84,7 +84,15 @@ class AccountAuthentication(act: MainActivity) {
                                     FirebaseAuthConstants.ERROR_WRONG_PASSWORD,
                                     Toast.LENGTH_LONG
                                 ).show()
-                            }
+                            }else if (task.exception is FirebaseAuthInvalidUserException) {
+                                val exception = task.exception as FirebaseAuthInvalidUserException
+                                if (exception.errorCode == FirebaseAuthConstants.ERROR_USER_NOT_FOUND){
+                                    Toast.makeText(
+                                        act,
+                                        FirebaseAuthConstants.ERROR_USER_NOT_FOUND,
+                                        Toast.LENGTH_LONG
+                                    ).show()
+                                }                                }
                         }
                     }
                 }
