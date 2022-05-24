@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import com.kmv.myapplication.databinding.ActivityEditAdsBinding
+import com.kmv.myapplication.dialogs_support.DialogSpinner
 import com.kmv.myapplication.utils.TreatmentCityList
 
 class EditAdsAct : AppCompatActivity() {
@@ -16,5 +17,7 @@ class EditAdsAct : AppCompatActivity() {
         /*val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, TreatmentCityList.getAllCountries(this))
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.selectCountry.adapter = adapter*/
+        val dialog = DialogSpinner()
+        dialog.showSpinnerDialog(this, listCountry)
     }
 }
