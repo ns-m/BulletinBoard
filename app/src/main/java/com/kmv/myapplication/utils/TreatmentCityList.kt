@@ -1,9 +1,12 @@
 package com.kmv.myapplication.utils
 
 import android.content.Context
+import com.kmv.myapplication.R
 import org.json.JSONObject
 import java.io.IOException
 import java.io.InputStream
+import java.util.*
+import kotlin.collections.ArrayList
 
 object TreatmentCityList {
     fun getAllCountries(context: Context):ArrayList<String>{
@@ -25,5 +28,19 @@ object TreatmentCityList {
 
         }
         return tempArray
+    }
+    fun filterListData(list: ArrayList<String>, searchText: String?) : ArrayList<String>{
+        val tempList = ArrayList<String>()
+        tempList.clear()
+        if (searchText == null){
+            tempList.add(R.string.spinner_no_matches.toString())
+            return tempList
+        }
+        for (selection: String in list) {
+            if (selection.toLowerCase(Locale.ROOT).startsWith(searchText.toLowerCase(Locale.ROOT)))
+                tempList.add(selection)
+        }
+        if (tempList.size == 0) tempList.add(R.string.spinner_no_matches.toString())
+        return tempList
     }
 }

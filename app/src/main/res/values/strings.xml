@@ -40,4 +40,5 @@
     <string name="desc_edit_ad">Edit ad page</string>
     <string name="desc_country_select">Select country</string>
     <string name="spinner_country_item">Country item</string>
+    <string name="spinner_no_matches">No matches</string>
 </resources>
