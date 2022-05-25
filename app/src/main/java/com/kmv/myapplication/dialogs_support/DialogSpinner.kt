@@ -15,7 +15,7 @@ class DialogSpinner {
         val binding = LayoutInflater.from(context).inflate(R.layout.spinner_layout, null)
         val adapter = RCViewDialogSpinnerAdapter()
         val rcView = binding.findViewById<RecyclerView>(R.id.spinnerRecyclerView)
-        val searchView = binding.findViewById<SearchView>(R.id.searchCountryLine)
+        val searchView = binding.findViewById<SearchView>(R.id.spinnerSeachLine)
         rcView.layoutManager = LinearLayoutManager(context)
         rcView.adapter = adapter
         adapter.updateAdapter(list)
