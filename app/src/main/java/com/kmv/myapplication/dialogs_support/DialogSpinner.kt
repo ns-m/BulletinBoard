@@ -3,7 +3,7 @@ package com.kmv.myapplication.dialogs_support
 import android.app.AlertDialog
 import android.content.Context
 import android.view.LayoutInflater
-import androidx.appcompat.widget.SearchView
+import android.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.kmv.myapplication.R
@@ -12,16 +12,17 @@ import com.kmv.myapplication.utils.TreatmentCityList
 class DialogSpinner {
     fun showSpinnerDialog(context: Context, list:ArrayList<String>){
         val builder = AlertDialog.Builder(context)
+        val dialog = builder.create()
         val binding = LayoutInflater.from(context).inflate(R.layout.spinner_layout, null)
-        val adapter = RCViewDialogSpinnerAdapter()
+        val adapter = RCViewDialogSpinnerAdapter(context, dialog)
         val rcView = binding.findViewById<RecyclerView>(R.id.spinnerRecyclerView)
         val searchView = binding.findViewById<SearchView>(R.id.spinnerSeachLine)
         rcView.layoutManager = LinearLayoutManager(context)
         rcView.adapter = adapter
         adapter.updateAdapter(list)
-        builder.setView(binding)
+        dialog.setView(binding)
         setSearchViewListener(adapter,list, searchView)
-        builder.show()
+        dialog.show()
     }
 
     private fun setSearchViewListener(adapter: RCViewDialogSpinnerAdapter, list: ArrayList<String>, searchView: SearchView?) {

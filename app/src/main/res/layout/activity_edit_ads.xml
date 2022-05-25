@@ -29,7 +29,20 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="5dp" />
 
-            <SearchView
+            <TextView
+                android:id="@+id/textViewSelectCountry"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@android:drawable/editbox_background_normal"
+                android:gravity="center"
+                android:hint="@string/select_country"
+                android:minHeight="48dp"
+                android:onClick="onClickSelectCountry"
+                android:padding="10dp"
+                android:textColorHint="#757575" />
+
+            <!--<SearchView
                 android:id="@+id/searchCountryLine"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -45,7 +58,7 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="5dp"
                 android:contentDescription="@string/desc_country_select"
-                android:minHeight="48dp" />
+                android:minHeight="48dp" />-->
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
