@@ -9,4 +9,10 @@
     <color name="white">#FFFFFFFF</color>
     <color name="color_header_main">#D0D3D4</color>
     <color name="my_color_red">#BD281E</color>
+    <!--PixImagePicker-->
+    <color name="video_counter_color_pix">#E53935</color>
+    <color name="primary_color_pix">#075e54</color>
+    <color name="primary_light_color_pix">#80075e54</color>
+    <color name="surface_color_pix">#ffffff</color>
+    <color name="text_color_pix">#807f7f</color>
 </resources>
