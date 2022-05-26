@@ -29,6 +29,24 @@ object TreatmentCityList {
         }
         return tempArray
     }
+    fun getCityCountry(country:String, context:Context):ArrayList<String>{
+        var tempArray = ArrayList<String>()
+        try {
+            val inputStream : InputStream = context.assets.open("countriesToCities.json")
+            val sizeList:Int = inputStream.available()
+            val byteArray = ByteArray(sizeList)
+            inputStream.read(byteArray)
+            val jsonFile: String = String(byteArray)
+            val jsonObject = JSONObject(jsonFile)
+            val cityNames = jsonObject.getJSONArray(country)
+                for (unit in 0 until cityNames.length()){
+                    tempArray.add(cityNames.getString(unit))
+                }
+        }catch (e:IOException){
+
+        }
+        return tempArray
+    }
     fun filterListData(list: ArrayList<String>, searchText: String?) : ArrayList<String>{
         val tempList = ArrayList<String>()
         tempList.clear()

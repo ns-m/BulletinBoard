@@ -11,11 +11,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.kmv.myapplication.R
 import com.kmv.myapplication.act.EditAdsAct
 
-class RCViewDialogSpinnerAdapter(var context: Context, var dialog: AlertDialog) : RecyclerView.Adapter<RCViewDialogSpinnerAdapter.SpinnerViewHolder>() {
+class RCViewDialogSpinnerAdapter(var txViewSelection: TextView, var dialog: AlertDialog) : RecyclerView.Adapter<RCViewDialogSpinnerAdapter.SpinnerViewHolder>() {
     private val mainList = ArrayList<String>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SpinnerViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.spinner_list_item, parent, false)
-        return SpinnerViewHolder(view, context, dialog)
+        return SpinnerViewHolder(view, txViewSelection, dialog)
     }
 
     override fun onBindViewHolder(holder: SpinnerViewHolder, position: Int) {
@@ -25,7 +25,7 @@ class RCViewDialogSpinnerAdapter(var context: Context, var dialog: AlertDialog) 
     override fun getItemCount(): Int {
         return mainList.size
     }
-    class SpinnerViewHolder(itemView: View, var context: Context, var dialog: AlertDialog) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
+    class SpinnerViewHolder(itemView: View, var txViewSelection: TextView, var dialog: AlertDialog) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
         private var itemText = ""
         fun setData(text : String){
             val tvSpItem = itemView.findViewById<TextView>(R.id.textViewSpinnerList)
@@ -35,7 +35,7 @@ class RCViewDialogSpinnerAdapter(var context: Context, var dialog: AlertDialog) 
         }
 
         override fun onClick(v: View?) {
-            (context as EditAdsAct).binding.textViewSelectCountry.text = itemText
+            txViewSelection.text = itemText
             dialog.dismiss()
         }
     }

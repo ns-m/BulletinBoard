@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
+import android.widget.Toast
+import com.kmv.myapplication.R
 import com.kmv.myapplication.databinding.ActivityEditAdsBinding
 import com.kmv.myapplication.dialogs_support.DialogSpinner
 import com.kmv.myapplication.utils.TreatmentCityList
@@ -26,6 +28,19 @@ class EditAdsAct : AppCompatActivity() {
     //OnClicks functions
     fun onClickSelectCountry(view:View){
         val listCountry = TreatmentCityList.getAllCountries(this)
-        dialog.showSpinnerDialog(this, listCountry)
+        dialog.showSpinnerDialog(this, listCountry, binding.textViewSelectCountry)
+        if (binding.textViewSelectCity.text.toString() != getString(R.string.select_city)){
+            binding.textViewSelectCity.text = getString(R.string.select_city)
+        }
+    }
+    fun onClickSelectCity(view:View){
+        val selectedCountry = binding.textViewSelectCountry.text.toString()
+        if (selectedCountry != getString(R.string.select_country)){
+            val listCity = TreatmentCityList.getCityCountry(selectedCountry, this)
+            dialog.showSpinnerDialog(this, listCity, binding.textViewSelectCity)
+        }else {
+            Toast.makeText(this, R.string.no_selected_country, Toast.LENGTH_LONG).show()
+        }
+
     }
 }
