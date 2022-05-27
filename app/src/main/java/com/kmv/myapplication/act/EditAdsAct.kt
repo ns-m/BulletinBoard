@@ -1,5 +1,6 @@
 package com.kmv.myapplication.act
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -25,6 +26,10 @@ class EditAdsAct : AppCompatActivity() {
     }
     private fun init(){
 
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
     }
     //OnClicks functions
     fun onClickSelectCountry(view:View){
