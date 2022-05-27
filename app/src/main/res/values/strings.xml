@@ -44,4 +44,5 @@
     <string name="select_country">*Select a country</string>
     <string name="no_selected_country">You must select a country!</string>
     <string name="select_city">*Select a city</string>
+    <string name="image_search_button">Image Search Button</string>
 </resources>

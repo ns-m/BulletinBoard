@@ -8,6 +8,7 @@ import android.widget.Toast
 import com.kmv.myapplication.R
 import com.kmv.myapplication.databinding.ActivityEditAdsBinding
 import com.kmv.myapplication.dialogs_support.DialogSpinner
+import com.kmv.myapplication.utils.ImagePicker
 import com.kmv.myapplication.utils.TreatmentCityList
 
 class EditAdsAct : AppCompatActivity() {
@@ -43,4 +44,7 @@ class EditAdsAct : AppCompatActivity() {
         }
 
     }
+    fun onClickSelectImages(view:View){
+        ImagePicker.getImages()
+        }
 }
