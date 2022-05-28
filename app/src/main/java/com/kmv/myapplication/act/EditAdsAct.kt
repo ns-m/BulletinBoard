@@ -28,6 +28,13 @@ class EditAdsAct : AppCompatActivity() {
 
     }
 
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+    }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
     }
@@ -50,6 +57,6 @@ class EditAdsAct : AppCompatActivity() {
 
     }
     fun onClickSelectImages(view:View){
-        ImagePicker.getImages()
+        ImagePicker.getImages(this)
         }
 }

@@ -1,5 +1,6 @@
 package com.kmv.myapplication.utils
 
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import androidx.activity.result.ActivityResultLauncher
@@ -11,7 +12,7 @@ import io.ak1.pix.models.Options
 import io.ak1.pix.models.Ratio
 
 object ImagePicker {
-    private fun getOptions(imageCounter:Int): Options{
+    fun getImages(context: Context): Options{
         val options = Options().apply{
             ratio = Ratio.RATIO_AUTO                                    //Image/video capture ratio
             count = 5                                                   //Number of images to restrict selection count
@@ -25,7 +26,7 @@ object ImagePicker {
         }
         return options
     }
-    fun launcher(edAct:EditAdsAct, launcher: ActivityResultLauncher<Intent>?, imageCounter: Int){
+/*    fun launcher(edAct:EditAdsAct, launcher: ActivityResultLauncher<Intent>?, imageCounter: Int){
         edAct.addPixToActivity()
-    }
+    }*/
 }
