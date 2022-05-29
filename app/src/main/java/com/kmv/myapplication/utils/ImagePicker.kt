@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import androidx.activity.result.ActivityResultLauncher
+import androidx.appcompat.app.AppCompatActivity
 import com.kmv.myapplication.act.EditAdsAct
 import io.ak1.pix.helpers.addPixToActivity
 import io.ak1.pix.models.Flash
@@ -12,10 +13,10 @@ import io.ak1.pix.models.Options
 import io.ak1.pix.models.Ratio
 
 object ImagePicker {
-    fun getImages(context: Context): Options{
+    fun getImages(context: AppCompatActivity, imageCounter: Int): Options{
         val options = Options().apply{
             ratio = Ratio.RATIO_AUTO                                    //Image/video capture ratio
-            count = 5                                                   //Number of images to restrict selection count
+            count = imageCounter                                        //Number of images to restrict selection count
             spanCount = 4                                               //Number for columns in grid
             path = "Pix/Camera"                                         //Custom Path For media Storage
             isFrontFacing = false                                       //Front Facing camera on start

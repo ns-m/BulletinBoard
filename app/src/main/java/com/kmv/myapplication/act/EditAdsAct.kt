@@ -10,11 +10,13 @@ import androidx.appcompat.app.AppCompatActivity
 import com.kmv.myapplication.R
 import com.kmv.myapplication.databinding.ActivityEditAdsBinding
 import com.kmv.myapplication.dialogs_support.DialogSpinner
+import com.kmv.myapplication.fragments.FragmentCloseInterface
+import com.kmv.myapplication.fragments.ImageListFragment
 import com.kmv.myapplication.utils.ImagePicker
 import com.kmv.myapplication.utils.TreatmentCityList
 
 
-class EditAdsAct : AppCompatActivity() {
+class EditAdsAct : AppCompatActivity(), FragmentCloseInterface{
     lateinit var binding: ActivityEditAdsBinding
     private val dialog = DialogSpinner()
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,7 +43,7 @@ class EditAdsAct : AppCompatActivity() {
 
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    ImagePicker.getImages(this)
+                    ImagePicker.getImages(this, 5)
                 } else {
                     Toast.makeText(
                         this,
@@ -89,6 +91,14 @@ class EditAdsAct : AppCompatActivity() {
 
     }
     fun onClickSelectImages(view:View){
-        ImagePicker.getImages(this)
+//        ImagePicker.getImages(this)
+        binding.scrollViewMain.visibility = View.GONE
+        val fragmentManager = supportFragmentManager.beginTransaction()
+        fragmentManager.replace(R.id.placeHolder, ImageListFragment(this))
+        fragmentManager.commit()
         }
+
+    override fun onFragmentClose() {
+        binding.scrollViewMain.visibility = View.VISIBLE
+    }
 }
