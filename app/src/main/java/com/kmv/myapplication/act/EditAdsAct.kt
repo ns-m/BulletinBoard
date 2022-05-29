@@ -67,8 +67,14 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface{
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == RESULT_OK && requestCode == ImagePicker.RequestCode) {
             if (data != null) {
-                val returnValue =
-                    data.getStringArrayListExtra(Pix.IMAGE_RESULTS) /* = java.util.ArrayList<kotlin.String> */
+                val returnValues = data.getStringArrayListExtra(Pix.IMAGE_RESULTS)
+                if (returnValues?.size!! > 1){
+                    binding.scrollViewMain.visibility = View.GONE
+                    val fragmentManager = supportFragmentManager.beginTransaction()
+                    fragmentManager.replace(R.id.placeHolder, ImageListFragment(this
+                        , returnValues))
+                    fragmentManager.commit()
+                }
             }
         }
     }
@@ -92,10 +98,7 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface{
     }
     fun onClickSelectImages(view:View){
 //        ImagePicker.getImages(this)
-        binding.scrollViewMain.visibility = View.GONE
-        val fragmentManager = supportFragmentManager.beginTransaction()
-        fragmentManager.replace(R.id.placeHolder, ImageListFragment(this))
-        fragmentManager.commit()
+        ImagePicker.getImages(this, 5)
         }
 
     override fun onFragmentClose() {
