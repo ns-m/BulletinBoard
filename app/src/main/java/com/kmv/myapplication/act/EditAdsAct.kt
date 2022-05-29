@@ -1,16 +1,18 @@
 package com.kmv.myapplication.act
 
+import android.R.attr
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.View
-import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.kmv.myapplication.R
 import com.kmv.myapplication.databinding.ActivityEditAdsBinding
 import com.kmv.myapplication.dialogs_support.DialogSpinner
 import com.kmv.myapplication.utils.ImagePicker
 import com.kmv.myapplication.utils.TreatmentCityList
+
 
 class EditAdsAct : AppCompatActivity() {
     lateinit var binding: ActivityEditAdsBinding
@@ -34,9 +36,39 @@ class EditAdsAct : AppCompatActivity() {
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        when (requestCode) {
+            PermUtil.REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS -> {
+
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    ImagePicker.getImages(this)
+                } else {
+                    Toast.makeText(
+                        this,
+                        "Approve permissions to open Pix ImagePicker",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+                return
+            }
+        }
     }
+
+    class PermUtil {
+        object REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS {
+
+        }
+
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == RESULT_OK && requestCode == ImagePicker.RequestCode) {
+            if (data != null) {
+                val returnValue =
+                    data.getStringArrayListExtra(Pix.IMAGE_RESULTS) /* = java.util.ArrayList<kotlin.String> */
+            }
+        }
     }
     //OnClicks functions
     fun onClickSelectCountry(view:View){
