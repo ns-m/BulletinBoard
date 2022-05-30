@@ -15,7 +15,7 @@ import com.kmv.myapplication.utils.ItemTouchMoveCallback
 class ImageListFragment(private val fragmentCloseIntrf: FragmentCloseInterface,
                        private val newList: ArrayList<String>) :  Fragment(){
     val adapter = SelectImageRVAdapter()
-    val dragCallback = ItemTouchMoveCallback()
+    val dragCallback = ItemTouchMoveCallback(adapter)
     val touchHelper = ItemTouchHelper(dragCallback)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
