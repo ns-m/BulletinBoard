@@ -8,10 +8,12 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.kmv.myapplication.R
+import com.kmv.myapplication.adapters.ImageAdapter
 import com.kmv.myapplication.databinding.ActivityEditAdsBinding
 import com.kmv.myapplication.dialogs_support.DialogSpinner
 import com.kmv.myapplication.fragments.FragmentCloseInterface
 import com.kmv.myapplication.fragments.ImageListFragment
+import com.kmv.myapplication.fragments.SelectImageItem
 import com.kmv.myapplication.utils.ImagePicker
 import com.kmv.myapplication.utils.TreatmentCityList
 
@@ -19,6 +21,7 @@ import com.kmv.myapplication.utils.TreatmentCityList
 class EditAdsAct : AppCompatActivity(), FragmentCloseInterface{
     lateinit var binding: ActivityEditAdsBinding
     private val dialog = DialogSpinner()
+    private lateinit var imageAdapter: ImageAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityEditAdsBinding.inflate(layoutInflater)
@@ -29,7 +32,8 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface{
         init()
     }
     private fun init(){
-
+        imageAdapter = ImageAdapter()
+        binding.viewPagePics.adapter = imageAdapter
     }
 
     override fun onRequestPermissionsResult(
@@ -101,7 +105,8 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface{
         ImagePicker.getImages(this, 5)
         }
 
-    override fun onFragmentClose() {
+    override fun onFragmentClose(list: ArrayList<SelectImageItem>) {
         binding.scrollViewMain.visibility = View.VISIBLE
+        imageAdapter.update(list)
     }
 }
