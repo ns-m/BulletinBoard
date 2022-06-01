@@ -18,7 +18,8 @@ import com.kmv.myapplication.utils.ImagePicker
 import com.kmv.myapplication.utils.TreatmentCityList
 
 
-class EditAdsAct : AppCompatActivity(), FragmentCloseInterface{
+class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
+    private var chooseImageFragment: ImageListFragment? = null
     lateinit var binding: ActivityEditAdsBinding
     private val dialog = DialogSpinner()
     private lateinit var imageAdapter: ImageAdapter
@@ -31,7 +32,8 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface{
         binding.selectCountry.adapter = adapter*/
         init()
     }
-    private fun init(){
+
+    private fun init() {
         imageAdapter = ImageAdapter()
         binding.viewPagePics.adapter = imageAdapter
     }
@@ -47,7 +49,7 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface{
 
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    ImagePicker.getImages(this, 5)
+                    ImagePicker.getImages(this, ImagePicker.MAX_IMAGE_COUNT)
                 } else {
                     Toast.makeText(
                         this,
@@ -69,41 +71,46 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface{
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == RESULT_OK && requestCode == ImagePicker.RequestCode) {
+        if (resultCode == RESULT_OK && requestCode == ImagePicker.REQUEST_CODE_GET_IMAGE) {
             if (data != null) {
                 val returnValues = data.getStringArrayListExtra(Pix.IMAGE_RESULTS)
-                if (returnValues?.size!! > 1){
+                if (returnValues?.size!! > 1 && chooseImageFragment == null) {
+                    chooseImageFragment = ImageListFragment(this, returnValues)
                     binding.scrollViewMain.visibility = View.GONE
                     val fragmentManager = supportFragmentManager.beginTransaction()
-                    fragmentManager.replace(R.id.placeHolder, ImageListFragment(this
-                        , returnValues))
+                    fragmentManager.replace(R.id.placeHolder, chooseImageFragment!!)
                     fragmentManager.commit()
+                } else if (chooseImageFragment != null) {
+                    chooseImageFragment?.updateAdapter(returnValues)
                 }
             }
         }
     }
+
     //OnClicks functions
-    fun onClickSelectCountry(view:View){
+    fun onClickSelectCountry(view: View) {
         val listCountry = TreatmentCityList.getAllCountries(this)
         dialog.showSpinnerDialog(this, listCountry, binding.textViewSelectCountry)
-        if (binding.textViewSelectCity.text.toString() != getString(R.string.select_city)){
+        if (binding.textViewSelectCity.text.toString() != getString(R.string.select_city)) {
             binding.textViewSelectCity.text = getString(R.string.select_city)
         }
     }
-    fun onClickSelectCity(view:View){
+
+    fun onClickSelectCity(view: View) {
         val selectedCountry = binding.textViewSelectCountry.text.toString()
-        if (selectedCountry != getString(R.string.select_country)){
+        if (selectedCountry != getString(R.string.select_country)) {
             val listCity = TreatmentCityList.getCityCountry(selectedCountry, this)
             dialog.showSpinnerDialog(this, listCity, binding.textViewSelectCity)
-        }else {
+        } else {
             Toast.makeText(this, R.string.no_selected_country, Toast.LENGTH_LONG).show()
         }
 
     }
-    fun onClickSelectImages(view:View){
+
+    fun onClickSelectImages(view: View) {
 //        ImagePicker.getImages(this)
         ImagePicker.getImages(this, 5)
-        }
+    }
 
     override fun onFragmentClose(list: ArrayList<SelectImageItem>) {
         binding.scrollViewMain.visibility = View.VISIBLE

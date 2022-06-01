@@ -13,6 +13,8 @@ import io.ak1.pix.models.Options
 import io.ak1.pix.models.Ratio
 
 object ImagePicker {
+    const val MAX_IMAGE_COUNT = 5
+    const val REQUEST_CODE_GET_IMAGE = 555
     fun getImages(context: AppCompatActivity, imageCounter: Int): Options{
         val options = Options().apply{
             ratio = Ratio.RATIO_AUTO                                    //Image/video capture ratio

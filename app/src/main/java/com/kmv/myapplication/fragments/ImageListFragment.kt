@@ -4,13 +4,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.Button
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.kmv.myapplication.R
 import com.kmv.myapplication.databinding.ListImageFragmentBinding
+import com.kmv.myapplication.utils.ImagePicker
 import com.kmv.myapplication.utils.ItemTouchMoveCallback
 
 class ImageListFragment(private val fragmentCloseIntrf: FragmentCloseInterface,
@@ -20,7 +23,7 @@ class ImageListFragment(private val fragmentCloseIntrf: FragmentCloseInterface,
     val dragCallback = ItemTouchMoveCallback(adapter)
     val touchHelper = ItemTouchHelper(dragCallback)
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         /*return inflater.inflate(R.layout.list_image_fragment, container, false)*/
         binding = ListImageFragmentBinding.inflate(inflater)
         return binding.root
@@ -41,7 +44,7 @@ class ImageListFragment(private val fragmentCloseIntrf: FragmentCloseInterface,
         for (n in 0 until newList.size){
             updateList.add(SelectImageItem(n.toString(), newList[n]))
         }
-        adapter.updateAdapter(updateList)
+        adapter.updateAdapter(updateList, true)
         /*bttnBack.setOnClickListener {*/
         //activity?.supportFragmentManager?.beginTransaction()?.remove(this)?.commit()
         /*}*/
@@ -56,14 +59,25 @@ class ImageListFragment(private val fragmentCloseIntrf: FragmentCloseInterface,
         binding.toolbarImageFragment.inflateMenu(R.menu.menu_choose_image)
         val deleteItem = binding.toolbarImageFragment.menu.findItem(R.id.image_delete_button)
         val addImageItem = binding.toolbarImageFragment.menu.findItem(R.id.image_add_button)
-        binding.toolbarImageFragment.setNavigationOnClickListener {
 
+        binding.toolbarImageFragment.setNavigationOnClickListener {
+            activity?.supportFragmentManager?.beginTransaction()?.remove(this)?.commit()
         }
         deleteItem.setOnMenuItemClickListener{
+            adapter.updateAdapter(ArrayList(), true)
             true
         }
         addImageItem.setOnMenuItemClickListener{
+            val imageCount = ImagePicker.MAX_IMAGE_COUNT - adapter.mainArray.size
+            ImagePicker.getImages(activity as AppCompatActivity, imageCount)
             true
         }
+    }
+    fun updateAdapter(newList: ArrayList<String>){
+        val updateList = ArrayList<SelectImageItem>()
+        for (n in adapter.mainArray.size until newList.size){
+            updateList.add(SelectImageItem(n.toString(), newList[n]))
+        }
+        adapter.updateAdapter(updateList, false)
     }
 }
