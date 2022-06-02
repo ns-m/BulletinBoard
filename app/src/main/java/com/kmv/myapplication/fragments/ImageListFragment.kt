@@ -40,11 +40,11 @@ class ImageListFragment(private val fragmentCloseIntrf: FragmentCloseInterface,
         touchHelper.attachToRecyclerView(binding.recyclerViewSelectImage)
         binding.recyclerViewSelectImage.layoutManager = LinearLayoutManager(activity)
         binding.recyclerViewSelectImage.adapter = adapter
-        val updateList = ArrayList<SelectImageItem>()
+        /*val updateList = ArrayList<SelectImageItem>()
         for (n in 0 until newList.size){
             updateList.add(SelectImageItem(n.toString(), newList[n]))
-        }
-        adapter.updateAdapter(updateList, true)
+        }*/
+        adapter.updateAdapter(newList, true)
         /*bttnBack.setOnClickListener {*/
         //activity?.supportFragmentManager?.beginTransaction()?.remove(this)?.commit()
         /*}*/
@@ -74,10 +74,10 @@ class ImageListFragment(private val fragmentCloseIntrf: FragmentCloseInterface,
         }
     }
     fun updateAdapter(newList: ArrayList<String>){
-        val updateList = ArrayList<SelectImageItem>()
-        for (n in adapter.mainArray.size until newList.size){
-            updateList.add(SelectImageItem(n.toString(), newList[n]))
-        }
-        adapter.updateAdapter(updateList, false)
+        /*val updateList = ArrayList<SelectImageItem>()
+        for (n in adapter.mainArray.size until newList.size + adapter.mainArray.size){
+            updateList.add(SelectImageItem(n.toString(), newList[n - adapter.mainArray.size]))
+        }*/
+        adapter.updateAdapter(newList, false)
     }
 }

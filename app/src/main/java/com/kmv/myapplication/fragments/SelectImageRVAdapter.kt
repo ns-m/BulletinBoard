@@ -12,7 +12,7 @@ import com.kmv.myapplication.R
 import com.kmv.myapplication.utils.ItemTouchMoveCallback
 
 class SelectImageRVAdapter: RecyclerView.Adapter<SelectImageRVAdapter.ImageHolder>(), ItemTouchMoveCallback.ItemTouchAdapter {
-    val mainArray = ArrayList<SelectImageItem>()
+    val mainArray = ArrayList<String>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.select_image_fragment_item, parent, false)
         return ImageHolder(view)
@@ -25,10 +25,10 @@ class SelectImageRVAdapter: RecyclerView.Adapter<SelectImageRVAdapter.ImageHolde
     }
     override fun onMove(startPosition: Int, targetPosition: Int) {
         val targetItem = mainArray[targetPosition]
-        mainArray[targetPosition].imageUri = mainArray[startPosition].imageUri
+        mainArray[targetPosition] = mainArray[startPosition]
         /*val titleStart = mainArray[targetPosition].title
         mainArray[targetPosition].title = targetItem.title*/
-        mainArray[startPosition].imageUri = targetItem.imageUri
+        mainArray[startPosition] = targetItem
         /*mainArray[startPosition].title = titleStart*/
         notifyItemMoved(startPosition, targetPosition)
     }
@@ -40,15 +40,15 @@ class SelectImageRVAdapter: RecyclerView.Adapter<SelectImageRVAdapter.ImageHolde
     class ImageHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         lateinit var txVTitle : TextView
         lateinit var viewImage : ImageView
-        fun setData(item: SelectImageItem){
+        fun setData(item: String){
             txVTitle = itemView.findViewById(R.id.textViewTitle)
             viewImage = itemView.findViewById(R.id.imageViewContent)
-            txVTitle.text = item.title
-            viewImage.setImageURI(Uri.parse(item.imageUri))
+            //txVTitle.text = item.title
+            viewImage.setImageURI(Uri.parse(item))
         }
     }
     @SuppressLint("NotifyDataSetChanged")
-    fun updateAdapter(newList: List<SelectImageItem>, needClear : Boolean){
+    fun updateAdapter(newList: List<String>, needClear : Boolean){
         if (needClear)mainArray.clear()
         mainArray.addAll(newList)
         notifyDataSetChanged()
