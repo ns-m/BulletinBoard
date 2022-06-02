@@ -13,7 +13,6 @@ import com.kmv.myapplication.databinding.ActivityEditAdsBinding
 import com.kmv.myapplication.dialogs_support.DialogSpinner
 import com.kmv.myapplication.fragments.FragmentCloseInterface
 import com.kmv.myapplication.fragments.ImageListFragment
-import com.kmv.myapplication.fragments.SelectImageItem
 import com.kmv.myapplication.utils.ImagePicker
 import com.kmv.myapplication.utils.TreatmentCityList
 
@@ -23,6 +22,8 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
     lateinit var binding: ActivityEditAdsBinding
     private val dialog = DialogSpinner()
     private lateinit var imageAdapter: ImageAdapter
+    var editImagePositions = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityEditAdsBinding.inflate(layoutInflater)
@@ -49,7 +50,7 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
 
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    ImagePicker.getImages(this, ImagePicker.MAX_IMAGE_COUNT)
+                    ImagePicker.getImages(this, ImagePicker.MAX_IMAGE_COUNT, ImagePicker.REQUEST_CODE_GET_IMAGE)
                 } else {
                     Toast.makeText(
                         this,
@@ -80,6 +81,11 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
                     chooseImageFragment?.updateAdapter(returnValues)
                 }
             }
+        }else if (resultCode == RESULT_OK && requestCode == ImagePicker.REQUEST_CODE_EDIT_IMAGE){
+            if (data != null) {
+                val uriValue = data.getStringArrayListExtra(Pix.IMAGE_RESULTS)
+                chooseImageFragment?.setSingleImage(uriValue?.get(0)!!, editImagePositions)
+            }
         }
     }
 
@@ -106,7 +112,7 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
     fun onClickSelectImages(view: View) {
 //        ImagePicker.getImages(this)
         if (imageAdapter.mainArray.isEmpty()){
-            ImagePicker.getImages(this, 5)
+            ImagePicker.getImages(this, 5, ImagePicker.REQUEST_CODE_GET_IMAGE)
         }else{
             openChooseImageFragment(imageAdapter.mainArray)
         }

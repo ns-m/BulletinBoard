@@ -47,4 +47,6 @@
     <string name="image_search_button">Image Search Button</string>
     <string name="image_delete_button">Delete</string>
     <string name="image_add_button">ADD</string>
+    <string name="textview">TextView</string>
+    <string name="todo">TODO</string>
 </resources>

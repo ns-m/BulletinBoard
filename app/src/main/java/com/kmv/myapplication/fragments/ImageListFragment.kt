@@ -69,15 +69,21 @@ class ImageListFragment(private val fragmentCloseIntrf: FragmentCloseInterface,
         }
         addImageItem.setOnMenuItemClickListener{
             val imageCount = ImagePicker.MAX_IMAGE_COUNT - adapter.mainArray.size
-            ImagePicker.getImages(activity as AppCompatActivity, imageCount)
+            ImagePicker.getImages(activity as AppCompatActivity, imageCount, ImagePicker.REQUEST_CODE_GET_IMAGE)
             true
         }
     }
+
     fun updateAdapter(newList: ArrayList<String>){
         /*val updateList = ArrayList<SelectImageItem>()
         for (n in adapter.mainArray.size until newList.size + adapter.mainArray.size){
             updateList.add(SelectImageItem(n.toString(), newList[n - adapter.mainArray.size]))
         }*/
         adapter.updateAdapter(newList, false)
+    }
+
+    fun setSingleImage(uri : String, position : Int){
+        adapter.mainArray[position] = uri
+        adapter.notifyDataSetChanged()
     }
 }
