@@ -7,10 +7,9 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.kmv.myapplication.R
-import com.kmv.myapplication.fragments.SelectImageItem
 
 class ImageAdapter: RecyclerView.Adapter<ImageAdapter.ImageHolder>() {
-    val mainArray = ArrayList<SelectImageItem>()
+    val mainArray = ArrayList<String>()
     class ImageHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
         lateinit var imView: ImageView
         fun setData(uri : String){
@@ -25,13 +24,13 @@ class ImageAdapter: RecyclerView.Adapter<ImageAdapter.ImageHolder>() {
     }
 
     override fun onBindViewHolder(holder: ImageHolder, position: Int) {
-        holder.setData(mainArray[position].imageUri)
+        holder.setData(mainArray[position])
     }
 
     override fun getItemCount(): Int {
         return mainArray.size
     }
-    fun update(newList : ArrayList<SelectImageItem>){
+    fun update(newList : ArrayList<String>){
         mainArray.clear()
         mainArray.addAll(newList)
         notifyDataSetChanged()

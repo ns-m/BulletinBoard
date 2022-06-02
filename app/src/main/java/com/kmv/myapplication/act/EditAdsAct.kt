@@ -75,11 +75,7 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
             if (data != null) {
                 val returnValues = data.getStringArrayListExtra(Pix.IMAGE_RESULTS)
                 if (returnValues?.size!! > 1 && chooseImageFragment == null) {
-                    chooseImageFragment = ImageListFragment(this, returnValues)
-                    binding.scrollViewMain.visibility = View.GONE
-                    val fragmentManager = supportFragmentManager.beginTransaction()
-                    fragmentManager.replace(R.id.placeHolder, chooseImageFragment!!)
-                    fragmentManager.commit()
+                    openChooseImageFragment(returnValues)
                 } else if (chooseImageFragment != null) {
                     chooseImageFragment?.updateAdapter(returnValues)
                 }
@@ -109,12 +105,25 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
 
     fun onClickSelectImages(view: View) {
 //        ImagePicker.getImages(this)
-        ImagePicker.getImages(this, 5)
+        if (imageAdapter.mainArray.isEmpty()){
+            ImagePicker.getImages(this, 5)
+        }else{
+            openChooseImageFragment(imageAdapter.mainArray)
+        }
+
     }
 
-    override fun onFragmentClose(list: ArrayList<SelectImageItem>) {
+    override fun onFragmentClose(list: ArrayList<String>) {
         binding.scrollViewMain.visibility = View.VISIBLE
         imageAdapter.update(list)
         chooseImageFragment = null
+    }
+
+    private fun openChooseImageFragment(newList: ArrayList<String>){
+        chooseImageFragment = ImageListFragment(this, newList)
+        binding.scrollViewMain.visibility = View.GONE
+        val fragmentManager = supportFragmentManager.beginTransaction()
+        fragmentManager.replace(R.id.placeHolder, chooseImageFragment!!)
+        fragmentManager.commit()
     }
 }

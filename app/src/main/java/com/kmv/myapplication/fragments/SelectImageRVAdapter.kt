@@ -1,6 +1,7 @@
 package com.kmv.myapplication.fragments
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
@@ -15,7 +16,7 @@ class SelectImageRVAdapter: RecyclerView.Adapter<SelectImageRVAdapter.ImageHolde
     val mainArray = ArrayList<String>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.select_image_fragment_item, parent, false)
-        return ImageHolder(view)
+        return ImageHolder(view, parent.context)
     }
     override fun onBindViewHolder(holder: ImageHolder, position: Int) {
         holder.setData(mainArray[position])
@@ -37,13 +38,13 @@ class SelectImageRVAdapter: RecyclerView.Adapter<SelectImageRVAdapter.ImageHolde
         notifyDataSetChanged()
     }
 
-    class ImageHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class ImageHolder(itemView: View, val context: Context) : RecyclerView.ViewHolder(itemView) {
         lateinit var txVTitle : TextView
         lateinit var viewImage : ImageView
         fun setData(item: String){
             txVTitle = itemView.findViewById(R.id.textViewTitle)
             viewImage = itemView.findViewById(R.id.imageViewContent)
-            //txVTitle.text = item.title
+            txVTitle.text = context.resources.getStringArray(R.array.title_array)[adapterPosition]
             viewImage.setImageURI(Uri.parse(item))
         }
     }
