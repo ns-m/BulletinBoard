@@ -13,6 +13,7 @@ import com.kmv.myapplication.databinding.ActivityEditAdsBinding
 import com.kmv.myapplication.dialogs_support.DialogSpinner
 import com.kmv.myapplication.fragments.FragmentCloseInterface
 import com.kmv.myapplication.fragments.ImageListFragment
+import com.kmv.myapplication.utils.ImageManager
 import com.kmv.myapplication.utils.ImagePicker
 import com.kmv.myapplication.utils.TreatmentCityList
 
@@ -78,7 +79,8 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
                 if (returnValues?.size!! > 1 && chooseImageFragment == null) {
                     openChooseImageFragment(returnValues)
                 } else if (returnValues.size == 1 && chooseImageFragment == null) {
-                    imageAdapter.update(returnValues)
+                    //imageAdapter.update(returnValues)
+                    val tempList = ImageManager.getImageSize(returnValues[0])
                 }else if (chooseImageFragment != null) {
                     chooseImageFragment?.updateAdapter(returnValues)
                 }
