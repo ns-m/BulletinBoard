@@ -6,6 +6,8 @@ import java.io.File
 
 object ImageManager {
     const val MAX_IMAGE_SIZE = 900
+    const val WIDTH = 0
+    const val HEIDHT = 1
 
     fun getImageSize(uri : String) : List<Int>{
         val options = BitmapFactory.Options().apply {
@@ -34,9 +36,19 @@ object ImageManager {
         val tempList = ArrayList<List<Int>>()
         for (n in uris.indices){
             val sizeImage = getImageSize(uris[n])
-            val imageRatio = sizeImage[0].toFloat() / sizeImage[1].toFloat()
+            val imageRatio = sizeImage[WIDTH].toFloat() / sizeImage[HEIDHT].toFloat()
             if (imageRatio > 1){
-
+                if (sizeImage[WIDTH] > MAX_IMAGE_SIZE){
+                    tempList.add(listOf(MAX_IMAGE_SIZE, (MAX_IMAGE_SIZE / imageRatio).toInt()))
+                }else{
+                    tempList.add(listOf(sizeImage[WIDTH], sizeImage[HEIDHT]))
+                }
+            }else{
+                if (sizeImage[HEIDHT] > MAX_IMAGE_SIZE){
+                    tempList.add(listOf((MAX_IMAGE_SIZE * imageRatio).toInt(), MAX_IMAGE_SIZE))
+                }else{
+                    tempList.add(listOf(sizeImage[WIDTH], sizeImage[HEIDHT]))
+                }
             }
         }
     }
