@@ -13,15 +13,22 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.kmv.myapplication.R
 import com.kmv.myapplication.databinding.ListImageFragmentBinding
+import com.kmv.myapplication.utils.ImageManager
 import com.kmv.myapplication.utils.ImagePicker
 import com.kmv.myapplication.utils.ItemTouchMoveCallback
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 
 class ImageListFragment(private val fragmentCloseIntrf: FragmentCloseInterface,
                        private val newList: ArrayList<String>) :  Fragment(){
-    lateinit var binding : ListImageFragmentBinding
+    lateinit var binding: ListImageFragmentBinding
     val adapter = SelectImageRVAdapter()
     val dragCallback = ItemTouchMoveCallback(adapter)
     val touchHelper = ItemTouchHelper(dragCallback)
+    private lateinit var job: Job
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         /*return inflater.inflate(R.layout.list_image_fragment, container, false)*/
@@ -44,7 +51,12 @@ class ImageListFragment(private val fragmentCloseIntrf: FragmentCloseInterface,
         for (n in 0 until newList.size){
             updateList.add(SelectImageItem(n.toString(), newList[n]))
         }*/
-        adapter.updateAdapter(newList, true)
+
+        job = CoroutineScope(Dispatchers.Main).launch {
+            ImageManager.imageResize(newList)
+        }
+        //adapter.updateAdapter(newList, true)
+
         /*bttnBack.setOnClickListener {*/
         //activity?.supportFragmentManager?.beginTransaction()?.remove(this)?.commit()
         /*}*/
@@ -53,6 +65,7 @@ class ImageListFragment(private val fragmentCloseIntrf: FragmentCloseInterface,
     override fun onDetach() {
         super.onDetach()
         fragmentCloseIntrf.onFragmentClose(adapter.mainArray)
+        job.cancel()
     }
 
     private fun setUpToolbar(){

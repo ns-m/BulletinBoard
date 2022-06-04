@@ -2,6 +2,8 @@ package com.kmv.myapplication.utils
 
 import android.graphics.BitmapFactory
 import androidx.exifinterface.media.ExifInterface
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import java.io.File
 
 object ImageManager {
@@ -32,7 +34,7 @@ object ImageManager {
         }
     }
 
-    fun imageResize(uris: List<String>){
+    suspend fun imageResize(uris: List<String>): String = withContext(Dispatchers.IO){
         val tempList = ArrayList<List<Int>>()
         for (n in uris.indices){
             val sizeImage = getImageSize(uris[n])
@@ -51,5 +53,6 @@ object ImageManager {
                 }
             }
         }
+        return@withContext "Done"
     }
 }
