@@ -1,5 +1,6 @@
 package com.kmv.myapplication.adapters
 
+import android.graphics.Bitmap
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
@@ -9,12 +10,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.kmv.myapplication.R
 
 class ImageAdapter: RecyclerView.Adapter<ImageAdapter.ImageHolder>() {
-    val mainArray = ArrayList<String>()
+    val mainArray = ArrayList<Bitmap>()
     class ImageHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
         lateinit var imView: ImageView
-        fun setData(uri : String){
+        fun setData(bitmap : Bitmap){
             imView = itemView.findViewById(R.id.imgViewItem)
-            imView.setImageURI(Uri.parse(uri))
+            imView.setImageBitmap(bitmap)
         }
     }
 
@@ -30,7 +31,7 @@ class ImageAdapter: RecyclerView.Adapter<ImageAdapter.ImageHolder>() {
     override fun getItemCount(): Int {
         return mainArray.size
     }
-    fun update(newList : ArrayList<String>){
+    fun update(newList : ArrayList<Bitmap>){
         mainArray.clear()
         mainArray.addAll(newList)
         notifyDataSetChanged()

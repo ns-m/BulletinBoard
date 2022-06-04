@@ -53,7 +53,8 @@ class ImageListFragment(private val fragmentCloseIntrf: FragmentCloseInterface,
         }*/
 
         job = CoroutineScope(Dispatchers.Main).launch {
-            ImageManager.imageResize(newList)
+            val bitmapList = ImageManager.imageResize(newList)
+            adapter.updateAdapter(bitmapList, true)
         }
         //adapter.updateAdapter(newList, true)
 
@@ -92,11 +93,19 @@ class ImageListFragment(private val fragmentCloseIntrf: FragmentCloseInterface,
         for (n in adapter.mainArray.size until newList.size + adapter.mainArray.size){
             updateList.add(SelectImageItem(n.toString(), newList[n - adapter.mainArray.size]))
         }*/
-        adapter.updateAdapter(newList, false)
+        job = CoroutineScope(Dispatchers.Main).launch {
+            val bitmapList = ImageManager.imageResize(newList)
+            adapter.updateAdapter(bitmapList, false)
+        }
+        //adapter.updateAdapter(newList, false)
     }
 
     fun setSingleImage(uri : String, position : Int){
-        adapter.mainArray[position] = uri
-        adapter.notifyDataSetChanged()
+        job = CoroutineScope(Dispatchers.Main).launch {
+            val bitmapList = ImageManager.imageResize(listOf(uri))
+            //adapter.updateAdapter(bitmapList, false)
+            adapter.mainArray[position] = bitmapList[0]
+            adapter.notifyDataSetChanged()
+        }
     }
 }

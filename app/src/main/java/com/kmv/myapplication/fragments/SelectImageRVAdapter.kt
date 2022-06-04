@@ -2,6 +2,7 @@ package com.kmv.myapplication.fragments
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.Bitmap
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
@@ -16,7 +17,7 @@ import com.kmv.myapplication.utils.ImagePicker
 import com.kmv.myapplication.utils.ItemTouchMoveCallback
 
 class SelectImageRVAdapter: RecyclerView.Adapter<SelectImageRVAdapter.ImageHolder>(), ItemTouchMoveCallback.ItemTouchAdapter {
-    val mainArray = ArrayList<String>()
+    val mainArray = ArrayList<Bitmap>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.select_image_fragment_item, parent, false)
@@ -48,7 +49,7 @@ class SelectImageRVAdapter: RecyclerView.Adapter<SelectImageRVAdapter.ImageHolde
         lateinit var editImage : ImageButton
         lateinit var delImage : ImageButton
 
-        fun setData(item: String){
+        fun setData(bitmap: Bitmap){
             txVTitle = itemView.findViewById(R.id.textViewTitle)
             viewImage = itemView.findViewById(R.id.imageViewContent)
             editImage = itemView.findViewById(R.id.bttnEditImage)
@@ -65,11 +66,11 @@ class SelectImageRVAdapter: RecyclerView.Adapter<SelectImageRVAdapter.ImageHolde
             }
 
             txVTitle.text = context.resources.getStringArray(R.array.title_array)[adapterPosition]
-            viewImage.setImageURI(Uri.parse(item))
+            viewImage.setImageBitmap(bitmap)
         }
     }
     @SuppressLint("NotifyDataSetChanged")
-    fun updateAdapter(newList: List<String>, needClear : Boolean){
+    fun updateAdapter(newList: List<Bitmap>, needClear : Boolean){
         if (needClear)mainArray.clear()
         mainArray.addAll(newList)
         notifyDataSetChanged()

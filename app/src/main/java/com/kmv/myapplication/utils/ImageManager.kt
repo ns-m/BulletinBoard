@@ -1,15 +1,17 @@
 package com.kmv.myapplication.utils
 
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import androidx.exifinterface.media.ExifInterface
+import com.squareup.picasso.Picasso
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.File
 
 object ImageManager {
-    const val MAX_IMAGE_SIZE = 900
-    const val WIDTH = 0
-    const val HEIDHT = 1
+    private const val MAX_IMAGE_SIZE = 900
+    private const val WIDTH = 0
+    private const val HEIGHT = 1
 
     fun getImageSize(uri : String) : List<Int>{
         val options = BitmapFactory.Options().apply {
@@ -34,25 +36,34 @@ object ImageManager {
         }
     }
 
-    suspend fun imageResize(uris: List<String>): String = withContext(Dispatchers.IO){
+    suspend fun imageResize(uris: List<String>): List<Bitmap> = withContext(Dispatchers.IO){
         val tempList = ArrayList<List<Int>>()
+        val bitmapList = ArrayList<Bitmap>()
         for (n in uris.indices){
             val sizeImage = getImageSize(uris[n])
-            val imageRatio = sizeImage[WIDTH].toFloat() / sizeImage[HEIDHT].toFloat()
+            val imageRatio = sizeImage[WIDTH].toFloat() / sizeImage[HEIGHT].toFloat()
             if (imageRatio > 1){
                 if (sizeImage[WIDTH] > MAX_IMAGE_SIZE){
                     tempList.add(listOf(MAX_IMAGE_SIZE, (MAX_IMAGE_SIZE / imageRatio).toInt()))
                 }else{
-                    tempList.add(listOf(sizeImage[WIDTH], sizeImage[HEIDHT]))
+                    tempList.add(listOf(sizeImage[WIDTH], sizeImage[HEIGHT]))
                 }
             }else{
-                if (sizeImage[HEIDHT] > MAX_IMAGE_SIZE){
+                if (sizeImage[HEIGHT] > MAX_IMAGE_SIZE){
                     tempList.add(listOf((MAX_IMAGE_SIZE * imageRatio).toInt(), MAX_IMAGE_SIZE))
                 }else{
-                    tempList.add(listOf(sizeImage[WIDTH], sizeImage[HEIDHT]))
+                    tempList.add(listOf(sizeImage[WIDTH], sizeImage[HEIGHT]))
                 }
             }
         }
-        return@withContext "Done"
+
+        for (element in uris.indices) {
+            kotlin.runCatching {
+                bitmapList.add(Picasso.get().load(File(uris[element])).resize(tempList[element][WIDTH],
+                    tempList[element][HEIGHT]).get())
+            }
+        }
+
+        return@withContext bitmapList
     }
 }
