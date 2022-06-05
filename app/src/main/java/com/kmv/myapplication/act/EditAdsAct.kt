@@ -119,7 +119,8 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
         if (imageAdapter.mainArray.isEmpty()){
             ImagePicker.getImages(this, 5, ImagePicker.REQUEST_CODE_GET_IMAGE)
         }else{
-            openChooseImageFragment(imageAdapter.mainArray)
+            openChooseImageFragment(null)
+            chooseImageFragment?.updateAdapterFromEdit(imageAdapter.mainArray)
         }
 
     }
@@ -130,7 +131,7 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
         chooseImageFragment = null
     }
 
-    private fun openChooseImageFragment(newList: ArrayList<String>){
+    private fun openChooseImageFragment(newList: ArrayList<String>?){
         chooseImageFragment = ImageListFragment(this, newList)
         binding.scrollViewMain.visibility = View.GONE
         val fragmentManager = supportFragmentManager.beginTransaction()

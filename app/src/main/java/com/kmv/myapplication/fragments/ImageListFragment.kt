@@ -1,5 +1,6 @@
 package com.kmv.myapplication.fragments
 
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -22,12 +23,12 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 class ImageListFragment(private val fragmentCloseIntrf: FragmentCloseInterface,
-                       private val newList: ArrayList<String>) :  Fragment(){
+                       private val newList: ArrayList<String>?) :  Fragment(){
     lateinit var binding: ListImageFragmentBinding
     val adapter = SelectImageRVAdapter()
     val dragCallback = ItemTouchMoveCallback(adapter)
     val touchHelper = ItemTouchHelper(dragCallback)
-    private lateinit var job: Job
+    private var job: Job? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -52,21 +53,26 @@ class ImageListFragment(private val fragmentCloseIntrf: FragmentCloseInterface,
             updateList.add(SelectImageItem(n.toString(), newList[n]))
         }*/
 
-        job = CoroutineScope(Dispatchers.Main).launch {
-            val bitmapList = ImageManager.imageResize(newList)
-            adapter.updateAdapter(bitmapList, true)
+        if (newList != null) {
+            job = CoroutineScope(Dispatchers.Main).launch {
+                val bitmapList = ImageManager.imageResize(newList)
+                adapter.updateAdapter(bitmapList, true)
+            }
         }
-        //adapter.updateAdapter(newList, true)
 
         /*bttnBack.setOnClickListener {*/
         //activity?.supportFragmentManager?.beginTransaction()?.remove(this)?.commit()
         /*}*/
     }
 
+    fun updateAdapterFromEdit(bitmapList: List<Bitmap>){
+        adapter.updateAdapter(bitmapList, true)
+    }
+
     override fun onDetach() {
         super.onDetach()
         fragmentCloseIntrf.onFragmentClose(adapter.mainArray)
-        job.cancel()
+        job?.cancel()
     }
 
     private fun setUpToolbar(){
