@@ -20,10 +20,10 @@ import com.kmv.myapplication.utils.TreatmentCityList
 
 
 class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
-    private var chooseImageFragment: ImageListFragment? = null
+    var chooseImageFragment: ImageListFragment? = null
     lateinit var binding: ActivityEditAdsBinding
     private val dialog = DialogSpinner()
-    private lateinit var imageAdapter: ImageAdapter
+    lateinit var imageAdapter: ImageAdapter
     var editImagePositions = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -74,24 +74,7 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == RESULT_OK && requestCode == ImagePicker.REQUEST_CODE_GET_IMAGE) {
-            if (data != null) {
-                val returnValues = data.getStringArrayListExtra(Pix.IMAGE_RESULTS)
-                if (returnValues?.size!! > 1 && chooseImageFragment == null) {
-                    openChooseImageFragment(returnValues)
-                } else if (returnValues.size == 1 && chooseImageFragment == null) {
-                    //imageAdapter.update(returnValues)
-                    val tempList = ImageManager.getImageSize(returnValues[0])
-                }else if (chooseImageFragment != null) {
-                    chooseImageFragment?.updateAdapter(returnValues)
-                }
-            }
-        }else if (resultCode == RESULT_OK && requestCode == ImagePicker.REQUEST_CODE_EDIT_IMAGE){
-            if (data != null) {
-                val uriValue = data.getStringArrayListExtra(Pix.IMAGE_RESULTS)
-                chooseImageFragment?.setSingleImage(uriValue?.get(0)!!, editImagePositions)
-            }
-        }
+        ImagePicker.showSelectedImages(resultCode, requestCode, data, this)
     }
 
     //OnClicks functions
@@ -131,7 +114,7 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
         chooseImageFragment = null
     }
 
-    private fun openChooseImageFragment(newList: ArrayList<String>?){
+    fun openChooseImageFragment(newList: ArrayList<String>?){
         chooseImageFragment = ImageListFragment(this, newList)
         binding.scrollViewMain.visibility = View.GONE
         val fragmentManager = supportFragmentManager.beginTransaction()

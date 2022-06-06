@@ -2,15 +2,21 @@ package com.kmv.myapplication.utils
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
 import android.net.Uri
+import android.view.View
 import androidx.activity.result.ActivityResultLauncher
 import androidx.appcompat.app.AppCompatActivity
+import com.kmv.myapplication.R
 import com.kmv.myapplication.act.EditAdsAct
 import io.ak1.pix.helpers.addPixToActivity
 import io.ak1.pix.models.Flash
 import io.ak1.pix.models.Mode
 import io.ak1.pix.models.Options
 import io.ak1.pix.models.Ratio
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 object ImagePicker {
     const val MAX_IMAGE_COUNT = 5
@@ -33,4 +39,34 @@ object ImagePicker {
 /*    fun launcher(edAct:EditAdsAct, launcher: ActivityResultLauncher<Intent>?, imageCounter: Int){
         edAct.addPixToActivity()
     }*/
+
+    fun showSelectedImages(resultCode: Int, requestCode: Int, data: Intent?, editAA: EditAdsAct){
+
+        if (resultCode == AppCompatActivity.RESULT_OK && requestCode == REQUEST_CODE_GET_IMAGE) {
+            if (data != null) {
+                val returnValues = data.getStringArrayListExtra(Pix.IMAGE_RESULTS)
+                if (returnValues?.size!! > 1 && editAA.chooseImageFragment == null) {
+                    editAA.openChooseImageFragment(returnValues)
+                } else if (returnValues.size == 1 && editAA.chooseImageFragment == null) {
+                    //imageAdapter.update(returnValues)
+                    //val tempList = ImageManager.getImageSize(returnValues[0])
+                    CoroutineScope(Dispatchers.Main).launch{
+                        editAA.binding.progressBarEditAds.visibility = View.VISIBLE
+                        val bitmapArray = ImageManager.imageResize(returnValues) as ArrayList<Bitmap>
+                        editAA.binding.progressBarEditAds.visibility = View.GONE
+                        editAA.imageAdapter.update(bitmapArray)
+                    }
+                }else if (editAA.chooseImageFragment != null) {
+                    editAA.chooseImageFragment?.updateAdapter(returnValues)
+                }
+            }
+        }else if (resultCode == AppCompatActivity.RESULT_OK && requestCode == REQUEST_CODE_EDIT_IMAGE){
+            if (data != null) {
+                val uriValue = data.getStringArrayListExtra(Pix.IMAGE_RESULTS)
+                editAA.chooseImageFragment?.setSingleImage(uriValue?.get(0)!!, editAA.editImagePositions)
+            }
+        }
+    }
+
+
 }
