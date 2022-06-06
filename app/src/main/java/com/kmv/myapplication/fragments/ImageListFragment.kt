@@ -26,20 +26,20 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 class ImageListFragment(private val fragmentCloseIntrf: FragmentCloseInterface,
-                       private val newList: ArrayList<String>?) :  Fragment(), AdapterCallback{
-    lateinit var binding: ListImageFragmentBinding
+                       private val newList: ArrayList<String>?) :  BaseSelectImageFragment(), AdapterCallback{
+    /*lateinit var binding: ListImageFragmentBinding*/
     val adapter = SelectImageRVAdapter(this)
     val dragCallback = ItemTouchMoveCallback(adapter)
     val touchHelper = ItemTouchHelper(dragCallback)
     private var job: Job? = null
     private var addImageItem: MenuItem? = null
 
-    override fun onCreateView(
+    /*override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        /*return inflater.inflate(R.layout.list_image_fragment, container, false)*/
+        *//*return inflater.inflate(R.layout.list_image_fragment, container, false)*//*
         binding = ListImageFragmentBinding.inflate(inflater)
         return binding.root
-    }
+    }*/
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -49,16 +49,16 @@ class ImageListFragment(private val fragmentCloseIntrf: FragmentCloseInterface,
         /*touchHelper.attachToRecyclerView(rcView)
         rcView.layoutManager = LinearLayoutManager(activity)
         rcView.adapter = adapter*/
-        touchHelper.attachToRecyclerView(binding.recyclerViewSelectImage)
-        binding.recyclerViewSelectImage.layoutManager = LinearLayoutManager(activity)
-        binding.recyclerViewSelectImage.adapter = adapter
+        binding.apply {
+        touchHelper.attachToRecyclerView(recyclerViewSelectImage)
+        recyclerViewSelectImage.layoutManager = LinearLayoutManager(activity)
+        recyclerViewSelectImage.adapter = adapter
         /*val updateList = ArrayList<SelectImageItem>()
         for (n in 0 until newList.size){
             updateList.add(SelectImageItem(n.toString(), newList[n]))
         }*/
-
         if (newList != null) resizeSelectedImages(newList, true)
-
+        }
         /*bttnBack.setOnClickListener {*/
         //activity?.supportFragmentManager?.beginTransaction()?.remove(this)?.commit()
         /*}*/
@@ -91,12 +91,14 @@ class ImageListFragment(private val fragmentCloseIntrf: FragmentCloseInterface,
     }
 
     private fun setUpToolbar(){
-        binding.toolbarImageFragment.inflateMenu(R.menu.menu_choose_image)
-        val deleteItem = binding.toolbarImageFragment.menu.findItem(R.id.image_delete_button)
-        addImageItem = binding.toolbarImageFragment.menu.findItem(R.id.image_add_button)
 
-        binding.toolbarImageFragment.setNavigationOnClickListener {
-            activity?.supportFragmentManager?.beginTransaction()?.remove(this)?.commit()
+        binding.apply {
+        toolbarImageFragment.inflateMenu(R.menu.menu_choose_image)
+        val deleteItem = toolbarImageFragment.menu.findItem(R.id.image_delete_button)
+        addImageItem = toolbarImageFragment.menu.findItem(R.id.image_add_button)
+
+        toolbarImageFragment.setNavigationOnClickListener {
+            activity?.supportFragmentManager?.beginTransaction()?.remove(this@ImageListFragment)?.commit()
         }
 
         deleteItem.setOnMenuItemClickListener{
@@ -109,6 +111,7 @@ class ImageListFragment(private val fragmentCloseIntrf: FragmentCloseInterface,
             val imageCount = ImagePicker.MAX_IMAGE_COUNT - adapter.mainArray.size
             ImagePicker.getImages(activity as AppCompatActivity, imageCount, ImagePicker.REQUEST_CODE_GET_IMAGE)
             true
+        }
         }
     }
 
