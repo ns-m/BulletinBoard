@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.kmv.myapplication.R
@@ -59,6 +60,7 @@ class SelectImageRVAdapter: RecyclerView.Adapter<SelectImageRVAdapter.ImageHolde
                 ImagePicker.getImages(context as EditAdsAct, 1, ImagePicker.REQUEST_CODE_EDIT_IMAGE)
                 context.editImagePositions = adapterPosition
             }
+
             delImage.setOnClickListener {
                 adapter.mainArray.removeAt(adapterPosition)
                 adapter.notifyItemRemoved(adapterPosition)

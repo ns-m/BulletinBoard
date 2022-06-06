@@ -1,19 +1,20 @@
 package com.kmv.myapplication.fragments
 
+import android.app.Activity
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.Button
+import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.kmv.myapplication.R
 import com.kmv.myapplication.databinding.ListImageFragmentBinding
+import com.kmv.myapplication.dialogs_support.ProgressDialog
 import com.kmv.myapplication.utils.ImageManager
 import com.kmv.myapplication.utils.ImagePicker
 import com.kmv.myapplication.utils.ItemTouchMoveCallback
@@ -53,12 +54,7 @@ class ImageListFragment(private val fragmentCloseIntrf: FragmentCloseInterface,
             updateList.add(SelectImageItem(n.toString(), newList[n]))
         }*/
 
-        if (newList != null) {
-            job = CoroutineScope(Dispatchers.Main).launch {
-                val bitmapList = ImageManager.imageResize(newList)
-                adapter.updateAdapter(bitmapList, true)
-            }
-        }
+        if (newList != null) resizeSelectedImages(newList, true)
 
         /*bttnBack.setOnClickListener {*/
         //activity?.supportFragmentManager?.beginTransaction()?.remove(this)?.commit()
@@ -73,6 +69,17 @@ class ImageListFragment(private val fragmentCloseIntrf: FragmentCloseInterface,
         super.onDetach()
         fragmentCloseIntrf.onFragmentClose(adapter.mainArray)
         job?.cancel()
+    }
+
+    private fun resizeSelectedImages(newList: ArrayList<String>, needClear: Boolean){
+
+        job = CoroutineScope(Dispatchers.Main).launch {
+            val dialog = ProgressDialog.createProgressDialog(activity as Activity)
+            val bitmapList = ImageManager.imageResize(newList)
+            dialog.dismiss()
+            adapter.updateAdapter(bitmapList, needClear)
+        }
+
     }
 
     private fun setUpToolbar(){
@@ -99,19 +106,24 @@ class ImageListFragment(private val fragmentCloseIntrf: FragmentCloseInterface,
         for (n in adapter.mainArray.size until newList.size + adapter.mainArray.size){
             updateList.add(SelectImageItem(n.toString(), newList[n - adapter.mainArray.size]))
         }*/
-        job = CoroutineScope(Dispatchers.Main).launch {
+        /*job = CoroutineScope(Dispatchers.Main).launch {
             val bitmapList = ImageManager.imageResize(newList)
             adapter.updateAdapter(bitmapList, false)
-        }
+        }*/
         //adapter.updateAdapter(newList, false)
+        resizeSelectedImages(newList, false)
     }
 
     fun setSingleImage(uri : String, position : Int){
+        val progrBar = binding.recyclerViewSelectImage[position].findViewById<ProgressBar>(R.id.progrBarSingleimage)
+
         job = CoroutineScope(Dispatchers.Main).launch {
+            progrBar.visibility = View.VISIBLE
             val bitmapList = ImageManager.imageResize(listOf(uri))
             //adapter.updateAdapter(bitmapList, false)
+            progrBar.visibility = View.GONE
             adapter.mainArray[position] = bitmapList[0]
-            adapter.notifyDataSetChanged()
+            adapter.notifyItemChanged(position)
         }
     }
 }
