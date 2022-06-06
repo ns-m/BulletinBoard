@@ -4,6 +4,7 @@ import android.app.Activity
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.kmv.myapplication.R
 import com.kmv.myapplication.databinding.ListImageFragmentBinding
 import com.kmv.myapplication.dialogs_support.ProgressDialog
+import com.kmv.myapplication.utils.AdapterCallback
 import com.kmv.myapplication.utils.ImageManager
 import com.kmv.myapplication.utils.ImagePicker
 import com.kmv.myapplication.utils.ItemTouchMoveCallback
@@ -24,12 +26,13 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 class ImageListFragment(private val fragmentCloseIntrf: FragmentCloseInterface,
-                       private val newList: ArrayList<String>?) :  Fragment(){
+                       private val newList: ArrayList<String>?) :  Fragment(), AdapterCallback{
     lateinit var binding: ListImageFragmentBinding
-    val adapter = SelectImageRVAdapter()
+    val adapter = SelectImageRVAdapter(this)
     val dragCallback = ItemTouchMoveCallback(adapter)
     val touchHelper = ItemTouchHelper(dragCallback)
     private var job: Job? = null
+    private var addImageItem: MenuItem? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -61,6 +64,10 @@ class ImageListFragment(private val fragmentCloseIntrf: FragmentCloseInterface,
         /*}*/
     }
 
+    override fun onItemDelete() {
+        addImageItem?.isVisible = true
+    }
+
     fun updateAdapterFromEdit(bitmapList: List<Bitmap>){
         adapter.updateAdapter(bitmapList, true)
     }
@@ -78,6 +85,7 @@ class ImageListFragment(private val fragmentCloseIntrf: FragmentCloseInterface,
             val bitmapList = ImageManager.imageResize(newList)
             dialog.dismiss()
             adapter.updateAdapter(bitmapList, needClear)
+            if (adapter.mainArray.size > ImagePicker.MAX_IMAGE_COUNT - 1) addImageItem?.isVisible = false
         }
 
     }
@@ -85,16 +93,19 @@ class ImageListFragment(private val fragmentCloseIntrf: FragmentCloseInterface,
     private fun setUpToolbar(){
         binding.toolbarImageFragment.inflateMenu(R.menu.menu_choose_image)
         val deleteItem = binding.toolbarImageFragment.menu.findItem(R.id.image_delete_button)
-        val addImageItem = binding.toolbarImageFragment.menu.findItem(R.id.image_add_button)
+        addImageItem = binding.toolbarImageFragment.menu.findItem(R.id.image_add_button)
 
         binding.toolbarImageFragment.setNavigationOnClickListener {
             activity?.supportFragmentManager?.beginTransaction()?.remove(this)?.commit()
         }
+
         deleteItem.setOnMenuItemClickListener{
             adapter.updateAdapter(ArrayList(), true)
+            addImageItem?.isVisible = true
             true
         }
-        addImageItem.setOnMenuItemClickListener{
+
+        addImageItem?.setOnMenuItemClickListener{
             val imageCount = ImagePicker.MAX_IMAGE_COUNT - adapter.mainArray.size
             ImagePicker.getImages(activity as AppCompatActivity, imageCount, ImagePicker.REQUEST_CODE_GET_IMAGE)
             true
@@ -126,4 +137,5 @@ class ImageListFragment(private val fragmentCloseIntrf: FragmentCloseInterface,
             adapter.notifyItemChanged(position)
         }
     }
+
 }

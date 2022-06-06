@@ -2,6 +2,7 @@ package com.kmv.myapplication.utils
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.widget.ImageView
 import androidx.exifinterface.media.ExifInterface
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.Dispatchers
@@ -33,6 +34,14 @@ object ImageManager {
             90
         } else{
             0
+        }
+    }
+
+    fun chooseScaleType(image: ImageView, bitmap: Bitmap){
+        if (bitmap.width > bitmap.height){
+            image.scaleType = ImageView.ScaleType.CENTER_CROP
+        }else{
+            image.scaleType = ImageView.ScaleType.CENTER_INSIDE
         }
     }
 
