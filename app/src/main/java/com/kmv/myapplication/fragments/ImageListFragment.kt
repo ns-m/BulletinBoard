@@ -10,7 +10,6 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.get
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kmv.myapplication.R
@@ -26,13 +25,14 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 class ImageListFragment(private val fragmentCloseIntrf: FragmentCloseInterface,
-                       private val newList: ArrayList<String>?) :  BaseSelectImageFragment(), AdapterCallback{
+                       private val newList: ArrayList<String>?) :  BaseAdsFragment(), AdapterCallback{
     /*lateinit var binding: ListImageFragmentBinding*/
     val adapter = SelectImageRVAdapter(this)
     val dragCallback = ItemTouchMoveCallback(adapter)
     val touchHelper = ItemTouchHelper(dragCallback)
     private var job: Job? = null
     private var addImageItem: MenuItem? = null
+    lateinit var binding: ListImageFragmentBinding
 
     /*override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -40,6 +40,12 @@ class ImageListFragment(private val fragmentCloseIntrf: FragmentCloseInterface,
         binding = ListImageFragmentBinding.inflate(inflater)
         return binding.root
     }*/
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        binding = ListImageFragmentBinding.inflate(layoutInflater)
+        adView = binding.adView
+        return binding.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

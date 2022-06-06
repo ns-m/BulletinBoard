@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Ads Board</string>
     <string name="app_ad_id">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="app_inters_ad_id">ca-app-pub-3940256099942544/1033173712</string>
     <!-- Menu Drawer Strings -->
     <string name="category_ads">Category Ads</string>
     <string name="my_ads">My Ads</string>
