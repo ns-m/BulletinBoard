@@ -30,9 +30,11 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <LinearLayout
+                android:id="@+id/lineBttmText"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="1dp"
                 android:layout_marginTop="2dp"
+                android:background="@color/my_color_blue"
                 android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="@+id/textViewTitle"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -51,7 +53,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewTitle"
+                app:layout_constraintTop_toBottomOf="@+id/lineBttmText"
                 tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
             <ImageButton
