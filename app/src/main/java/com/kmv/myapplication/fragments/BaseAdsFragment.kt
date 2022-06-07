@@ -6,21 +6,24 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.AdView
-import com.google.android.gms.ads.MobileAds
+import com.google.android.gms.ads.*
 import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.kmv.myapplication.R
 import com.kmv.myapplication.databinding.ListImageFragmentBinding
 
-open class BaseAdsFragment: Fragment() {
+open class BaseAdsFragment: Fragment(), InterAdsClose {
     lateinit var adView: AdView
     var interstAd: InterstitialAd? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initAds()
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        loadInterAd()
     }
 
     override fun onResume() {
@@ -46,10 +49,29 @@ open class BaseAdsFragment: Fragment() {
 
     private fun loadInterAd(){
         val adRequest = AdRequest.Builder().build()
-        InterstitialAd.load(context, getString(R.string.app_inters_ad_id), adRequest, object: InterstitialAdLoadCallback(){
+        InterstitialAd.load(context as Activity, getString(R.string.app_inters_ad_id), adRequest, object: InterstitialAdLoadCallback(){
             override fun onAdLoaded(ad: InterstitialAd) {
                 interstAd = ad
             }
         })
     }
+
+    fun showInterAd(){
+        if (interstAd != null){
+            interstAd?.fullScreenContentCallback = object : FullScreenContentCallback(){
+                override fun onAdDismissedFullScreenContent() {
+                    onClose()
+                }
+
+                override fun onAdFailedToShowFullScreenContent(p0: AdError) {
+                    onClose()
+                }
+            }
+            interstAd?.show(activity as Activity)
+        }else{
+            onClose()
+        }
+    }
+
+    override fun onClose() { }
 }

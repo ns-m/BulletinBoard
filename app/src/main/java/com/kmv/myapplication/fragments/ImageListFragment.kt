@@ -84,6 +84,11 @@ class ImageListFragment(private val fragmentCloseIntrf: FragmentCloseInterface,
         job?.cancel()
     }
 
+    override fun onClose() {
+        super.onClose()
+        activity?.supportFragmentManager?.beginTransaction()?.remove(this@ImageListFragment)?.commit()
+    }
+
     private fun resizeSelectedImages(newList: ArrayList<String>, needClear: Boolean){
 
         job = CoroutineScope(Dispatchers.Main).launch {
@@ -104,7 +109,7 @@ class ImageListFragment(private val fragmentCloseIntrf: FragmentCloseInterface,
         addImageItem = toolbarImageFragment.menu.findItem(R.id.image_add_button)
 
         toolbarImageFragment.setNavigationOnClickListener {
-            activity?.supportFragmentManager?.beginTransaction()?.remove(this@ImageListFragment)?.commit()
+            showInterAd()
         }
 
         deleteItem.setOnMenuItemClickListener{
