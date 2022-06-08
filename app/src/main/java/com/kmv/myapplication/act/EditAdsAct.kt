@@ -108,6 +108,13 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
 
     }
 
+    fun onClickSelectCategory(view: View){
+        val selectCategory= binding.textViewSelectCategory.text.toString()
+        val listCategory = resources.getStringArray(R.array.category).toMutableList() as ArrayList
+        dialog.showSpinnerDialog(this, listCategory, binding.textViewSelectCategory)
+    }
+
+////
     override fun onFragmentClose(list: ArrayList<Bitmap>) {
         binding.scrollViewMain.visibility = View.VISIBLE
         imageAdapter.update(list)

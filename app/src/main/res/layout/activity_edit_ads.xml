@@ -115,7 +115,7 @@
                         android:minHeight="48dp"
                         android:onClick="onClickSelectCountry"
                         android:padding="10dp"
-                        android:textColorHint="#0277BD"
+                        android:textColorHint="@color/my_color_dark_blue_tx"
                         android:textSize="16sp"
                         android:textStyle="bold" />
 
@@ -148,7 +148,7 @@
                         android:minHeight="48dp"
                         android:onClick="onClickSelectCity"
                         android:padding="10dp"
-                        android:textColorHint="#0277BD"
+                        android:textColorHint="@color/my_color_dark_blue_tx"
                         android:textSize="16sp"
                         android:textStyle="bold" />
 
@@ -173,18 +173,19 @@
                         android:textColor="@color/my_color_blue"
                         android:textStyle="bold" />
 
-                    <TextView
+                    <EditText
                         android:id="@+id/textViewSelectZipcode"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:autofillHints=""
                         android:gravity="center_vertical"
                         android:hint="@string/select_zipcode"
                         android:inputType="number"
                         android:minHeight="48dp"
                         android:onClick="onClickSelectCity"
                         android:padding="10dp"
-                        android:textColorHint="#0277BD"
+                        android:textColorHint="@color/my_color_dark_blue_tx"
                         android:textSize="16sp"
                         android:textStyle="bold" />
 
@@ -209,18 +210,19 @@
                         android:textColor="@color/my_color_blue"
                         android:textStyle="bold" />
 
-                    <TextView
+                    <EditText
                         android:id="@+id/textViewSelectPhone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:autofillHints=""
                         android:gravity="center_vertical"
                         android:hint="@string/select_phone"
                         android:inputType="phone"
                         android:minHeight="48dp"
                         android:onClick="onClickSelectCity"
                         android:padding="10dp"
-                        android:textColorHint="#0277BD"
+                        android:textColorHint="@color/my_color_dark_blue_tx"
                         android:textSize="16sp"
                         android:textStyle="bold" />
 
@@ -235,6 +237,39 @@
                         android:orientation="horizontal">
 
                     </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/txVwDelivery"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_weight="1"
+                        android:text="@string/vw_text_delivery"
+                        android:textColor="@color/my_color_blue"
+                        android:textStyle="bold" />
+
+                    <CheckBox
+                        android:id="@+id/checkDelivery"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:text="@string/choose_delivery"
+                        android:textColor="@color/my_color_dark_blue_tx"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:id="@+id/borderLine04"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="5dp"
+                        android:background="@color/my_color_blue"
+                        android:orientation="horizontal">
+
+                    </LinearLayout>
+
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -252,30 +287,30 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/txVwTitleCountry"
+                        android:id="@+id/txVwTitleCategory"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="10dp"
-                        android:text="@string/vw_text_country"
+                        android:text="@string/vw_text_category"
                         android:textColor="@color/my_color_blue"
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/textViewSelectCountry"
+                        android:id="@+id/textViewSelectCategory"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
-                        android:hint="@string/select_country"
+                        android:hint="@string/select_category"
                         android:minHeight="48dp"
                         android:onClick="onClickSelectCountry"
                         android:padding="10dp"
-                        android:textColorHint="#0277BD"
+                        android:textColorHint="@color/my_color_dark_blue_tx"
                         android:textSize="16sp"
                         android:textStyle="bold" />
 
                     <LinearLayout
-                        android:id="@+id/borderLine1"
+                        android:id="@+id/borderLine5"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_marginStart="10dp"
@@ -286,32 +321,33 @@
                     </LinearLayout>
 
                     <TextView
-                        android:id="@+id/txVwTitleZipcode"
+                        android:id="@+id/txVwTitlePrice"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:layout_weight="1"
-                        android:text="@string/vw_text_zipcode"
+                        android:text="@string/vw_text_price"
                         android:textColor="@color/my_color_blue"
                         android:textStyle="bold" />
 
-                    <TextView
-                        android:id="@+id/textViewSelectZipcode"
+                    <EditText
+                        android:id="@+id/textViewInputPrice"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:autofillHints=""
                         android:gravity="center_vertical"
-                        android:hint="@string/select_zipcode"
+                        android:hint="@string/input_price"
                         android:inputType="number"
                         android:minHeight="48dp"
                         android:onClick="onClickSelectCity"
                         android:padding="10dp"
-                        android:textColorHint="#0277BD"
+                        android:textColorHint="@color/my_color_dark_blue_tx"
                         android:textSize="16sp"
                         android:textStyle="bold" />
 
                     <LinearLayout
-                        android:id="@+id/borderLine3"
+                        android:id="@+id/borderLine6"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_marginStart="10dp"
@@ -322,32 +358,33 @@
                     </LinearLayout>
 
                     <TextView
-                        android:id="@+id/txVwTitlePhone"
+                        android:id="@+id/txVwTitleDescription"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:layout_weight="1"
-                        android:text="@string/vw_text_phone"
+                        android:text="@string/vw_text_description"
                         android:textColor="@color/my_color_blue"
                         android:textStyle="bold" />
 
-                    <TextView
-                        android:id="@+id/textViewSelectPhone"
+                    <EditText
+                        android:id="@+id/textViewDescription"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:autofillHints=""
                         android:gravity="center_vertical"
-                        android:hint="@string/select_phone"
-                        android:inputType="phone"
+                        android:hint="@string/input_description"
+                        android:inputType="text"
                         android:minHeight="48dp"
                         android:onClick="onClickSelectCity"
                         android:padding="10dp"
-                        android:textColorHint="#0277BD"
+                        android:textColorHint="@color/my_color_dark_blue_tx"
                         android:textSize="16sp"
                         android:textStyle="bold" />
 
                     <LinearLayout
-                        android:id="@+id/borderLine4"
+                        android:id="@+id/borderLine7"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_marginStart="10dp"
@@ -359,6 +396,17 @@
                     </LinearLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
+
+            <Button
+                android:id="@+id/bttnPublish"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:backgroundTint="@color/surface_color_pix"
+                android:text="@string/vw_text_publish"
+                android:textColor="@color/my_color_dark_blue_tx"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <!--<SearchView
                 android:id="@+id/searchCountryLine"

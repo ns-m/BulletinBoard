@@ -13,6 +13,7 @@
     <color name="my_color_blue">#b3ddff</color>
     <color name="my_color_light_grayblue">#cce8ff</color>
     <color name="my_color_dark_grayblue">#99d2ff</color>
+    <color name="my_color_dark_blue_tx">#0277BD</color>
     <!--PixImagePicker-->
     <color name="video_counter_color_pix">#E53935</color>
     <color name="primary_color_pix">#075e54</color>

@@ -7,7 +7,7 @@
     <string name="my_ads">My Ads</string>
     <string name="ads_car">Cars</string>
     <string name="ads_pc">PC</string>
-    <string name="ads_smatphone">Smatphones</string>
+    <string name="ads_smartphone">Smartphones</string>
     <string name="ads_household_appliance">Household appliances</string>
     <string name="category_settings">Settings Account</string>
     <string name="set_ac_sign_up">Registration</string>
@@ -64,4 +64,7 @@
     <string name="input_price">*Input price</string>
     <string name="vw_text_description">Description</string>
     <string name="input_description">*Input description</string>
+    <string name="vw_text_delivery">Delivery</string>
+    <string name="choose_delivery">With delivery</string>
+    <string name="vw_text_publish">Publish</string>
 </resources>

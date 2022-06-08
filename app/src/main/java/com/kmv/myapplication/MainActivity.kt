@@ -93,7 +93,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.id_ads_pc -> {
                 Toast.makeText(this, "Pushed key ${item.itemId}", Toast.LENGTH_LONG).show()
             }
-            R.id.id_ads_smatphone -> {
+            R.id.id_ads_smartphone -> {
                 Toast.makeText(this, "Pushed key ${item.itemId}", Toast.LENGTH_LONG).show()
             }
             R.id.id_ads_household_appliance -> {
