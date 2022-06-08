@@ -8,11 +8,11 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <!--My colors-->
-    <color name="color_header_main">#D0D3D4</color>
-    <color name="my_color_red">#BD281E</color>
-    <color name="my_color_blue">#6989D9</color>
-    <color name="my_color_light_grayblue">#FBFCFF</color>
-    <color name="my_color_dark_grayblue">#AAAFBD</color>
+    <color name="color_header_main">#80c7ff</color>
+    <color name="my_color_red">#d7415d</color>
+    <color name="my_color_blue">#b3ddff</color>
+    <color name="my_color_light_grayblue">#cce8ff</color>
+    <color name="my_color_dark_grayblue">#99d2ff</color>
     <!--PixImagePicker-->
     <color name="video_counter_color_pix">#E53935</color>
     <color name="primary_color_pix">#075e54</color>

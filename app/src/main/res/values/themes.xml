@@ -24,6 +24,6 @@
     </style>
     <style name="ActionBarCustom">
         <!-- Primary brand color. -->
-        <item name="android:textColorSecondary">@color/my_color_blue</item>
+        <item name="android:textColorSecondary">@color/surface_color_pix</item>
     </style>
 </resources>
