@@ -1,19 +1,16 @@
 package com.kmv.myapplication.utils
 
-import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
-import android.net.Uri
 import android.view.View
 import androidx.activity.result.ActivityResultLauncher
 import androidx.appcompat.app.AppCompatActivity
 import com.kmv.myapplication.R
 import com.kmv.myapplication.act.EditAdsAct
+import io.ak1.pix.helpers.PixEventCallback
 import io.ak1.pix.helpers.addPixToActivity
-import io.ak1.pix.models.Flash
 import io.ak1.pix.models.Mode
 import io.ak1.pix.models.Options
-import io.ak1.pix.models.Ratio
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -22,23 +19,33 @@ object ImagePicker {
     const val MAX_IMAGE_COUNT = 5
     const val REQUEST_CODE_GET_IMAGE = 500
     const val REQUEST_CODE_EDIT_IMAGE = 505
-    fun getImages(context: AppCompatActivity, imageCounter: Int, rCode : Int): Options{
+    fun getOptions(imageCounter: Int): Options{
         val options = Options().apply{
-            ratio = Ratio.RATIO_AUTO                                    //Image/video capture ratio
+            //ratio = Ratio.RATIO_AUTO                                    //Image/video capture ratio
             count = imageCounter                                        //Number of images to restrict selection count
-            spanCount = 4                                               //Number for columns in grid
+            //spanCount = 4                                               //Number for columns in grid
             path = "Pix/Camera"                                         //Custom Path For media Storage
             isFrontFacing = false                                       //Front Facing camera on start
             //videoDurationLimitInSeconds = 10                            //Duration for video recording
             mode = Mode.Picture                                          //Option to select only pictures or videos or both
-            flash = Flash.Auto                                          //Option to select flash type
-            preSelectedUrls = ArrayList<Uri>()                          //Pre selected Image Urls
+            //flash = Flash.Auto                                          //Option to select flash type
+            //preSelectedUrls = ArrayList<Uri>()                          //Pre selected Image Urls
         }
         return options
     }
-/*    fun launcher(edAct:EditAdsAct, launcher: ActivityResultLauncher<Intent>?, imageCounter: Int){
-        edAct.addPixToActivity()
-    }*/
+
+    fun launcher(edAct:EditAdsAct, launcher: ActivityResultLauncher<Intent>?, imageCounter: Int){
+        edAct.addPixToActivity(R.id.placeHolder, getOptions(imageCounter)){
+            when(it.status){
+                PixEventCallback.Status.SUCCESS -> {
+
+                }
+                    PixEventCallback.Status.BACK_PRESSED -> {
+
+                    }
+            }
+        }
+    }
 
     fun showSelectedImages(resultCode: Int, requestCode: Int, data: Intent?, editAA: EditAdsAct){
 

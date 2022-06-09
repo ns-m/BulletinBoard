@@ -41,7 +41,7 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
         binding.viewPagePics.adapter = imageAdapter
     }
 
-    override fun onRequestPermissionsResult(
+  /*  override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
         grantResults: IntArray
@@ -52,7 +52,7 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
 
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    ImagePicker.getImages(this, ImagePicker.MAX_IMAGE_COUNT, ImagePicker.REQUEST_CODE_GET_IMAGE)
+                    ImagePicker.getOptions(this, ImagePicker.MAX_IMAGE_COUNT, ImagePicker.REQUEST_CODE_GET_IMAGE)
                 } else {
                     Toast.makeText(
                         this,
@@ -63,7 +63,7 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
                 return
             }
         }
-    }
+    }*/
 
     class PermUtil {
         object REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS {
@@ -100,7 +100,7 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
     fun onClickSelectImages(view: View) {
 //        ImagePicker.getImages(this)
         if (imageAdapter.mainArray.isEmpty()){
-            ImagePicker.getImages(this, 5, ImagePicker.REQUEST_CODE_GET_IMAGE)
+            ImagePicker.getOptions(this, 5, ImagePicker.REQUEST_CODE_GET_IMAGE)
         }else{
             openChooseImageFragment(null)
             chooseImageFragment?.updateAdapterFromEdit(imageAdapter.mainArray)
