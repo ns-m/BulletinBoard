@@ -403,6 +403,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:backgroundTint="@color/surface_color_pix"
+                android:onClick="onClickPublish"
                 android:text="@string/vw_text_publish"
                 android:textColor="@color/my_color_dark_blue_tx"
                 android:textSize="16sp"

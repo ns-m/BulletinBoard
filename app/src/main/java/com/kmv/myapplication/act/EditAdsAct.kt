@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.kmv.myapplication.R
 import com.kmv.myapplication.adapters.ImageAdapter
+import com.kmv.myapplication.data.DbManager
 import com.kmv.myapplication.databinding.ActivityEditAdsBinding
 import com.kmv.myapplication.dialogs_support.DialogSpinner
 import com.kmv.myapplication.fragments.FragmentCloseInterface
@@ -112,6 +113,10 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
         val selectCategory= binding.textViewSelectCategory.text.toString()
         val listCategory = resources.getStringArray(R.array.category).toMutableList() as ArrayList
         dialog.showSpinnerDialog(this, listCategory, binding.textViewSelectCategory)
+    }
+
+    fun onClickPublish(view: View){
+        val dbManager = DbManager()
     }
 
 ////
