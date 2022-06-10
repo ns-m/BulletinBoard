@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.kmv.myapplication.R
 import com.kmv.myapplication.adapters.ImageAdapter
+import com.kmv.myapplication.data.AdData
 import com.kmv.myapplication.data.DbManager
 import com.kmv.myapplication.databinding.ActivityEditAdsBinding
 import com.kmv.myapplication.dialogs_support.DialogSpinner
@@ -25,6 +26,7 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
     lateinit var binding: ActivityEditAdsBinding
     private val dialog = DialogSpinner()
     lateinit var imageAdapter: ImageAdapter
+    private val dbManager = DbManager()
     var editImagePositions = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -116,7 +118,14 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
     }
 
     fun onClickPublish(view: View){
-        val dbManager = DbManager()
+        dbManager.publishAd()
+    }
+
+    private fun fillAd(){
+        val ad: AdData
+        binding.apply {
+            ad = AdData()
+        }
     }
 
 ////

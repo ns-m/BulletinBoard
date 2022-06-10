@@ -6,7 +6,7 @@ import com.google.firebase.ktx.Firebase
 class DbManager {
     val db = Firebase.database.getReference("main")
 
-    fun publishAd(){
+    fun publishAd(ad: AdData){
 
     }
 }
