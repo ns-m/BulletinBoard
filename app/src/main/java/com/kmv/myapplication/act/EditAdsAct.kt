@@ -124,7 +124,10 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
     private fun fillAd(){
         val ad: AdData
         binding.apply {
-            ad = AdData()
+            ad = AdData(textViewSelectCountry.text.toString(), textViewSelectCity.text.toString(),
+                textViewSelectZipcode.text.toString(), textViewSelectPhone.text.toString(),
+                checkDelivery.toString(), textViewSelectCategory.text.toString(),
+                textViewInputPrice.text.toString(), textViewDescription.text.toString())
         }
     }
 
