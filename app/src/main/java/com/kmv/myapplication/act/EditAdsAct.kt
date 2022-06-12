@@ -118,17 +118,19 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
     }
 
     fun onClickPublish(view: View){
-        dbManager.publishAd()
+        dbManager.publishAd(fillAd())
     }
 
-    private fun fillAd(){
+    private fun fillAd(): AdData{
         val ad: AdData
         binding.apply {
             ad = AdData(textViewSelectCountry.text.toString(), textViewSelectCity.text.toString(),
-                textViewSelectZipcode.text.toString(), textViewSelectPhone.text.toString(),
-                checkDelivery.toString(), textViewSelectCategory.text.toString(),
-                textViewInputPrice.text.toString(), textViewDescription.text.toString())
+                textViewInputZipcode.text.toString(), textViewInputPhone.text.toString(),
+                checkDelivery.isChecked.toString(), textViewSelectCategory.text.toString(),
+                textViewInputPrice.text.toString(), textViewDescription.text.toString(),
+            dbManager.db.push().key)
         }
+        return ad
     }
 
 ////

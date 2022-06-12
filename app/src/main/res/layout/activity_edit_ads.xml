@@ -174,7 +174,7 @@
                         android:textStyle="bold" />
 
                     <EditText
-                        android:id="@+id/textViewSelectZipcode"
+                        android:id="@+id/textViewInputZipcode"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -211,7 +211,7 @@
                         android:textStyle="bold" />
 
                     <EditText
-                        android:id="@+id/textViewSelectPhone"
+                        android:id="@+id/textViewInputPhone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
