@@ -20,8 +20,11 @@ class DbManager {
         db.addListenerForSingleValueEvent(object : ValueEventListener{
 
             override fun onDataChange(snapshot: DataSnapshot) {
+                val adArray = ArrayList<AdData>()
+
                 for(item in snapshot.children){
                     val ad = item.children.iterator().next().child("ad").getValue(AdData::class.java)
+                    if (ad != null)adArray.add(ad)
                 }
             }
 
