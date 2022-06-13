@@ -29,7 +29,12 @@
         <entry key="..\:/BackUp1C/AndroidStudioProjects/BulletinBoard/app/src/main/res/menu/main_menu.xml" value="0.36666666666666664" />
         <entry key="..\:/BackUp1C/AndroidStudioProjects/BulletinBoard/app/src/main/res/menu/menu_choose_image.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/nsm/AndroidStudioProjects/BulletinBoard/app/src/main/res/drawable/ic_account.xml" value="0.3675" />
+        <entry key="..\:/Users/nsm/AndroidStudioProjects/BulletinBoard/app/src/main/res/drawable/ic_edit.xml" value="0.3545" />
+        <entry key="..\:/Users/nsm/AndroidStudioProjects/BulletinBoard/app/src/main/res/drawable/ic_favorite.xml" value="0.3545" />
+        <entry key="..\:/Users/nsm/AndroidStudioProjects/BulletinBoard/app/src/main/res/drawable/ic_favorite_normal.xml" value="0.3225" />
+        <entry key="..\:/Users/nsm/AndroidStudioProjects/BulletinBoard/app/src/main/res/drawable/ic_favorite_pressed.xml" value="0.3225" />
         <entry key="..\:/Users/nsm/AndroidStudioProjects/BulletinBoard/app/src/main/res/drawable/ic_new_ads.xml" value="0.3675" />
+        <entry key="..\:/Users/nsm/AndroidStudioProjects/BulletinBoard/app/src/main/res/drawable/ic_view_count.xml" value="0.3545" />
         <entry key="..\:/Users/nsm/AndroidStudioProjects/BulletinBoard/app/src/main/res/layout/activity_edit_ads.xml" value="0.33" />
         <entry key="..\:/Users/nsm/AndroidStudioProjects/BulletinBoard/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/nsm/AndroidStudioProjects/BulletinBoard/app/src/main/res/layout/ad_list_item.xml" value="0.365625" />

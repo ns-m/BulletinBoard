@@ -31,6 +31,7 @@
     <!-- Other Strings -->
     <string name="user_avatar">User avatar</string>
     <string name="text_view_user">example@example.com</string>
+    <string name="text_default">View text</string>
     <string name="open">Open</string>
     <string name="close">Close</string>
     <string name="login_accept">Login successfully completed</string>
@@ -67,4 +68,6 @@
     <string name="vw_text_delivery">Delivery</string>
     <string name="choose_delivery">With delivery</string>
     <string name="vw_text_publish">Publish</string>
+    <string name="vw_text_count_default">0</string>
+    <string name="ad_list_element_descr_default">Default description</string>
 </resources>
