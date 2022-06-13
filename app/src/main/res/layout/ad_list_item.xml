@@ -82,12 +82,11 @@
 
                     <ImageView
                         android:id="@+id/imgViewCounter"
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:layout_marginStart="5dp"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginStart="10dp"
                         android:layout_weight="0"
-                        android:background="@drawable/edit_image_button"
-                        app:srcCompat="@drawable/ic_view_count" />
+                        app:srcCompat="@drawable/ic_view_count_small" />
 
                     <TextView
                         android:id="@+id/txVwCounter"
