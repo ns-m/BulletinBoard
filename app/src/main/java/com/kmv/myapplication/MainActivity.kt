@@ -10,12 +10,14 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.common.api.ApiException
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.kmv.myapplication.act.EditAdsAct
+import com.kmv.myapplication.adapters.AdsRecyclerViewAdapter
 import com.kmv.myapplication.data.DbManager
 import com.kmv.myapplication.databinding.ActivityMainBinding
 import com.kmv.myapplication.dialogs_support.DialogConsts
@@ -28,6 +30,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private val dialogSupport = DialogSupport(this)
     val mainAuth = FirebaseAuth.getInstance()
     val dbManager = DbManager()
+    val adapter = AdsRecyclerViewAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -83,6 +86,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         toggle.syncState()
         binding.navView.setNavigationItemSelectedListener(this)
         txVwAccount = binding.navView.getHeaderView(0).findViewById(R.id.tvHeaderUserName)
+    }
+
+    private fun initRecyclerView(){
+        binding.apply {
+            mainContent.RVmainContent.layoutManager = LinearLayoutManager(this@MainActivity)
+
+        }
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
