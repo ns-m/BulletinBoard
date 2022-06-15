@@ -34,15 +34,16 @@
 
             <ImageView
                 android:id="@+id/imgVwMainAdImg"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="5dp"
+                android:background="@color/my_color_light_grayblue"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txVwAdListItemTitle"
-                tools:srcCompat="@tools:sample/backgrounds/scenic" />
+                tools:srcCompat="@drawable/ic_default_image" />
 
             <TextView
                 android:id="@+id/txVwDescription"
