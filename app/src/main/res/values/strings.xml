@@ -64,6 +64,7 @@
     <string name="vw_text_category">Category</string>
     <string name="select_category">*Select category</string>
     <string name="vw_text_price">Price</string>
+    <string name="vw_text_price_descr">Price :</string>
     <string name="input_price">*Input price</string>
     <string name="vw_text_description">Description</string>
     <string name="input_description">*Input description</string>

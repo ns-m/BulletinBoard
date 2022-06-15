@@ -26,4 +26,8 @@
         <!-- Primary brand color. -->
         <item name="android:textColorSecondary">@color/surface_color_pix</item>
     </style>
+    <style name="ToolbarMainStyle" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Primary brand color. -->
+        <item name="android:colorControlNormal">@color/my_color_light_grayblue</item>
+    </style>
 </resources>
