@@ -287,6 +287,44 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/txVwAdTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_weight="1"
+                        android:text="@string/vw_text_title_ad"
+                        android:textColor="@color/my_color_blue"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/textViewAdTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:autofillHints=""
+                        android:gravity="center_vertical"
+                        android:hint="@string/input_title_ad"
+                        android:inputType="text"
+                        android:minHeight="48dp"
+                        android:padding="10dp"
+                        android:textColorHint="@color/my_color_dark_blue_tx"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:id="@+id/borderLine8"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_weight="1"
+                        android:background="@color/my_color_blue"
+                        android:orientation="horizontal">
+
+                    </LinearLayout>
+
+                    <TextView
                         android:id="@+id/txVwTitleCategory"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -303,7 +341,7 @@
                         android:gravity="center_vertical"
                         android:hint="@string/select_category"
                         android:minHeight="48dp"
-                        android:onClick="onClickSelectCountry"
+                        android:onClick="onClickSelectCategory"
                         android:padding="10dp"
                         android:textColorHint="@color/my_color_dark_blue_tx"
                         android:textSize="16sp"
@@ -340,7 +378,6 @@
                         android:hint="@string/input_price"
                         android:inputType="number"
                         android:minHeight="48dp"
-                        android:onClick="onClickSelectCity"
                         android:padding="10dp"
                         android:textColorHint="@color/my_color_dark_blue_tx"
                         android:textSize="16sp"
@@ -377,7 +414,6 @@
                         android:hint="@string/input_description"
                         android:inputType="text"
                         android:minHeight="48dp"
-                        android:onClick="onClickSelectCity"
                         android:padding="10dp"
                         android:textColorHint="@color/my_color_dark_blue_tx"
                         android:textSize="16sp"

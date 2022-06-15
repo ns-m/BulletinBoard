@@ -11,7 +11,7 @@ class AdsRecyclerViewAdapter: RecyclerView.Adapter<AdsRecyclerViewAdapter.AdHold
     lateinit var binding: AdListItemBinding
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AdHolder {
-        binding = AdListItemBinding.inflate(LayoutInflater.from(parent.context))
+        binding = AdListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return AdHolder(binding)
     }
 
@@ -35,6 +35,7 @@ class AdsRecyclerViewAdapter: RecyclerView.Adapter<AdsRecyclerViewAdapter.AdHold
             binding.apply {
                 txVwDescription.text = ad.description
                 txVwPrice.text = ad.price
+                txVwAdListItemTitle.text = ad.title
             }
         }
     }

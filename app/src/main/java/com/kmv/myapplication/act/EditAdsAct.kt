@@ -12,6 +12,7 @@ import com.kmv.myapplication.R
 import com.kmv.myapplication.adapters.ImageAdapter
 import com.kmv.myapplication.data.AdData
 import com.kmv.myapplication.data.DbManager
+import com.kmv.myapplication.data.ReadDataCallback
 import com.kmv.myapplication.databinding.ActivityEditAdsBinding
 import com.kmv.myapplication.dialogs_support.DialogSpinner
 import com.kmv.myapplication.fragments.FragmentCloseInterface
@@ -26,7 +27,7 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
     lateinit var binding: ActivityEditAdsBinding
     private val dialog = DialogSpinner()
     lateinit var imageAdapter: ImageAdapter
-    private val dbManager = DbManager()
+    private val dbManager = DbManager(null)
     var editImagePositions = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -126,9 +127,9 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
         binding.apply {
             ad = AdData(textViewSelectCountry.text.toString(), textViewSelectCity.text.toString(),
                 textViewInputZipcode.text.toString(), textViewInputPhone.text.toString(),
-                checkDelivery.isChecked.toString(), textViewSelectCategory.text.toString(),
-                textViewInputPrice.text.toString(), textViewDescription.text.toString(),
-            dbManager.db.push().key)
+                checkDelivery.isChecked.toString(), textViewAdTitle.text.toString(),
+                textViewSelectCategory.text.toString(), textViewInputPrice.text.toString(),
+                textViewDescription.text.toString(), dbManager.db.push().key)
         }
         return ad
     }

@@ -59,6 +59,8 @@
     <string name="select_zipcode">*Input zipcode</string>
     <string name="vw_text_phone">Phone</string>
     <string name="select_phone">*Input phone</string>
+    <string name="vw_text_title_ad">Ad`s Title</string>
+    <string name="input_title_ad">*Input ad`s title</string>
     <string name="vw_text_category">Category</string>
     <string name="select_category">*Select category</string>
     <string name="vw_text_price">Price</string>

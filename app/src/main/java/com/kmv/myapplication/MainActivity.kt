@@ -18,18 +18,20 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.kmv.myapplication.act.EditAdsAct
 import com.kmv.myapplication.adapters.AdsRecyclerViewAdapter
+import com.kmv.myapplication.data.AdData
 import com.kmv.myapplication.data.DbManager
+import com.kmv.myapplication.data.ReadDataCallback
 import com.kmv.myapplication.databinding.ActivityMainBinding
 import com.kmv.myapplication.dialogs_support.DialogConsts
 import com.kmv.myapplication.dialogs_support.DialogSupport
 import com.kmv.myapplication.dialogs_support.GoogleAccConsts
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, ReadDataCallback {
     private lateinit var binding: ActivityMainBinding
     private lateinit var txVwAccount: TextView
     private val dialogSupport = DialogSupport(this)
     val mainAuth = FirebaseAuth.getInstance()
-    val dbManager = DbManager()
+    val dbManager = DbManager(this)
     val adapter = AdsRecyclerViewAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,6 +39,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         init()
+        initRecyclerView()
         dbManager.readDataFromDB()
     }
 
@@ -91,7 +94,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private fun initRecyclerView(){
         binding.apply {
             mainContent.RVmainContent.layoutManager = LinearLayoutManager(this@MainActivity)
-
+            mainContent.RVmainContent.adapter = adapter
         }
     }
 
@@ -135,5 +138,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         } else {
             user.email
         }
+    }
+
+    override fun readData(list: List<AdData>) {
+        adapter.updateAdapter(list)
     }
 }
