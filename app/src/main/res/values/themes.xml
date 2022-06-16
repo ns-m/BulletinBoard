@@ -28,6 +28,7 @@
     </style>
     <style name="ToolbarMainStyle" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Primary brand color. -->
-        <item name="android:colorControlNormal">@color/my_color_light_grayblue</item>
+        <item name="android:colorControlNormal">@color/surface_color_pix</item>
+        <item name="fontFamily">@font/amiko</item>
     </style>
 </resources>

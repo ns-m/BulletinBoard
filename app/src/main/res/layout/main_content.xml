@@ -11,16 +11,19 @@
         android:layout_height="wrap_content"
         android:background="@color/color_header_main"
         android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
+        android:theme="@style/ToolbarMainStyle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="@string/ads_car"
+        app:titleTextColor="@color/surface_color_pix" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/RVmainContent"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@color/my_color_light_grayblue"
+        android:paddingBottom="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
