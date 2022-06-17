@@ -1,24 +1,22 @@
 package com.kmv.myapplication.act
 
-import android.R.attr
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
 import androidx.appcompat.app.AppCompatActivity
 import com.kmv.myapplication.R
 import com.kmv.myapplication.adapters.ImageAdapter
 import com.kmv.myapplication.data.AdData
 import com.kmv.myapplication.data.DbManager
-import com.kmv.myapplication.data.ReadDataCallback
 import com.kmv.myapplication.databinding.ActivityEditAdsBinding
 import com.kmv.myapplication.dialogs_support.DialogSpinner
 import com.kmv.myapplication.fragments.FragmentCloseInterface
 import com.kmv.myapplication.fragments.ImageListFragment
-import com.kmv.myapplication.utils.ImageManager
 import com.kmv.myapplication.utils.ImagePicker
+import com.kmv.myapplication.utils.ImagePicker.MAX_IMAGE_COUNT
 import com.kmv.myapplication.utils.TreatmentCityList
 
 
@@ -29,6 +27,8 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
     lateinit var imageAdapter: ImageAdapter
     private val dbManager = DbManager(null)
     var editImagePositions = 0
+    var launcherMultiSelectImages: ActivityResultLauncher<Intent>? = null
+    var launcherForSingleSelectImage: ActivityResultLauncher<Intent>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,6 +43,8 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
     private fun init() {
         imageAdapter = ImageAdapter()
         binding.viewPagePics.adapter = imageAdapter
+        launcherMultiSelectImages = ImagePicker.getLauncherForMultiSelectImages(this)
+        launcherForSingleSelectImage = ImagePicker.getLauncherForSingleSelectImage(this)
     }
 
   /*  override fun onRequestPermissionsResult(
@@ -76,11 +78,6 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
 
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        ImagePicker.showSelectedImages(resultCode, requestCode, data, this)
-    }
-
     //OnClicks functions
     fun onClickSelectCountry(view: View) {
         val listCountry = TreatmentCityList.getAllCountries(this)
@@ -103,8 +100,8 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
 
     fun onClickSelectImages(view: View) {
 //        ImagePicker.getImages(this)
-        if (imageAdapter.mainArray.isEmpty()){
-            ImagePicker.getOptions(this, 5, ImagePicker.REQUEST_CODE_GET_IMAGE)
+        if (imageAdapter.mainArray.size == 0){
+            ImagePicker.launcherOld(this, launcherMultiSelectImages, MAX_IMAGE_COUNT)
         }else{
             openChooseImageFragment(null)
             chooseImageFragment?.updateAdapterFromEdit(imageAdapter.mainArray)

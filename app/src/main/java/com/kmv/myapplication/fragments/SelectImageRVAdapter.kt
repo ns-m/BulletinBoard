@@ -57,7 +57,9 @@ class SelectImageRVAdapter(val adapterCallback: AdapterCallback): RecyclerView.A
             delImage = itemView.findViewById(R.id.bttnImageDel)*/
 
             viewBinding.bttnEditImage.setOnClickListener {
-                ImagePicker.getImages(context as EditAdsAct, 1, ImagePicker.REQUEST_CODE_EDIT_IMAGE)
+                /*ImagePicker.getImages(context as EditAdsAct, 1, ImagePicker.REQUEST_CODE_EDIT_IMAGE)
+                context.editImagePositions = adapterPosition*/
+                ImagePicker.launcher(context as EditAdsAct, context.launcherForSingleSelectImage, 1)
                 context.editImagePositions = adapterPosition
             }
 

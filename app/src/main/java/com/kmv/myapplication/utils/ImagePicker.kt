@@ -36,12 +36,26 @@ object ImagePicker {
         return options
     }
 
-    fun launchMultiSelectImages(editAA: EditAdsAct, launcher: ActivityResultLauncher<Intent>){
+    fun launcher(edAct:EditAdsAct, launcher: ActivityResultLauncher<Intent>?, imageCounter: Int){
+        edAct.addPixToActivity(R.id.placeHolder, getOptions(imageCounter)){
+            when(it.status){
+                PixEventCallback.Status.SUCCESS -> {
+
+                }
+                PixEventCallback.Status.BACK_PRESSED -> {
+
+                }
+            }
+        }
+    }
+
+    fun launcherOld(editAA: EditAdsAct, launcher: ActivityResultLauncher<Intent>?,
+                    imageCounter: Int){
         PermUtil.checkForCamaraWritePermissions(editAA){
             val intent = Intent(editAA, Pix::class.java).apply {
-                putExtra("options", getOptions(MAX_IMAGE_COUNT))
+                putExtra("options", getOptions(imageCounter))
                 }
-            launcher.launch(intent)
+            launcher?.launch(intent)
         }
     }
 
@@ -70,28 +84,17 @@ object ImagePicker {
         }
     }
 
-    fun launcher(edAct:EditAdsAct, launcher: ActivityResultLauncher<Intent>?, imageCounter: Int){
-        edAct.addPixToActivity(R.id.placeHolder, getOptions(imageCounter)){
-            when(it.status){
-                PixEventCallback.Status.SUCCESS -> {
-
+    fun getLauncherForSingleSelectImage(editAA: EditAdsAct): ActivityResultLauncher<Intent> {
+        return editAA.registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+            if (result.resultCode == AppCompatActivity.RESULT_OK) {
+                if (result.data != null) {
+                    val uriValue = result.data?.getStringArrayListExtra(Pix.IMAGE_RESULTS)
+                    editAA.chooseImageFragment?.setSingleImage(
+                        uriValue?.get(0)!!,
+                        editAA.editImagePositions)
                 }
-                    PixEventCallback.Status.BACK_PRESSED -> {
-
-                    }
             }
         }
     }
-
-    fun showSelectedImages(resultCode: Int, requestCode: Int, data: Intent?, editAA: EditAdsAct){
-
-        else if (resultCode == AppCompatActivity.RESULT_OK && requestCode == REQUEST_CODE_EDIT_IMAGE){
-            if (data != null) {
-                val uriValue = data.getStringArrayListExtra(Pix.IMAGE_RESULTS)
-                editAA.chooseImageFragment?.setSingleImage(uriValue?.get(0)!!, editAA.editImagePositions)
-            }
-        }
-    }
-
 
 }
