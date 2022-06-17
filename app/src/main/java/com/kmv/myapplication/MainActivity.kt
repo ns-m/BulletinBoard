@@ -16,6 +16,8 @@ import com.google.android.gms.common.api.ApiException
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.kmv.myapplication.act.EditAdsAct
 import com.kmv.myapplication.adapters.AdsRecyclerViewAdapter
 import com.kmv.myapplication.data.AdData
@@ -30,9 +32,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private lateinit var binding: ActivityMainBinding
     private lateinit var txVwAccount: TextView
     private val dialogSupport = DialogSupport(this)
-    val mainAuth = FirebaseAuth.getInstance()
+    val mainAuth = Firebase.auth
     val dbManager = DbManager(this)
-    val adapter = AdsRecyclerViewAdapter()
+    val adapter = AdsRecyclerViewAdapter(mainAuth)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

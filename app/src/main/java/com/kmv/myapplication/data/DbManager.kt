@@ -8,6 +8,7 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
 
+
 class DbManager(val readDataCallback: ReadDataCallback?) {
     val db = Firebase.database.getReference("main")
     val auth = Firebase.auth

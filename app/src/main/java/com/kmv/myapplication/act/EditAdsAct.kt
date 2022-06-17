@@ -126,7 +126,7 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
                 textViewInputZipcode.text.toString(), textViewInputPhone.text.toString(),
                 checkDelivery.isChecked.toString(), textViewAdTitle.text.toString(),
                 textViewSelectCategory.text.toString(), textViewInputPrice.text.toString(),
-                textViewDescription.text.toString(), dbManager.db.push().key)
+                textViewDescription.text.toString(), dbManager.db.push().key, dbManager.auth.uid)
         }
         return ad
     }
