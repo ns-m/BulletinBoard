@@ -28,12 +28,12 @@ import com.kmv.myapplication.dialogs_support.DialogConsts
 import com.kmv.myapplication.dialogs_support.DialogSupport
 import com.kmv.myapplication.dialogs_support.GoogleAccConsts
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, ReadDataCallback {
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     private lateinit var binding: ActivityMainBinding
     private lateinit var txVwAccount: TextView
     private val dialogSupport = DialogSupport(this)
     val mainAuth = Firebase.auth
-    val dbManager = DbManager(this)
+    //val dbManager = DbManager(this)
     val adapter = AdsRecyclerViewAdapter(mainAuth)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         setContentView(binding.root)
         init()
         initRecyclerView()
-        dbManager.readDataFromDB()
+        //dbManager.readDataFromDB()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -142,7 +142,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
     }
 
-    override fun readData(list: List<AdData>) {
+    /*override fun readData(list: List<AdData>) {
         adapter.updateAdapter(list)
-    }
+    }*/
 }
