@@ -1,15 +1,14 @@
-package com.kmv.myapplication.data
+package com.kmv.myapplication.model
 
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
-import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
 
 
-class DbManager(val readDataCallback: ReadDataCallback?) {
+class DbManager {
     val db = Firebase.database.getReference("main")
     val auth = Firebase.auth
 
@@ -17,7 +16,7 @@ class DbManager(val readDataCallback: ReadDataCallback?) {
         if (auth.uid != null)db.child(auth.uid!!).child(ad.key ?: "none").child("element").setValue(ad)
     }
 
-    fun readDataFromDB(){
+    fun readDataFromDB(readDataCallback: ReadDataCallback?){
         db.addListenerForSingleValueEvent(object : ValueEventListener{
 
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -34,4 +33,9 @@ class DbManager(val readDataCallback: ReadDataCallback?) {
             override fun onCancelled(error: DatabaseError) {}
         })
     }
+
+    interface ReadDataCallback {
+        fun readData(list: ArrayList<AdData>)
+    }
+
 }

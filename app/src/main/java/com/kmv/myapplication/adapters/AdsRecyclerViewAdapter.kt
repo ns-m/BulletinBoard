@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
-import com.kmv.myapplication.data.AdData
+import com.kmv.myapplication.model.AdData
 import com.kmv.myapplication.databinding.AdListItemBinding
 
 class AdsRecyclerViewAdapter(val auth: FirebaseAuth): RecyclerView.Adapter<AdsRecyclerViewAdapter.AdHolder>(){

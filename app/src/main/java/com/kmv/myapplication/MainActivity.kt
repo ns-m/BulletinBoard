@@ -8,25 +8,23 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.common.api.ApiException
 import com.google.android.material.navigation.NavigationView
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.kmv.myapplication.act.EditAdsAct
 import com.kmv.myapplication.adapters.AdsRecyclerViewAdapter
-import com.kmv.myapplication.data.AdData
-import com.kmv.myapplication.data.DbManager
-import com.kmv.myapplication.data.ReadDataCallback
 import com.kmv.myapplication.databinding.ActivityMainBinding
 import com.kmv.myapplication.dialogs_support.DialogConsts
 import com.kmv.myapplication.dialogs_support.DialogSupport
 import com.kmv.myapplication.dialogs_support.GoogleAccConsts
+import com.kmv.myapplication.viewmodel.FirebaseViewModel
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     private lateinit var binding: ActivityMainBinding
@@ -35,6 +33,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     val mainAuth = Firebase.auth
     //val dbManager = DbManager(this)
     val adapter = AdsRecyclerViewAdapter(mainAuth)
+    private val firebaseViewModel: FirebaseViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,6 +42,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         init()
         initRecyclerView()
         //dbManager.readDataFromDB()
+        initViewModel()
+        firebaseViewModel.loadAllAds()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -53,7 +54,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         return super.onOptionsItemSelected(item)
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.main_menu, menu)
         return super.onCreateOptionsMenu(menu)
     }
@@ -76,6 +77,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onStart() {
         super.onStart()
         uiUpdate(mainAuth.currentUser)
+    }
+
+    private fun initViewModel(){
+        firebaseViewModel.liveAdsData.observe(this, {
+            adapter.updateAdapter(it)
+        })
     }
 
     private fun init() {

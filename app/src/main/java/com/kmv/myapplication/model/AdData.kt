@@ -1,4 +1,4 @@
-package com.kmv.myapplication.data
+package com.kmv.myapplication.model
 
 data class AdData(
     val country: String? = null,
