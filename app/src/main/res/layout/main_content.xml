@@ -24,8 +24,23 @@
         android:layout_height="0dp"
         android:background="@color/my_color_light_grayblue"
         android:paddingBottom="5dp"
+        app:layout_constraintBottom_toTopOf="@+id/bttmNavVwMainContent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbarAds"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bttmNavVwMainContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_header_main"
+        app:itemIconTint="@drawable/botton_nav_selector"
+        app:itemTextColor="@color/surface_color_pix"
+        app:labelVisibilityMode="unlabeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbarAds" />
+        app:menu="@menu/botton_main_menu" />
 </androidx.constraintlayout.widget.ConstraintLayout>

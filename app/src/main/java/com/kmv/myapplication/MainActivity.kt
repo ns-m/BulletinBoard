@@ -44,20 +44,22 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         //dbManager.readDataFromDB()
         initViewModel()
         firebaseViewModel.loadAllAds()
+        bottomMenuOnClick()
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.id_new_ads){
-            val intent = Intent(this, EditAdsAct::class.java)
-            startActivity(intent)
-        }
+    override fun onResume() {
+        super.onResume()
+        binding.mainContent.bttmNavVwMainContent.selectedItemId = R.id.id_home_bottom_main_menu
+    }
+
+    /*override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return super.onOptionsItemSelected(item)
-    }
+    }*/
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+/*    override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.main_menu, menu)
         return super.onCreateOptionsMenu(menu)
-    }
+    }*/
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == GoogleAccConsts.SIGN_IN_REQUEST_CODE) {
@@ -98,6 +100,21 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         toggle.syncState()
         binding.navView.setNavigationItemSelectedListener(this)
         txVwAccount = binding.navView.getHeaderView(0).findViewById(R.id.tvHeaderUserName)
+    }
+
+    private fun bottomMenuOnClick()= with(binding){
+        mainContent.bttmNavVwMainContent.setOnNavigationItemSelectedListener { item ->
+            when(item.itemId){
+                R.id.id_new_ad -> {
+                    val intent = Intent(this@MainActivity, EditAdsAct::class.java)
+                    startActivity(intent)
+                }
+                R.id.id_my_ads -> {}
+                R.id.id_my_favorite_ads -> {}
+                R.id.id_home_bottom_main_menu -> {}
+            }
+            true
+        }
     }
 
     private fun initRecyclerView(){
