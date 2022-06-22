@@ -20,29 +20,31 @@ object ImageManager {
 
     fun getImageSize(uri : Uri, activity: Activity) : List<Int>{
         val inStream = activity.contentResolver.openInputStream(uri)
-        val fileTemp = File(activity.cacheDir, "temp.tmp")
+        /*val fileTemp = File(activity.cacheDir, "temp.tmp")
         if (inStream != null) {
             fileTemp.copyInStreamToFile(inStream)
-        }
+        }*/
         val options = BitmapFactory.Options().apply {
             inJustDecodeBounds = true
         }
-        BitmapFactory.decodeFile(fileTemp.path, options)
-        return if(imageRotation(fileTemp) == 90){
+        //BitmapFactory.decodeFile(fileTemp.path, options)
+        /*return if(imageRotation(fileTemp) == 90){
             listOf(options.outHeight, options.outWidth)
         }else{
             listOf(options.outWidth, options.outHeight)
-        }
+        }*/
+        BitmapFactory.decodeStream(inStream, null, options)
+        return listOf(options.outWidth, options.outHeight)
     }
 
-    private fun File.copyInStreamToFile(inStream: InputStream){
+/*    private fun File.copyInStreamToFile(inStream: InputStream){
         this.outputStream().use {
             out -> inStream.copyTo(out)
         }
-    }
+    }*/
 
-    private fun imageRotation(imageFile: File) : Int{
-        /*val imageFile = File(uri)*/
+/*    private fun imageRotation(imageFile: File) : Int{
+        *//*val imageFile = File(uri)*//*
         val exifIntrfs = ExifInterface(imageFile.absolutePath)
         val orientation = exifIntrfs.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL)
         return if(orientation == ExifInterface.ORIENTATION_ROTATE_90 || orientation == ExifInterface.ORIENTATION_ROTATE_270){
@@ -50,7 +52,7 @@ object ImageManager {
         } else{
             0
         }
-    }
+    }*/
 
     fun chooseScaleType(image: ImageView, bitmap: Bitmap){
         if (bitmap.width > bitmap.height){
