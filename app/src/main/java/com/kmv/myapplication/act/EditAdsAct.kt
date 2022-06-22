@@ -101,7 +101,7 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
     fun onClickSelectImages(view: View) {
 //        ImagePicker.getImages(this)
         if (imageAdapter.mainArray.size == 0){
-            ImagePicker.launcherOld(this, launcherMultiSelectImages, MAX_IMAGE_COUNT)
+            ImagePicker.launcher(this, launcherMultiSelectImages, MAX_IMAGE_COUNT)
         }else{
             openChooseImageFragment(null)
             chooseImageFragment?.updateAdapterFromEdit(imageAdapter.mainArray)
