@@ -122,7 +122,7 @@ class ImageListFragment(private val fragmentCloseIntrf: FragmentCloseInterface,
         addImageItem?.setOnMenuItemClickListener{
             val imageCount = ImagePicker.MAX_IMAGE_COUNT - adapter.mainArray.size
             /*ImagePicker.getImages(activity as AppCompatActivity, imageCount, ImagePicker.REQUEST_CODE_GET_IMAGE)*/
-            ImagePicker.launcher(activity as EditAdsAct,
+            ImagePicker.getMultiImages(activity as EditAdsAct,
                 /*(activity as EditAdsAct).launcherMultiSelectImages,*/ imageCount)
             true
         }

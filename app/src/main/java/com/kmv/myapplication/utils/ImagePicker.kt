@@ -37,7 +37,7 @@ object ImagePicker {
         return options
     }
 
-    fun launcher(edAct:EditAdsAct, /*launcher: ActivityResultLauncher<Intent>?,*/ imageCounter: Int){
+    fun getMultiImages(edAct:EditAdsAct, /*launcher: ActivityResultLauncher<Intent>?,*/ imageCounter: Int){
         edAct.addPixToActivity(R.id.placeHolder, getOptions(imageCounter)){ result ->
             when(result.status){
                 PixEventCallback.Status.SUCCESS -> {
@@ -107,16 +107,18 @@ object ImagePicker {
         }
     }
 
-    fun getSingleSelectImage(editAA: EditAdsAct): ActivityResultLauncher<Intent> {
-        return editAA.registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
-            /*if (result.resultCode == AppCompatActivity.RESULT_OK) {
+    private fun singleImage(editAA: EditAdsAct, uri: Uri)/*: ActivityResultLauncher<Intent> */{
+
+        editAA.chooseImageFragment?.setSingleImage(uri, editAA.editImagePositions)
+        /*return editAA.registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+            if (result.resultCode == AppCompatActivity.RESULT_OK) {
                 if (result.data != null) {
                     val uriValue = result.data?.getStringArrayListExtra(Pix.IMAGE_RESULTS)
                     editAA.chooseImageFragment?.setSingleImage(
                         uriValue?.get(0)!!,
                         editAA.editImagePositions)
                 }
-            }*/
-        }
+            }
+        }*/
     }
 

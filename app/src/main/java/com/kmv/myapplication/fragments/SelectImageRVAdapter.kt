@@ -5,9 +5,6 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.kmv.myapplication.R
 import com.kmv.myapplication.act.EditAdsAct
@@ -59,7 +56,7 @@ class SelectImageRVAdapter(val adapterCallback: AdapterCallback): RecyclerView.A
             viewBinding.bttnEditImage.setOnClickListener {
                 /*ImagePicker.getImages(context as EditAdsAct, 1, ImagePicker.REQUEST_CODE_EDIT_IMAGE)
                 context.editImagePositions = adapterPosition*/
-                ImagePicker.launcher(context as EditAdsAct, /*context.launcherForSingleSelectImage,*/ 1)
+                ImagePicker.getMultiImages(context as EditAdsAct, /*context.launcherForSingleSelectImage,*/ 1)
                 context.editImagePositions = adapterPosition
             }
 

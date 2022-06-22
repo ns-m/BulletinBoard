@@ -1,12 +1,10 @@
 package com.kmv.myapplication.act
 
-import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.activity.result.ActivityResultLauncher
 import androidx.appcompat.app.AppCompatActivity
 import com.kmv.myapplication.R
 import com.kmv.myapplication.adapters.ImageAdapter
@@ -105,7 +103,7 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
     fun onClickSelectImages(view: View) {
 //        ImagePicker.getImages(this)
         if (imageAdapter.mainArray.size == 0){
-            ImagePicker.launcher(this, MAX_IMAGE_COUNT)
+            ImagePicker.getMultiImages(this, MAX_IMAGE_COUNT)
         }else{
             openChooseImageFragment(null)
             chooseImageFragment?.updateAdapterFromEdit(imageAdapter.mainArray)
