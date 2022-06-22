@@ -2,6 +2,7 @@ package com.kmv.myapplication.utils
 
 import android.content.Intent
 import android.graphics.Bitmap
+import android.net.Uri
 import android.view.View
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
@@ -36,19 +37,24 @@ object ImagePicker {
         return options
     }
 
-    fun launcher(edAct:EditAdsAct, launcher: ActivityResultLauncher<Intent>?, imageCounter: Int){
+    fun launcher(edAct:EditAdsAct, /*launcher: ActivityResultLauncher<Intent>?,*/ imageCounter: Int){
         edAct.addPixToActivity(R.id.placeHolder, getOptions(imageCounter)){ result ->
             when(result.status){
                 PixEventCallback.Status.SUCCESS -> {
-                    val fList = edAct.supportFragmentManager.fragments
-                    fList.forEach{
-                        if (it.isVisible) edAct.supportFragmentManager.beginTransaction().remove(it).commit()
-                    }
+                    getMultiSelectImages(edAct, result.data)
+                    closePixFragment(edAct)
                 }
                 PixEventCallback.Status.BACK_PRESSED -> {
 
                 }
             }
+        }
+    }
+
+    private fun closePixFragment(edAct: EditAdsAct){
+        val fList = edAct.supportFragmentManager.fragments
+        fList.forEach{
+            if (it.isVisible) edAct.supportFragmentManager.beginTransaction().remove(it).commit()
         }
     }
 
@@ -62,10 +68,10 @@ object ImagePicker {
         }
     }*/
 
-    fun getLauncherForMultiSelectImages(editAA: EditAdsAct): ActivityResultLauncher<Intent>{
-        return editAA.registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
+    fun getMultiSelectImages(editAA: EditAdsAct, uris: List<Uri>)/*: ActivityResultLauncher<Intent>*/{
+        /*return editAA.registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
             result: ActivityResult ->
-            /*if (result.resultCode == AppCompatActivity.RESULT_OK) {
+            if (result.resultCode == AppCompatActivity.RESULT_OK) {
                 if (result.data != null) {
                     val returnValues = result.data?.getStringArrayListExtra(Pix.IMAGE_RESULTS)
                     if (returnValues?.size!! > 1 && editAA.chooseImageFragment == null) {
@@ -81,13 +87,27 @@ object ImagePicker {
                         }
                     }else if (editAA.chooseImageFragment != null) {
                         editAA.chooseImageFragment?.updateAdapter(returnValues)
-                    }
-                }
+                    }*/
+                /*}
             }*/
+        if (uris.size > 1 && editAA.chooseImageFragment == null) {
+            editAA.openChooseImageFragment(uris as ArrayList<Uri> /* = java.util.ArrayList<android.net.Uri> */)
+        } else if (uris.size == 1 && editAA.chooseImageFragment == null) {
+            //imageAdapter.update(returnValues)
+            //val tempList = ImageManager.getImageSize(returnValues[0])
+            CoroutineScope(Dispatchers.Main).launch{
+                editAA.binding.progressBarEditAds.visibility = View.VISIBLE
+                val bitmapArray = ImageManager.imageResize(uris as ArrayList<Uri>, editAA) as ArrayList<Bitmap>
+                editAA.binding.progressBarEditAds.visibility = View.GONE
+                editAA.imageAdapter.update(bitmapArray)
+            }
+        }else if (editAA.chooseImageFragment != null) {
+            editAA.chooseImageFragment?.updateAdapter(uris as ArrayList<Uri>)
+        }
         }
     }
 
-    fun getLauncherForSingleSelectImage(editAA: EditAdsAct): ActivityResultLauncher<Intent> {
+    fun getSingleSelectImage(editAA: EditAdsAct): ActivityResultLauncher<Intent> {
         return editAA.registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
             /*if (result.resultCode == AppCompatActivity.RESULT_OK) {
                 if (result.data != null) {
@@ -100,4 +120,3 @@ object ImagePicker {
         }
     }
 
-}

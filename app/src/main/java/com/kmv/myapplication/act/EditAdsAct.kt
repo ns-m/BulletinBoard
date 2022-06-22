@@ -2,6 +2,7 @@ package com.kmv.myapplication.act
 
 import android.content.Intent
 import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -27,8 +28,11 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
     lateinit var imageAdapter: ImageAdapter
     private val dbManager = DbManager()
     var editImagePositions = 0
-    var launcherMultiSelectImages: ActivityResultLauncher<Intent>? = null
-    var launcherForSingleSelectImage: ActivityResultLauncher<Intent>? = null
+    private var isEditState = false
+    //private var ad: Ad? = null
+
+    /*var launcherMultiSelectImages: ActivityResultLauncher<Intent>? = null
+    var launcherForSingleSelectImage: ActivityResultLauncher<Intent>? = null*/
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,8 +47,8 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
     private fun init() {
         imageAdapter = ImageAdapter()
         binding.viewPagePics.adapter = imageAdapter
-        launcherMultiSelectImages = ImagePicker.getLauncherForMultiSelectImages(this)
-        launcherForSingleSelectImage = ImagePicker.getLauncherForSingleSelectImage(this)
+        /*launcherMultiSelectImages = ImagePicker.getMultiSelectImages(this)
+        launcherForSingleSelectImage = ImagePicker.getLauncherForSingleSelectImage(this)*/
     }
 
   /*  override fun onRequestPermissionsResult(
@@ -101,7 +105,7 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
     fun onClickSelectImages(view: View) {
 //        ImagePicker.getImages(this)
         if (imageAdapter.mainArray.size == 0){
-            ImagePicker.launcher(this, launcherMultiSelectImages, MAX_IMAGE_COUNT)
+            ImagePicker.launcher(this, MAX_IMAGE_COUNT)
         }else{
             openChooseImageFragment(null)
             chooseImageFragment?.updateAdapterFromEdit(imageAdapter.mainArray)
@@ -138,7 +142,7 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
         chooseImageFragment = null
     }
 
-    fun openChooseImageFragment(newList: ArrayList<String>?){
+    fun openChooseImageFragment(newList: ArrayList<Uri>?){
         chooseImageFragment = ImageListFragment(this, newList)
         binding.scrollViewMain.visibility = View.GONE
         val fragmentManager = supportFragmentManager.beginTransaction()
