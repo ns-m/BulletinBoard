@@ -8,6 +8,7 @@ import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import com.kmv.myapplication.R
 import com.kmv.myapplication.act.EditAdsAct
 import io.ak1.pix.helpers.PixEventCallback
@@ -49,6 +50,25 @@ object ImagePicker {
                 }
             }
         }
+    }
+
+    fun getSingleImage(edAct:EditAdsAct){
+        val tmpFragment = edAct.chooseImageFragment
+        edAct.addPixToActivity(R.id.placeHolder, getOptions(1)){ result ->
+            when(result.status){
+                PixEventCallback.Status.SUCCESS -> {
+                    edAct.chooseImageFragment = tmpFragment
+                    openChooseImageFragment(edAct, tmpFragment!!)
+                    singleImage(edAct, result.data[0])
+                }
+                PixEventCallback.Status.BACK_PRESSED -> {
+                }
+            }
+        }
+    }
+
+    private fun openChooseImageFragment(edAct: EditAdsAct, tmpFragment: Fragment){
+        edAct.supportFragmentManager.beginTransaction().replace(R.id.placeHolder, tmpFragment).commit()
     }
 
     private fun closePixFragment(edAct: EditAdsAct){

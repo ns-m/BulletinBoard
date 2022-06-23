@@ -141,7 +141,8 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
     }
 
     fun openChooseImageFragment(newList: ArrayList<Uri>?){
-        chooseImageFragment = ImageListFragment(this, newList)
+        chooseImageFragment = ImageListFragment(this)
+        if (newList != null)chooseImageFragment?.resizeSelectedImages(newList, true)
         binding.scrollViewMain.visibility = View.GONE
         val fragmentManager = supportFragmentManager.beginTransaction()
         fragmentManager.replace(R.id.placeHolder, chooseImageFragment!!)

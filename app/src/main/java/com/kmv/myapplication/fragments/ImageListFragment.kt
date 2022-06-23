@@ -25,8 +25,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-class ImageListFragment(private val fragmentCloseIntrf: FragmentCloseInterface,
-                       private val newList: ArrayList<Uri>?) :  BaseAdsFragment(), AdapterCallback{
+class ImageListFragment(private val fragmentCloseIntrf: FragmentCloseInterface/*,
+                       private val newList: ArrayList<Uri>?*/) :  BaseAdsFragment(), AdapterCallback{
     /*lateinit var binding: ListImageFragmentBinding*/
     val adapter = SelectImageRVAdapter(this)
     val dragCallback = ItemTouchMoveCallback(adapter)
@@ -64,7 +64,7 @@ class ImageListFragment(private val fragmentCloseIntrf: FragmentCloseInterface,
         for (n in 0 until newList.size){
             updateList.add(SelectImageItem(n.toString(), newList[n]))
         }*/
-        if (newList != null) resizeSelectedImages(newList, true)
+        /*if (newList != null) resizeSelectedImages(newList, true)*/
         }
         /*bttnBack.setOnClickListener {*/
         //activity?.supportFragmentManager?.beginTransaction()?.remove(this)?.commit()
@@ -90,7 +90,7 @@ class ImageListFragment(private val fragmentCloseIntrf: FragmentCloseInterface,
         activity?.supportFragmentManager?.beginTransaction()?.remove(this@ImageListFragment)?.commit()
     }
 
-    private fun resizeSelectedImages(newList: ArrayList<Uri>, needClear: Boolean){
+    fun resizeSelectedImages(newList: ArrayList<Uri>, needClear: Boolean){
 
         job = CoroutineScope(Dispatchers.Main).launch {
             val dialog = ProgressDialog.createProgressDialog(activity as Activity)
