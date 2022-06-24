@@ -90,11 +90,11 @@ class ImageListFragment(private val fragmentCloseIntrf: FragmentCloseInterface/*
         activity?.supportFragmentManager?.beginTransaction()?.remove(this@ImageListFragment)?.commit()
     }
 
-    fun resizeSelectedImages(newList: ArrayList<Uri>, needClear: Boolean){
+    fun resizeSelectedImages(newList: ArrayList<Uri>, needClear: Boolean, activity: Activity){
 
         job = CoroutineScope(Dispatchers.Main).launch {
-            val dialog = ProgressDialog.createProgressDialog(activity as Activity)
-            val bitmapList = ImageManager.imageResize(newList, activity as Activity)
+            val dialog = ProgressDialog.createProgressDialog(activity)
+            val bitmapList = ImageManager.imageResize(newList, activity)
             dialog.dismiss()
             adapter.updateAdapter(bitmapList, needClear)
             if (adapter.mainArray.size > ImagePicker.MAX_IMAGE_COUNT - 1) addImageItem?.isVisible = false
@@ -108,6 +108,7 @@ class ImageListFragment(private val fragmentCloseIntrf: FragmentCloseInterface/*
         toolbarImageFragment.inflateMenu(R.menu.menu_choose_image)
         val deleteItem = toolbarImageFragment.menu.findItem(R.id.image_delete_button)
         addImageItem = toolbarImageFragment.menu.findItem(R.id.image_add_button)
+        if (adapter.mainArray.size > ImagePicker.MAX_IMAGE_COUNT - 1) addImageItem?.isVisible = false
 
         toolbarImageFragment.setNavigationOnClickListener {
             showInterAd()
@@ -122,14 +123,14 @@ class ImageListFragment(private val fragmentCloseIntrf: FragmentCloseInterface/*
         addImageItem?.setOnMenuItemClickListener{
             val imageCount = ImagePicker.MAX_IMAGE_COUNT - adapter.mainArray.size
             /*ImagePicker.getImages(activity as AppCompatActivity, imageCount, ImagePicker.REQUEST_CODE_GET_IMAGE)*/
-            ImagePicker.getMultiImages(activity as EditAdsAct,
-                /*(activity as EditAdsAct).launcherMultiSelectImages,*/ imageCount)
+            /*ImagePicker.getMultiImages(activity as EditAdsAct,*//*(activity as EditAdsAct).launcherMultiSelectImages,*//* imageCount)*/
+            ImagePicker.addImages(activity as EditAdsAct, imageCount)
             true
         }
         }
     }
 
-    fun updateAdapter(newList: ArrayList<Uri>){
+    fun updateAdapter(newList: ArrayList<Uri>, activity: Activity){
         /*val updateList = ArrayList<SelectImageItem>()
         for (n in adapter.mainArray.size until newList.size + adapter.mainArray.size){
             updateList.add(SelectImageItem(n.toString(), newList[n - adapter.mainArray.size]))
@@ -139,7 +140,7 @@ class ImageListFragment(private val fragmentCloseIntrf: FragmentCloseInterface/*
             adapter.updateAdapter(bitmapList, false)
         }*/
         //adapter.updateAdapter(newList, false)
-        resizeSelectedImages(newList, false)
+        resizeSelectedImages(newList, false, activity)
     }
 
     fun setSingleImage(uri : Uri, position : Int){

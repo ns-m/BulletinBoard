@@ -43,10 +43,25 @@ object ImagePicker {
             when(result.status){
                 PixEventCallback.Status.SUCCESS -> {
                     getMultiSelectImages(edAct, result.data)
-                    closePixFragment(edAct)
+                    /*closePixFragment(edAct)*/
                 }
                 PixEventCallback.Status.BACK_PRESSED -> {
 
+                }
+            }
+        }
+    }
+
+    fun addImages(edAct:EditAdsAct, /*launcher: ActivityResultLauncher<Intent>?,*/ imageCounter: Int){
+        val tmpFragment = edAct.chooseImageFragment
+        edAct.addPixToActivity(R.id.placeHolder, getOptions(imageCounter)){ result ->
+            when(result.status){
+                PixEventCallback.Status.SUCCESS -> {
+                    /*getMultiSelectImages(edAct, result.data)
+                    closePixFragment(edAct)*/
+                    edAct.chooseImageFragment = tmpFragment
+                    openChooseImageFragment(edAct, tmpFragment!!)
+                    edAct.chooseImageFragment?.updateAdapter(result.data as ArrayList<Uri>, edAct)
                 }
             }
         }
@@ -112,7 +127,7 @@ object ImagePicker {
             }*/
         if (uris.size > 1 && editAA.chooseImageFragment == null) {
             editAA.openChooseImageFragment(uris as ArrayList<Uri> /* = java.util.ArrayList<android.net.Uri> */)
-        } else if (uris.size == 1 && editAA.chooseImageFragment == null) {
+        }else if (uris.size == 1 && editAA.chooseImageFragment == null) {
             //imageAdapter.update(returnValues)
             //val tempList = ImageManager.getImageSize(returnValues[0])
             CoroutineScope(Dispatchers.Main).launch{
@@ -120,10 +135,9 @@ object ImagePicker {
                 val bitmapArray = ImageManager.imageResize(uris as ArrayList<Uri>, editAA) as ArrayList<Bitmap>
                 editAA.binding.progressBarEditAds.visibility = View.GONE
                 editAA.imageAdapter.update(bitmapArray)
+                closePixFragment(editAA)
+                }
             }
-        }else if (editAA.chooseImageFragment != null) {
-            editAA.chooseImageFragment?.updateAdapter(uris as ArrayList<Uri>)
-        }
         }
     }
 
