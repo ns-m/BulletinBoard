@@ -109,9 +109,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     val intent = Intent(this@MainActivity, EditAdsAct::class.java)
                     startActivity(intent)
                 }
-                R.id.id_my_ads -> {}
+                R.id.id_my_ads -> {
+                    firebaseViewModel.loadMyAds()
+                }
                 R.id.id_my_favorite_ads -> {}
-                R.id.id_home_bottom_main_menu -> {}
+                R.id.id_home_bottom_main_menu -> {
+                    firebaseViewModel.loadAllAds()
+                }
             }
             true
         }
