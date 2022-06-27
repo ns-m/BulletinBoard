@@ -111,10 +111,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 }
                 R.id.id_my_ads -> {
                     firebaseViewModel.loadMyAds()
+                    mainContent.toolbarAds.title = getString(R.string.my_ads)
                 }
                 R.id.id_my_favorite_ads -> {}
                 R.id.id_home_bottom_main_menu -> {
                     firebaseViewModel.loadAllAds()
+                    mainContent.toolbarAds.title = getString(R.string.main_ads_screen)
                 }
             }
             true

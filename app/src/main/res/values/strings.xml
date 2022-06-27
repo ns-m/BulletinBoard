@@ -5,6 +5,7 @@
     <!-- Menu Drawer Strings -->
     <string name="category_ads">Category Ads</string>
     <string name="my_ads">My Ads</string>
+    <string name="main_ads_screen">Ads main screen</string>
     <string name="ads_car">Cars</string>
     <string name="ads_pc">PC</string>
     <string name="ads_smartphone">Smartphones</string>
