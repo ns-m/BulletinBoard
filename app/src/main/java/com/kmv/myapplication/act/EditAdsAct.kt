@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.kmv.myapplication.MainActivity
 import com.kmv.myapplication.R
 import com.kmv.myapplication.adapters.ImageAdapter
 import com.kmv.myapplication.model.AdData
@@ -40,6 +41,26 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.selectCountry.adapter = adapter*/
         init()
+    }
+
+    private fun checkEditState(){
+
+    }
+
+    private fun isEditState(): Boolean{
+        return intent.getBooleanExtra(MainActivity.EDIT_STATE, false)
+    }
+
+    private fun fillViews(ad: AdData) = with(binding){
+        textViewSelectCountry.text = ad.country
+        textViewSelectCity.text = ad.city
+        textViewInputZipcode.setText(ad.zipcode)
+        textViewInputPhone.setText(ad.phone)
+        checkDelivery.isChecked = ad.withDelivery.toBoolean()
+        textViewAdTitle.setText(ad.title)
+        textViewSelectCategory.text = ad.category
+        textViewInputPrice.setText(ad.price)
+        textViewDescription.setText(ad.description)
     }
 
     private fun init() {
