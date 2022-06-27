@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.kmv.myapplication.R
+import com.kmv.myapplication.adapters.RCViewDialogSpinnerAdapter
 import com.kmv.myapplication.utils.TreatmentCityList
 
 class DialogSpinner {

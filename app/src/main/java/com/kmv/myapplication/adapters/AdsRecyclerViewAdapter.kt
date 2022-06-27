@@ -1,20 +1,23 @@
 package com.kmv.myapplication.adapters
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
+import com.kmv.myapplication.MainActivity
+import com.kmv.myapplication.act.EditAdsAct
 import com.kmv.myapplication.model.AdData
 import com.kmv.myapplication.databinding.AdListItemBinding
 
-class AdsRecyclerViewAdapter(val auth: FirebaseAuth): RecyclerView.Adapter<AdsRecyclerViewAdapter.AdHolder>(){
+class AdsRecyclerViewAdapter(val activity: MainActivity): RecyclerView.Adapter<AdsRecyclerViewAdapter.AdHolder>(){
     val adArray = ArrayList<AdData>()
     lateinit var binding: AdListItemBinding
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AdHolder {
         binding = AdListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return AdHolder(binding, auth)
+        return AdHolder(binding, activity)
     }
 
     override fun onBindViewHolder(holder: AdHolder, position: Int) {
@@ -31,19 +34,30 @@ class AdsRecyclerViewAdapter(val auth: FirebaseAuth): RecyclerView.Adapter<AdsRe
         notifyDataSetChanged()
     }
 
-    class AdHolder(val binding: AdListItemBinding, val auth: FirebaseAuth): RecyclerView.ViewHolder(binding.root) {
+    class AdHolder(val binding: AdListItemBinding, val activity: MainActivity): RecyclerView.ViewHolder(binding.root) {
 
-        fun setData(ad: AdData){
-            binding.apply {
-                txVwDescription.text = ad.description
-                txVwPrice.text = ad.price
-                txVwAdListItemTitle.text = ad.title
-            }
+        fun setData(ad: AdData) = with(binding) {
+            txVwDescription.text = ad.description
+            txVwPrice.text = ad.price
+            txVwAdListItemTitle.text = ad.title
+
             showEditUserAdPanel(isOwner(ad))
+
+            imgBttnEditAd.setOnClickListener(onClickEdit(ad))
+        }
+
+        private fun onClickEdit(ad: AdData): View.OnClickListener{
+            return View.OnClickListener {
+                val editIntent = Intent(activity, EditAdsAct::class.java).apply {
+                    putExtra(MainActivity.EDIT_STATE, true)
+                    putExtra(MainActivity.ADS_DATA, ad)
+                }
+                activity.startActivity(editIntent)
+            }
         }
 
         private fun isOwner(ad: AdData): Boolean{
-            return ad.uid == auth.uid
+            return ad.uid == activity.mainAuth.uid
         }
 
         private fun showEditUserAdPanel(isOwner: Boolean){

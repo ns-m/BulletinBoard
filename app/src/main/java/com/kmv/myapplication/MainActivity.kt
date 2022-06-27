@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private val dialogSupport = DialogSupport(this)
     val mainAuth = Firebase.auth
     //val dbManager = DbManager(this)
-    val adapter = AdsRecyclerViewAdapter(mainAuth)
+    val adapter = AdsRecyclerViewAdapter(this)
     private val firebaseViewModel: FirebaseViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -175,4 +175,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     /*override fun readData(list: List<AdData>) {
         adapter.updateAdapter(list)
     }*/
+
+    companion object{
+        const val EDIT_STATE = "edit_state"
+        const val ADS_DATA = "ads_data"
+    }
 }

@@ -1,5 +1,7 @@
 package com.kmv.myapplication.model
 
+import java.io.Serializable
+
 data class AdData(
     val country: String? = null,
     val city: String? = null,
@@ -12,4 +14,4 @@ data class AdData(
     val description: String? = null,
     val key: String? = null,
     val uid: String? = null
-)
+):Serializable

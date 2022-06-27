@@ -1,4 +1,4 @@
-package com.kmv.myapplication.fragments
+package com.kmv.myapplication.adapters
 
 import android.annotation.SuppressLint
 import android.content.Context

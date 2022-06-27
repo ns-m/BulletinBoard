@@ -1,15 +1,13 @@
-package com.kmv.myapplication.dialogs_support
+package com.kmv.myapplication.adapters
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.kmv.myapplication.R
-import com.kmv.myapplication.act.EditAdsAct
 
 class RCViewDialogSpinnerAdapter(var txViewSelection: TextView, var dialog: AlertDialog) : RecyclerView.Adapter<RCViewDialogSpinnerAdapter.SpinnerViewHolder>() {
     private val mainList = ArrayList<String>()

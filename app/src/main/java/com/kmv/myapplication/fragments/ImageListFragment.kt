@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kmv.myapplication.R
 import com.kmv.myapplication.act.EditAdsAct
+import com.kmv.myapplication.adapters.SelectImageRVAdapter
 import com.kmv.myapplication.databinding.ListImageFragmentBinding
 import com.kmv.myapplication.dialogs_support.ProgressDialog
 import com.kmv.myapplication.utils.AdapterCallback
