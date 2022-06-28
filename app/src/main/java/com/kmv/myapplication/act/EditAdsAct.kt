@@ -28,7 +28,7 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
     private val dbManager = DbManager()
     var editImagePositions = 0
     private var isEditState = false
-    //private var ad: Ad? = null
+    private var ad: AdData? = null
 
     /*var launcherMultiSelectImages: ActivityResultLauncher<Intent>? = null
     var launcherForSingleSelectImage: ActivityResultLauncher<Intent>? = null*/
@@ -41,10 +41,15 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.selectCountry.adapter = adapter*/
         init()
+        checkEditState()
     }
 
     private fun checkEditState(){
-
+        isEditState = isEditState()
+        if(isEditState()){
+            ad = intent.getSerializableExtra(MainActivity.ADS_DATA) as AdData
+            if (ad != null)fillViews(ad!!)
+        }
     }
 
     private fun isEditState(): Boolean{
@@ -139,7 +144,12 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
     }
 
     fun onClickPublish(view: View){
-        dbManager.publishAd(fillAd())
+        val adTemp = fillAd()
+        if (isEditState){
+            dbManager.publishAd(adTemp.copy(key = ad?.key))
+        }else{
+            dbManager.publishAd(adTemp)
+        }
     }
 
     private fun fillAd(): AdData{

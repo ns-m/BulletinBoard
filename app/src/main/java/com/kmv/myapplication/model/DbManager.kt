@@ -49,4 +49,7 @@ class DbManager {
         fun readData(list: ArrayList<AdData>)
     }
 
+    interface DoneUploadsDataListener{
+        fun onFinish()
+    }
 }
