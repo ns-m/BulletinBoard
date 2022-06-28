@@ -146,9 +146,18 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
     fun onClickPublish(view: View){
         val adTemp = fillAd()
         if (isEditState){
-            dbManager.publishAd(adTemp.copy(key = ad?.key))
+            dbManager.publishAd(adTemp.copy(key = ad?.key), onPublishFinish())
         }else{
-            dbManager.publishAd(adTemp)
+            dbManager.publishAd(adTemp, onPublishFinish())
+        }
+    }
+
+    private fun onPublishFinish(): DbManager.DoneUploadsDataListener{
+
+        return object: DbManager.DoneUploadsDataListener{
+            override fun onFinish() {
+                finish()
+            }
         }
     }
 
