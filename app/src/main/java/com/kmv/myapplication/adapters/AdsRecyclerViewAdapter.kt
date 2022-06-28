@@ -4,12 +4,14 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.kmv.myapplication.MainActivity
 import com.kmv.myapplication.act.EditAdsAct
 import com.kmv.myapplication.model.AdData
 import com.kmv.myapplication.databinding.AdListItemBinding
+import com.kmv.myapplication.utils.DiffUtilHelper
 
 class AdsRecyclerViewAdapter(val activity: MainActivity): RecyclerView.Adapter<AdsRecyclerViewAdapter.AdHolder>(){
     val adArray = ArrayList<AdData>()
@@ -29,9 +31,10 @@ class AdsRecyclerViewAdapter(val activity: MainActivity): RecyclerView.Adapter<A
     }
 
     fun updateAdapter(newList: List<AdData>){
+        val diffResult = DiffUtil.calculateDiff()
         adArray.clear()
         adArray.addAll(newList)
-        notifyDataSetChanged()
+        /*notifyDataSetChanged()*/
     }
 
     class AdHolder(val binding: AdListItemBinding, val activity: MainActivity): RecyclerView.ViewHolder(binding.root) {
@@ -44,6 +47,9 @@ class AdsRecyclerViewAdapter(val activity: MainActivity): RecyclerView.Adapter<A
             showEditUserAdPanel(isOwner(ad))
 
             imgBttnEditAd.setOnClickListener(onClickEdit(ad))
+            imgBttnDeleteAd.setOnClickListener {
+                activity.onDelItem(ad)
+            }
         }
 
         private fun onClickEdit(ad: AdData): View.OnClickListener{
@@ -65,5 +71,9 @@ class AdsRecyclerViewAdapter(val activity: MainActivity): RecyclerView.Adapter<A
                 binding.editUserAdPanel.visibility = View.GONE
             }
         }
+    }
+
+    interface DeleteItemListener{
+        fun onDelItem(ad: AdData)
     }
 }

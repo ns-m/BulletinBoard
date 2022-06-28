@@ -24,9 +24,10 @@ import com.kmv.myapplication.databinding.ActivityMainBinding
 import com.kmv.myapplication.dialogs_support.DialogConsts
 import com.kmv.myapplication.dialogs_support.DialogSupport
 import com.kmv.myapplication.dialogs_support.GoogleAccConsts
+import com.kmv.myapplication.model.AdData
 import com.kmv.myapplication.viewmodel.FirebaseViewModel
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, AdsRecyclerViewAdapter.DeleteItemListener {
     private lateinit var binding: ActivityMainBinding
     private lateinit var txVwAccount: TextView
     private val dialogSupport = DialogSupport(this)
@@ -179,5 +180,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     companion object{
         const val EDIT_STATE = "edit_state"
         const val ADS_DATA = "ads_data"
+    }
+
+    override fun onDelItem(ad: AdData) {
+        firebaseViewModel.delItem(ad)
     }
 }
