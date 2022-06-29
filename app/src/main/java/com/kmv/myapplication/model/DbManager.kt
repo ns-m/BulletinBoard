@@ -53,10 +53,17 @@ class DbManager {
                 val adArray = ArrayList<AdData>()
 
                 for(item in snapshot.children){
-                    val ad = item.children.iterator().next().child(AD_NODE).getValue(AdData::class.java)
-                    if (ad != null)adArray.add(ad)
+                    var ad: AdData? = null
+                    item.children.forEach {
+                        if (ad == null) ad = it.child(AD_NODE).getValue(AdData::class.java)
+                    }
+                    val infoItem = item.child(INFO_NODE).getValue(InfoItem::class.java)
+                    ad?.viewsCounter = infoItem?.viewsCounter ?: "0"
+                    ad?.favoriteCounter = infoItem?.favoriteCounter ?: "0"
+                    ad?.emailsCounter = infoItem?.emailsCounter ?: "0"
+                    ad?.callsCounter = infoItem?.callsCounter ?: "0"
+                    if (ad != null)adArray.add(ad!!)
                 }
-
                 readDataCallback?.readData(adArray)
             }
 
