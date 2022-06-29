@@ -29,6 +29,10 @@ class DbManager {
             .setValue(InfoItem(counter.toString(), ad.favoriteCounter, ad.emailsCounter, ad.callsCounter))
     }
 
+    fun addToFavors(ad: AdData, listener: DoneUploadsDataListener){
+        db.child(ad.key)
+    }
+
     fun getMyAds(readDataCallback: ReadDataCallback?){
         val query = db.orderByChild(auth.uid + "/ad/uid").equalTo(auth.uid)
         readDataFromDB(query, readDataCallback)
