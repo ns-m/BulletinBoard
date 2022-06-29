@@ -31,7 +31,8 @@ class AdsRecyclerViewAdapter(val activity: MainActivity): RecyclerView.Adapter<A
     }
 
     fun updateAdapter(newList: List<AdData>){
-        val diffResult = DiffUtil.calculateDiff()
+        val diffResult = DiffUtil.calculateDiff(DiffUtilHelper(adArray, newList))
+        diffResult.dispatchUpdatesTo(this)
         adArray.clear()
         adArray.addAll(newList)
         /*notifyDataSetChanged()*/
