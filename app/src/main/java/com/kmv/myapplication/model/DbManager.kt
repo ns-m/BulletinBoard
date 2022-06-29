@@ -10,25 +10,32 @@ import com.google.firebase.ktx.Firebase
 
 
 class DbManager {
-    val db = Firebase.database.getReference("main")
+    val db = Firebase.database.getReference(MAIN_NODE)
     val auth = Firebase.auth
 
     fun publishAd(ad: AdData, doneUploadsDataListener: DoneUploadsDataListener){
         /*if (auth.uid != null)db.child(auth.uid!!).child(ad.key ?: "none").child("element").setValue(ad)*/
-        if (auth.uid != null)db.child(ad.key ?: "empty").child(auth.uid!!).child("ad")
+        if (auth.uid != null)db.child(ad.key ?: "empty").child(auth.uid!!).child(AD_NODE)
             .setValue(ad).addOnCompleteListener {
                 /*if (it.isSuccessful)*/
                 doneUploadsDataListener.onFinish()
             }
     }
 
+    fun adViewed(ad: AdData){
+        var counter = ad.viewsCounter.toInt()
+        counter++
+        if (auth.uid != null)db.child(ad.key ?: "empty").child(INFO_NODE)
+            .setValue(InfoItem(counter.toString(), ad.favoriteCounter, ad.emailsCounter, ad.callsCounter))
+    }
+
     fun getMyAds(readDataCallback: ReadDataCallback?){
-        val query = db.orderByValue().equalTo(auth.uid)
+        val query = db.orderByChild(auth.uid + "/ad/uid").equalTo(auth.uid)
         readDataFromDB(query, readDataCallback)
     }
 
     fun getAllAds(readDataCallback: ReadDataCallback?){
-        val query = db.orderByValue().equalTo(auth.uid)
+        val query = db.orderByChild(auth.uid + "/ad/price").equalTo(auth.uid)
         readDataFromDB(query, readDataCallback)
     }
 
@@ -46,7 +53,7 @@ class DbManager {
                 val adArray = ArrayList<AdData>()
 
                 for(item in snapshot.children){
-                    val ad = item.children.iterator().next().child("ad").getValue(AdData::class.java)
+                    val ad = item.children.iterator().next().child(AD_NODE).getValue(AdData::class.java)
                     if (ad != null)adArray.add(ad)
                 }
 
@@ -63,5 +70,11 @@ class DbManager {
 
     interface DoneUploadsDataListener{
         fun onFinish()
+    }
+
+    companion object{
+        const val AD_NODE = "ad"
+        const val INFO_NODE = "info"
+        const val MAIN_NODE = "main"
     }
 }

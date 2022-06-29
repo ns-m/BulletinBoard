@@ -44,9 +44,10 @@ class AdsRecyclerViewAdapter(val activity: MainActivity): RecyclerView.Adapter<A
             txVwDescription.text = ad.description
             txVwPrice.text = ad.price
             txVwAdListItemTitle.text = ad.title
-
             showEditUserAdPanel(isOwner(ad))
-
+            itemView.setOnClickListener {
+                activity.onAdViewed(ad)
+            }
             imgBttnEditAd.setOnClickListener(onClickEdit(ad))
             imgBttnDeleteAd.setOnClickListener {
                 activity.onDelItem(ad)
@@ -74,7 +75,8 @@ class AdsRecyclerViewAdapter(val activity: MainActivity): RecyclerView.Adapter<A
         }
     }
 
-    interface DeleteItemListener{
+    interface ItemListener{
         fun onDelItem(ad: AdData)
+        fun onAdViewed(ad: AdData)
     }
 }

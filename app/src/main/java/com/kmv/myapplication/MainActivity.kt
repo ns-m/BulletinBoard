@@ -4,7 +4,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.Menu
 import android.view.MenuItem
 import android.widget.TextView
 import android.widget.Toast
@@ -27,7 +26,7 @@ import com.kmv.myapplication.dialogs_support.GoogleAccConsts
 import com.kmv.myapplication.model.AdData
 import com.kmv.myapplication.viewmodel.FirebaseViewModel
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, AdsRecyclerViewAdapter.DeleteItemListener {
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, AdsRecyclerViewAdapter.ItemListener {
     private lateinit var binding: ActivityMainBinding
     private lateinit var txVwAccount: TextView
     private val dialogSupport = DialogSupport(this)
@@ -184,5 +183,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onDelItem(ad: AdData) {
         firebaseViewModel.delItem(ad)
+    }
+
+    override fun onAdViewed(ad: AdData) {
+        firebaseViewModel.adViewed(ad)
     }
 }

@@ -28,6 +28,10 @@ class FirebaseViewModel: ViewModel() {
         })
     }
 
+    fun adViewed(adData: AdData){
+        dbManager.adViewed(adData)
+    }
+
     fun delItem(adData: AdData){
         dbManager.delAd(adData, object: DbManager.DoneUploadsDataListener{
             override fun onFinish() {
