@@ -1,4 +1,4 @@
-package com.kmv.myapplication.dialogs_support
+package com.kmv.myapplication.constants
 
 object DialogConsts {
     const val SIGN_UP_STATE = 0

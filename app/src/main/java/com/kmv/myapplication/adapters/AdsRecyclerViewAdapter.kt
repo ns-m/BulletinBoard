@@ -54,7 +54,7 @@ class AdsRecyclerViewAdapter(val activity: MainActivity): RecyclerView.Adapter<A
                 imgBttnFavorite.setImageResource(R.drawable.ic_favorite_normal)
             }
             imgBttnFavorite.setOnClickListener {
-                activity.onFavorClicked(ad)
+                if (activity.mainAuth.currentUser?.isAnonymous == false)activity.onFavorClicked(ad)
             }
             itemView.setOnClickListener {
                 activity.onAdViewed(ad)

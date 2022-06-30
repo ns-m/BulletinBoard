@@ -28,6 +28,7 @@
     <string name="sign_in_error">Failed to login</string>
     <string name="sign_up_send_email">Confirmation email sent to you, please confirm your registration</string>
     <string name="sign_up_error_send_email">Failed to send email</string>
+    <string name="sign_in_anonym">Quest user</string>
     <string name="tx_view_message">Please specify the email address for password recovery</string>
     <!-- Other Strings -->
     <string name="user_avatar">User avatar</string>

@@ -9,7 +9,7 @@ import com.google.firebase.auth.*
 import com.kmv.myapplication.MainActivity
 import com.kmv.myapplication.R
 import com.kmv.myapplication.constants.FirebaseAuthConstants
-import com.kmv.myapplication.dialogs_support.GoogleAccConsts
+import com.kmv.myapplication.constants.GoogleAccConsts
 
 class AccountAuthentication(act: MainActivity) {
     private val act = act
@@ -117,12 +117,16 @@ class AccountAuthentication(act: MainActivity) {
 
     fun signInFirebaseWithGoogle(token: String) {
         val credential = GoogleAuthProvider.getCredential(token, null)
-        act.mainAuth.signInWithCredential(credential).addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                Toast.makeText(act, "Sign in done", Toast.LENGTH_LONG).show()
-                act.uiUpdate(task.result?.user)
-            }else{
-                Log.d("MyLog", "Google Sign in Exception error : ${task.exception}")
+        act.mainAuth.currentUser?.delete()?.addOnCompleteListener { task->
+            if (task.isSuccessful){
+                act.mainAuth.signInWithCredential(credential).addOnCompleteListener { task2 ->
+                    if (task2.isSuccessful) {
+                        Toast.makeText(act, "Sign in done", Toast.LENGTH_LONG).show()
+                        act.uiUpdate(task2.result?.user)
+                    }else{
+                        Log.d("MyLog", "Google Sign in Exception error : ${task2.exception}")
+                    }
+                }
             }
         }
     }
@@ -146,6 +150,16 @@ class AccountAuthentication(act: MainActivity) {
         }
     }
 
+    fun signInAnonym(listener: Listener){
+        act.mainAuth.signInAnonymously().addOnCompleteListener {task->
+            if (task.isSuccessful){
+                listener.onComplete()
+            }else{
+
+            }
+        }
+    }
+
     private fun connectEmailGoogleAcc(email:String, password:String){
         val credential = EmailAuthProvider.getCredential(email, password)
         if (act.mainAuth.currentUser != null){
@@ -158,5 +172,9 @@ class AccountAuthentication(act: MainActivity) {
             Toast.makeText(act, act.resources.getString(R.string.you_need_signin_google), Toast.LENGTH_LONG).show()
         }
     }
-//end class
+
+    interface Listener{
+        fun onComplete()
+    }
+
 }

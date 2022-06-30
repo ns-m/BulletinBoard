@@ -6,10 +6,10 @@ import android.widget.Toast
 import com.kmv.myapplication.MainActivity
 import com.kmv.myapplication.R
 import com.kmv.myapplication.authentication.AccountAuthentication
+import com.kmv.myapplication.constants.DialogConsts
 import com.kmv.myapplication.databinding.SignDialogBinding
 
-class DialogSupport(act: MainActivity) {
-    private val act = act
+class DialogSupport(val act: MainActivity) {
     val accAuth = AccountAuthentication(act)
 
     fun createSingDialog(intCode: Int) {
