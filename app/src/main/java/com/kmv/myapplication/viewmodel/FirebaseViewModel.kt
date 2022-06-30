@@ -28,6 +28,21 @@ class FirebaseViewModel: ViewModel() {
         })
     }
 
+    fun onFavorClick(adData: AdData){
+        dbManager.onFavorClick(adData, object: DbManager.DoneUploadsDataListener{
+            override fun onFinish() {
+                val updatedList = liveAdsData.value
+                val postn = updatedList?.indexOf(adData)
+                if (postn != -1){
+                    postn?.let {
+                        updatedList[postn] = updatedList[postn].copy(isFavor = !adData.isFavor)
+                    }
+                }
+                liveAdsData.postValue(updatedList)
+            }
+        })
+    }
+
     fun adViewed(adData: AdData){
         dbManager.adViewed(adData)
     }

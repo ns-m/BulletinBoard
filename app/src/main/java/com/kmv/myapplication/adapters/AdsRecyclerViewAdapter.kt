@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.kmv.myapplication.MainActivity
+import com.kmv.myapplication.R
 import com.kmv.myapplication.act.EditAdsAct
 import com.kmv.myapplication.model.AdData
 import com.kmv.myapplication.databinding.AdListItemBinding
@@ -46,6 +47,14 @@ class AdsRecyclerViewAdapter(val activity: MainActivity): RecyclerView.Adapter<A
             txVwAdListItemTitle.text = ad.title
             txVwCounter.text = ad.viewsCounter
             showEditUserAdPanel(isOwner(ad))
+            if (ad.isFavor){
+                imgBttnFavorite.setImageResource(R.drawable.ic_favorite_pressed)
+            }else{
+                imgBttnFavorite.setImageResource(R.drawable.ic_favorite_normal)
+            }
+            imgBttnFavorite.setOnClickListener {
+                activity.onFavorClicked(ad)
+            }
             itemView.setOnClickListener {
                 activity.onAdViewed(ad)
             }
@@ -79,5 +88,6 @@ class AdsRecyclerViewAdapter(val activity: MainActivity): RecyclerView.Adapter<A
     interface ItemListener{
         fun onDelItem(ad: AdData)
         fun onAdViewed(ad: AdData)
+        fun onFavorClicked(ad: AdData)
     }
 }

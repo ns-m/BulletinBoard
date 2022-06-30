@@ -26,11 +26,37 @@ class DbManager {
         var counter = ad.viewsCounter.toInt()
         counter++
         if (auth.uid != null)db.child(ad.key ?: "empty").child(INFO_NODE)
-            .setValue(InfoItem(counter.toString(), ad.favoriteCounter, ad.emailsCounter, ad.callsCounter))
+            .setValue(InfoItem(counter.toString(), ad.emailsCounter, ad.callsCounter))
     }
 
-    fun addToFavors(ad: AdData, listener: DoneUploadsDataListener){
-        db.child(ad.key)
+    fun onFavorClick(ad: AdData, listener: DoneUploadsDataListener){
+        if (ad.isFavor){
+            delFromFavors(ad, listener)
+        }else{
+            addToFavors(ad, listener)
+        }
+    }
+
+    private fun addToFavors(ad: AdData, listener: DoneUploadsDataListener){
+        ad.key?.let {
+            auth.uid?.let {
+                    uid -> db.child(it).child(FAVORS_NODE).child(uid).setValue(uid)
+                .addOnCompleteListener {
+                if (it.isSuccessful) listener.onFinish()
+            }
+            }
+        }
+    }
+
+    private fun delFromFavors(ad: AdData, listener: DoneUploadsDataListener){
+        ad.key?.let {
+            auth.uid?.let {
+                    uid -> db.child(it).child(FAVORS_NODE).child(uid).removeValue()
+                .addOnCompleteListener {
+                    if (it.isSuccessful) listener.onFinish()
+                }
+            }
+        }
     }
 
     fun getMyAds(readDataCallback: ReadDataCallback?){
@@ -63,7 +89,6 @@ class DbManager {
                     }
                     val infoItem = item.child(INFO_NODE).getValue(InfoItem::class.java)
                     ad?.viewsCounter = infoItem?.viewsCounter ?: "0"
-                    ad?.favoriteCounter = infoItem?.favoriteCounter ?: "0"
                     ad?.emailsCounter = infoItem?.emailsCounter ?: "0"
                     ad?.callsCounter = infoItem?.callsCounter ?: "0"
                     if (ad != null)adArray.add(ad!!)
@@ -87,5 +112,6 @@ class DbManager {
         const val AD_NODE = "ad"
         const val INFO_NODE = "info"
         const val MAIN_NODE = "main"
+        const val FAVORS_NODE = "favors"
     }
 }

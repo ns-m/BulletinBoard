@@ -15,7 +15,7 @@ data class AdData(
     val key: String? = null,
     val uid: String? = null,
     var viewsCounter: String = "0",
-    var favoriteCounter: String = "0",
+    var isFavor: Boolean = false,
     var emailsCounter: String = "0",
     var callsCounter: String = "0"
 ):Serializable
