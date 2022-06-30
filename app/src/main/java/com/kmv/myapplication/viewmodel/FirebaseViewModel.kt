@@ -24,7 +24,15 @@ class FirebaseViewModel: ViewModel() {
             override fun readData(list: ArrayList<AdData>) {
                 liveAdsData.value = list
             }
+        })
+    }
 
+    fun loadMyFavors(){
+        dbManager.getMyFavors(object: DbManager.ReadDataCallback{
+
+            override fun readData(list: ArrayList<AdData>) {
+                liveAdsData.value = list
+            }
         })
     }
 

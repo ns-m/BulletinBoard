@@ -40,7 +40,7 @@
     <string name="you_need_signin_google">You must SignIn to Google account</string>
     <!-- Main New Ads and Bottom Main Menu Strings -->
     <string name="new_ad">New ad</string>
-    <string name="my_favorite_ads">My favorite ads</string>
+    <string name="my_favorite_ads">My favors ads</string>
     <string name="home_bottom_main_menu">Home bottom menu</string>
     <!-- Edit Ads -->
     <string name="desc_edit_ad">Edit ad page</string>
