@@ -46,6 +46,7 @@ class AdsRecyclerViewAdapter(val activity: MainActivity): RecyclerView.Adapter<A
             txVwPrice.text = ad.price
             txVwAdListItemTitle.text = ad.title
             txVwCounter.text = ad.viewsCounter
+            txVwFavorite.text = ad.favorsCounter
             showEditUserAdPanel(isOwner(ad))
             if (ad.isFavor){
                 imgBttnFavorite.setImageResource(R.drawable.ic_favorite_pressed)

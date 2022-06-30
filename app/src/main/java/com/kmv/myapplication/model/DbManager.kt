@@ -88,7 +88,12 @@ class DbManager {
                         if (ad == null) ad = it.child(AD_NODE).getValue(AdData::class.java)
                     }
                     val infoItem = item.child(INFO_NODE).getValue(InfoItem::class.java)
+                    val favorsCounter = item.child(FAVORS_NODE).childrenCount
+                    val isFavor = auth.uid?.let { item.child(FAVORS_NODE).child(it).getValue(String::class.java) }
+
+                    ad?.isFavor = isFavor != null
                     ad?.viewsCounter = infoItem?.viewsCounter ?: "0"
+                    ad?.favorsCounter = favorsCounter.toString()
                     ad?.emailsCounter = infoItem?.emailsCounter ?: "0"
                     ad?.callsCounter = infoItem?.callsCounter ?: "0"
                     if (ad != null)adArray.add(ad!!)
