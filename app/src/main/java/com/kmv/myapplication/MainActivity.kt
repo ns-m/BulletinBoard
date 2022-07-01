@@ -1,3 +1,5 @@
+@file:Suppress("OverrideDeprecatedMigration")
+
 package com.kmv.myapplication
 
 import android.content.Intent
