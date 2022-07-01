@@ -20,7 +20,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 object ImagePicker {
-    const val MAX_IMAGE_COUNT = 5
+    const val MAX_IMAGE_COUNT = 3
     /*const val REQUEST_CODE_GET_IMAGE = 500
     const val REQUEST_CODE_EDIT_IMAGE = 505*/
     private fun getOptions(imageCounter: Int): Options{
