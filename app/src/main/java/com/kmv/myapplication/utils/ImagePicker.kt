@@ -53,14 +53,15 @@ object ImagePicker {
     }
 
     fun addImages(edAct:EditAdsAct, /*launcher: ActivityResultLauncher<Intent>?,*/ imageCounter: Int){
-        val tmpFragment = edAct.chooseImageFragment
+        //val tmpFragment = edAct.chooseImageFragment
         edAct.addPixToActivity(R.id.placeHolder, getOptions(imageCounter)){ result ->
             when(result.status){
                 PixEventCallback.Status.SUCCESS -> {
                     /*getMultiSelectImages(edAct, result.data)
                     closePixFragment(edAct)*/
-                    edAct.chooseImageFragment = tmpFragment
-                    openChooseImageFragment(edAct, tmpFragment!!)
+                    //edAct.chooseImageFragment = tmpFragment
+                    //openChooseImageFragment(edAct, tmpFragment!!)
+                    openChooseImageFragment(edAct)
                     edAct.chooseImageFragment?.updateAdapter(result.data as ArrayList<Uri>, edAct)
                 }
             }
@@ -68,12 +69,12 @@ object ImagePicker {
     }
 
     fun getSingleImage(edAct:EditAdsAct){
-        val tmpFragment = edAct.chooseImageFragment
+        //val tmpFragment = edAct.chooseImageFragment
         edAct.addPixToActivity(R.id.placeHolder, getOptions(1)){ result ->
             when(result.status){
                 PixEventCallback.Status.SUCCESS -> {
-                    edAct.chooseImageFragment = tmpFragment
-                    openChooseImageFragment(edAct, tmpFragment!!)
+                    //edAct.chooseImageFragment = tmpFragment
+                    openChooseImageFragment(edAct/*, tmpFragment!!*/)
                     singleImage(edAct, result.data[0])
                 }
                 PixEventCallback.Status.BACK_PRESSED -> {
@@ -82,8 +83,9 @@ object ImagePicker {
         }
     }
 
-    private fun openChooseImageFragment(edAct: EditAdsAct, tmpFragment: Fragment){
-        edAct.supportFragmentManager.beginTransaction().replace(R.id.placeHolder, tmpFragment).commit()
+    private fun openChooseImageFragment(edAct: EditAdsAct/*, tmpFragment: Fragment*/){
+        edAct.supportFragmentManager.beginTransaction().replace(R.id.placeHolder,
+            edAct.chooseImageFragment!!/*tmpFragment*/).commit()
     }
 
     private fun closePixFragment(edAct: EditAdsAct){

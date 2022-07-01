@@ -188,4 +188,12 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
         fragmentManager.replace(R.id.placeHolder, chooseImageFragment!!)
         fragmentManager.commit()
     }
+
+    private fun uploadImages(){
+
+    }
+
+    private fun prepareImageByteArray(){
+
+    }
 }
