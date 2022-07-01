@@ -6,13 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.auth.FirebaseAuth
 import com.kmv.myapplication.MainActivity
 import com.kmv.myapplication.R
 import com.kmv.myapplication.act.EditAdsAct
 import com.kmv.myapplication.model.AdData
 import com.kmv.myapplication.databinding.AdListItemBinding
 import com.kmv.myapplication.utils.DiffUtilHelper
+import com.squareup.picasso.Picasso
 
 class AdsRecyclerViewAdapter(val activity: MainActivity): RecyclerView.Adapter<AdsRecyclerViewAdapter.AdHolder>(){
     val adArray = ArrayList<AdData>()
@@ -47,12 +47,13 @@ class AdsRecyclerViewAdapter(val activity: MainActivity): RecyclerView.Adapter<A
             txVwAdListItemTitle.text = ad.title
             txVwCounter.text = ad.viewsCounter
             txVwFavorite.text = ad.favorsCounter
+            Picasso.get().load(ad.mainImage).into(imgVwMainAdImg)
             showEditUserAdPanel(isOwner(ad))
-            if (ad.isFavor){
-                imgBttnFavorite.setImageResource(R.drawable.ic_favorite_pressed)
-            }else{
-                imgBttnFavorite.setImageResource(R.drawable.ic_favorite_normal)
-            }
+            isFavor(ad)
+            mainOnClick(ad)
+        }
+
+        private fun  mainOnClick(ad: AdData) = with(binding){
             imgBttnFavorite.setOnClickListener {
                 if (activity.mainAuth.currentUser?.isAnonymous == false)activity.onFavorClicked(ad)
             }
@@ -62,6 +63,14 @@ class AdsRecyclerViewAdapter(val activity: MainActivity): RecyclerView.Adapter<A
             imgBttnEditAd.setOnClickListener(onClickEdit(ad))
             imgBttnDeleteAd.setOnClickListener {
                 activity.onDelItem(ad)
+            }
+        }
+
+        private fun isFavor(ad: AdData){
+            if (ad.isFavor){
+                binding.imgBttnFavorite.setImageResource(R.drawable.ic_favorite_pressed)
+            }else{
+                binding.imgBttnFavorite.setImageResource(R.drawable.ic_favorite_normal)
             }
         }
 
