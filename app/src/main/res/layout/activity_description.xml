@@ -94,7 +94,7 @@
                     android:layout_weight="0"
                     android:background="@drawable/edit_image_button"
                     android:padding="10dp"
-                    android:text="@string/vw_text_price_descr"
+                    android:text="@string/vw_text_price"
                     android:textColor="@color/my_color_blue"
                     android:textStyle="bold" />
 
@@ -144,18 +144,18 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/textView4"
+                    android:id="@+id/txVwDescrEmailText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0"
                     android:background="@drawable/edit_image_button"
                     android:padding="10dp"
-                    android:text="@string/vw_text_price_descr"
+                    android:text="@string/sign_email_desc"
                     android:textColor="@color/my_color_blue"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/textView5"
+                    android:id="@+id/txVwDescrEmailValue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0"
@@ -172,18 +172,18 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/textView4"
+                    android:id="@+id/txVwDescrCountryText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0"
                     android:background="@drawable/edit_image_button"
                     android:padding="10dp"
-                    android:text="@string/vw_text_price_descr"
+                    android:text="@string/vw_text_country"
                     android:textColor="@color/my_color_blue"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/textView5"
+                    android:id="@+id/txVwDescrCountryValue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0"
@@ -200,18 +200,18 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/textView4"
+                    android:id="@+id/txVwDescrCityText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0"
                     android:background="@drawable/edit_image_button"
                     android:padding="10dp"
-                    android:text="@string/vw_text_price_descr"
+                    android:text="@string/vw_text_city"
                     android:textColor="@color/my_color_blue"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/textView5"
+                    android:id="@+id/txVwDescrCityValue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0"
@@ -228,18 +228,18 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/textView4"
+                    android:id="@+id/txVwDescrZipcodeText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0"
                     android:background="@drawable/edit_image_button"
                     android:padding="10dp"
-                    android:text="@string/vw_text_price_descr"
+                    android:text="@string/vw_text_zipcode"
                     android:textColor="@color/my_color_blue"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/textView5"
+                    android:id="@+id/txVwDescrZipcodeValue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0"
@@ -257,18 +257,18 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/textView4"
+                    android:id="@+id/txVwDescrDeliveryText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0"
                     android:background="@drawable/edit_image_button"
                     android:padding="10dp"
-                    android:text="@string/vw_text_price_descr"
+                    android:text="@string/vw_text_delivery"
                     android:textColor="@color/my_color_blue"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/textView5"
+                    android:id="@+id/txVwDescrDeliveryValue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0"
@@ -280,4 +280,36 @@
             </LinearLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        android:orientation="horizontal"
+        android:paddingTop="10dp">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/floatingActBttnEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="5dp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/my_color_blue"
+            android:clickable="true"
+            app:srcCompat="@drawable/ic_email"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/floatingActBttnPhone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="5dp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/my_color_blue"
+            android:clickable="true"
+            app:srcCompat="@drawable/ic_phone"
+            tools:ignore="SpeakableTextPresentCheck" />
+    </LinearLayout>
 </LinearLayout>
