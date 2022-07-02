@@ -64,6 +64,7 @@ object ImagePicker {
                     openChooseImageFragment(edAct)
                     edAct.chooseImageFragment?.updateAdapter(result.data as ArrayList<Uri>, edAct)
                 }
+                else -> {return@addPixToActivity}
             }
         }
     }

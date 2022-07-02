@@ -88,7 +88,7 @@
                     android:paddingTop="3dp"
                     android:paddingEnd="5dp"
                     android:paddingBottom="3dp"
-                    android:text="@string/vw_text_price_descr"
+                    android:text="@string/vw_text_price"
                     android:textColor="@color/my_color_dark_blue_tx"
                     android:textSize="16sp"
                     android:textStyle="bold" />
