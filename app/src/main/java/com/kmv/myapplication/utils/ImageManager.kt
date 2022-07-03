@@ -92,4 +92,16 @@ object ImageManager {
 
         return@withContext bitmapList
     }
+
+    suspend fun getBitmapFromUris(uris: List<String?>): List<Bitmap> = withContext(Dispatchers.IO){
+        val bitmapList = ArrayList<Bitmap>()
+
+        for (element in uris.indices) {
+            kotlin.runCatching {
+                bitmapList.add(Picasso.get().load(uris[element]).get())
+            }
+        }
+
+        return@withContext bitmapList
+    }
 }

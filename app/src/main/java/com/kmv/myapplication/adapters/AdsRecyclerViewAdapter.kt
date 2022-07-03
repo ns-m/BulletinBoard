@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.kmv.myapplication.MainActivity
 import com.kmv.myapplication.R
+import com.kmv.myapplication.act.DescriptionActivity
+import com.kmv.myapplication.act.DescriptionActivity.Companion.OBJECT_AD
 import com.kmv.myapplication.act.EditAdsAct
 import com.kmv.myapplication.model.AdData
 import com.kmv.myapplication.databinding.AdListItemBinding
@@ -63,6 +65,11 @@ class AdsRecyclerViewAdapter(val activity: MainActivity): RecyclerView.Adapter<A
             imgBttnEditAd.setOnClickListener(onClickEdit(ad))
             imgBttnDeleteAd.setOnClickListener {
                 activity.onDelItem(ad)
+            }
+            itemView.setOnClickListener {
+                val intnt = Intent(binding.root.context, DescriptionActivity::class.java)
+                intnt.putExtra(OBJECT_AD, ad)
+                binding.root.context.startActivity(intnt)
             }
         }
 
