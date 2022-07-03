@@ -3,6 +3,7 @@ package com.kmv.myapplication.act
 import android.graphics.Bitmap
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.kmv.myapplication.R
 import com.kmv.myapplication.adapters.ImageAdapter
 import com.kmv.myapplication.databinding.ActivityDescriptionBinding
 import com.kmv.myapplication.model.AdData
@@ -20,6 +21,7 @@ class DescriptionActivity : AppCompatActivity() {
         binding = ActivityDescriptionBinding.inflate(layoutInflater)
         setContentView(binding.root)
         init()
+        updateUI(adData = AdData())
     }
 
     private fun init(){
@@ -32,7 +34,27 @@ class DescriptionActivity : AppCompatActivity() {
 
     private fun getIntentFromMainAct(){
         val ad = intent.getSerializableExtra(OBJECT_AD) as AdData
-        fillImagesArray(ad)
+        updateUI(ad)
+    }
+
+    private fun updateUI(adData: AdData) {
+        fillImagesArray(adData)
+        fillTextViews(adData)
+    }
+
+    private fun fillTextViews(adData: AdData) = with(binding){
+        txVwDescrMainTitle.text = adData.title
+        txVwDescriptionAct.text = adData.description
+        txVwDescrPriceValue.text = adData.price
+        txVwDescrPhoneValue.text = adData.phone
+        txVwDescrCountryValue.text = adData.country
+        txVwDescrCityValue.text = adData.city
+        txVwDescrZipcodeValue.text = adData.zipcode
+        txVwDescrDeliveryValue.text = isWithDelivery(adData.withDelivery.toBoolean())
+    }
+
+    private fun isWithDelivery(withDelivery: Boolean): String{
+        return if (withDelivery) getString(R.string.tx_yes) else getString(R.string.tx_no)
     }
 
     private fun fillImagesArray(adData: AdData){
