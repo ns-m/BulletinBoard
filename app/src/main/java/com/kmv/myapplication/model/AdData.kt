@@ -7,6 +7,7 @@ data class AdData(
     val city: String? = null,
     val zipcode: String? = null,
     val phone: String? = null,
+    val email: String? = null,
     val withDelivery: String? = null,
     val title: String? = null,
     val category: String? = null,

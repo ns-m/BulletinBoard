@@ -170,7 +170,7 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
         binding.apply {
             ad = AdData(textViewSelectCountry.text.toString(), textViewSelectCity.text.toString(),
                 textViewInputZipcode.text.toString(), textViewInputPhone.text.toString(),
-                checkDelivery.isChecked.toString(), textViewAdTitle.text.toString(),
+                textViewInputEmail.text.toString(), checkDelivery.isChecked.toString(), textViewAdTitle.text.toString(),
                 textViewSelectCategory.text.toString(), textViewInputPrice.text.toString(),
                 textViewDescription.text.toString(), dbManager.db.push().key, dbManager.auth.uid,
                 "empty", "empty", "empty")

@@ -1,5 +1,6 @@
 package com.kmv.myapplication.act
 
+import android.content.Intent
 import android.graphics.Bitmap
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -15,13 +16,15 @@ import kotlinx.coroutines.launch
 class DescriptionActivity : AppCompatActivity() {
     lateinit var binding: ActivityDescriptionBinding
     lateinit var adapter: ImageAdapter
+    private var adData: AdData? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDescriptionBinding.inflate(layoutInflater)
         setContentView(binding.root)
         init()
-        updateUI(adData = AdData())
+        binding.floatingActBttnPhone.setOnClickListener{}
+        binding.floatingActBttnEmail.setOnClickListener{}
     }
 
     private fun init(){
@@ -33,8 +36,8 @@ class DescriptionActivity : AppCompatActivity() {
     }
 
     private fun getIntentFromMainAct(){
-        val ad = intent.getSerializableExtra(OBJECT_AD) as AdData
-        updateUI(ad)
+        adData = intent.getSerializableExtra(OBJECT_AD) as AdData
+        if (adData != null)updateUI(adData!!)
     }
 
     private fun updateUI(adData: AdData) {
@@ -47,6 +50,7 @@ class DescriptionActivity : AppCompatActivity() {
         txVwDescriptionAct.text = adData.description
         txVwDescrPriceValue.text = adData.price
         txVwDescrPhoneValue.text = adData.phone
+        txVwDescrEmailValue.text = adData.email
         txVwDescrCountryValue.text = adData.country
         txVwDescrCityValue.text = adData.city
         txVwDescrZipcodeValue.text = adData.zipcode
@@ -67,5 +71,14 @@ class DescriptionActivity : AppCompatActivity() {
 
     companion object{
         const val OBJECT_AD = "AD"
+    }
+
+    private fun callAction(){
+        val callUri = "phone:${adData?.phone}"
+        val intntCall = Intent(Intent.ACTION_DIAL)
+    }
+
+    private fun emailAction(){
+
     }
 }
