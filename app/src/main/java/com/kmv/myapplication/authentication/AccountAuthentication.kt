@@ -191,7 +191,8 @@ class AccountAuthentication(act: MainActivity) {
     fun singInWithGoogle() {
         signInClient = getSignInClient()
         val intent = signInClient.signInIntent
-        act.startActivityForResult(intent, GoogleAccConsts.SIGN_IN_REQUEST_CODE)
+        /*act.startActivityForResult(intent, GoogleAccConsts.SIGN_IN_REQUEST_CODE)*/
+        act.googleSignInLauncher.launch(intent)
     }
 
     fun singOutGoogle() {

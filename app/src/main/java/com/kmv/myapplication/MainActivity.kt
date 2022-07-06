@@ -5,13 +5,19 @@ package com.kmv.myapplication
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -27,17 +33,19 @@ import com.kmv.myapplication.authentication.AccountAuthentication
 import com.kmv.myapplication.databinding.ActivityMainBinding
 import com.kmv.myapplication.constants.DialogConsts
 import com.kmv.myapplication.dialogs_support.DialogSupport
-import com.kmv.myapplication.constants.GoogleAccConsts
 import com.kmv.myapplication.model.AdData
 import com.kmv.myapplication.viewmodel.FirebaseViewModel
+import com.squareup.picasso.Picasso
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, AdsRecyclerViewAdapter.ItemListener {
     private lateinit var binding: ActivityMainBinding
     private lateinit var txVwAccount: TextView
+    private lateinit var imgVwAccount: ImageView
     private val dialogSupport = DialogSupport(this)
     val mainAuth = Firebase.auth
     //val dbManager = DbManager(this)
     val adapter = AdsRecyclerViewAdapter(this)
+    lateinit var googleSignInLauncher: ActivityResultLauncher<Intent>
     private val firebaseViewModel: FirebaseViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -66,7 +74,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         return super.onCreateOptionsMenu(menu)
     }*/
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    /*override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == GoogleAccConsts.SIGN_IN_REQUEST_CODE) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
@@ -79,6 +87,21 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
         }
         super.onActivityResult(requestCode, resultCode, data)
+    }*/
+
+    private fun onActivityResult() {
+        googleSignInLauncher = registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()){
+            val task = GoogleSignIn.getSignedInAccountFromIntent(it.data)
+            try {
+                val account = task.getResult(ApiException::class.java)
+                if (account != null) {
+                    dialogSupport.accAuth.signInFirebaseWithGoogle(account.idToken!!)
+                }
+            } catch (e: ApiException) {
+                Log.d("MyLog", "Api error : ${e.message}")
+            }
+        }
     }
 
     override fun onStart() {
@@ -96,6 +119,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     private fun init() {
         setSupportActionBar(binding.mainContent.toolbarAds)
+        onActivityResult()
+        navVwSettings()
         val toggle = ActionBarDrawerToggle(
             this,
             binding.drawerLayout,
@@ -107,6 +132,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         toggle.syncState()
         binding.navView.setNavigationItemSelectedListener(this)
         txVwAccount = binding.navView.getHeaderView(0).findViewById(R.id.tvHeaderUserName)
+        imgVwAccount = binding.navView.getHeaderView(0).findViewById(R.id.ivHeaderUserAva)
     }
 
     private fun bottomMenuOnClick()= with(binding){
@@ -188,14 +214,17 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             dialogSupport.accAuth.signInAnonym(object: AccountAuthentication.Listener{
                 override fun onComplete() {
                     txVwAccount.setText(R.string.sign_in_anonym)
+                    imgVwAccount.setImageResource(R.drawable.ic_account)
                     //txVwAccount.text = getString(R.string.sign_in_anonym)
                 }
             })
         } else if (user.isAnonymous){
             txVwAccount.setText(R.string.sign_in_anonym)
+            imgVwAccount.setImageResource(R.drawable.ic_account)
             //user.email
         } else if (!user.isAnonymous){
             txVwAccount.text = user.email
+            Picasso.get().load(user.photoUrl).into(imgVwAccount)
         }
     }
 
@@ -222,4 +251,21 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onFavorClicked(ad: AdData) {
         firebaseViewModel.onFavorClick(ad)
     }
+
+    private fun navVwSettings() = with(binding){
+        val menuSet = navView.menu
+
+        val adsCat = menuSet.findItem(R.id.category_ads)
+        val spanAdsCat = SpannableString(adsCat.title)
+        spanAdsCat.setSpan(ForegroundColorSpan(ContextCompat.getColor(this@MainActivity,
+        R.color.my_color_red)), 0, adsCat.title.length, 0)
+        adsCat.title = spanAdsCat
+
+        val accSet = menuSet.findItem(R.id.settings_account)
+        val spanAccSet = SpannableString(accSet.title)
+        spanAccSet.setSpan(ForegroundColorSpan(ContextCompat.getColor(this@MainActivity,
+            R.color.my_color_red)), 0, accSet.title.length, 0)
+        accSet.title = spanAccSet
+    }
+
 }
