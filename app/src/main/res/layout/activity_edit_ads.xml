@@ -65,6 +65,17 @@
                         app:srcCompat="@drawable/ic_image_search"
                         tools:ignore="RedundantDescriptionCheck" />
 
+                    <TextView
+                        android:id="@+id/txVwImgCounter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/edit_image_button"
+                        android:padding="5dp"
+                        android:text="@string/text_default"
+                        android:textColor="@color/my_color_dark_blue_tx"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/viewPagePics" />
+
                     <ProgressBar
                         android:id="@+id/progressBarEditAds"
                         style="?android:attr/progressBarStyle"

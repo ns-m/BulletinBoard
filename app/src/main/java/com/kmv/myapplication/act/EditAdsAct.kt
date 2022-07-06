@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.viewpager2.widget.ViewPager2
 import com.google.android.gms.tasks.OnCompleteListener
 import com.kmv.myapplication.MainActivity
 import com.kmv.myapplication.R
@@ -237,4 +238,15 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
         upTask.continueWithTask{task -> imgStorageRef.downloadUrl
         }.addOnCompleteListener(listener)
     }
+
+    private fun imgChangeCounter(){
+        binding.vwPagerDescr.registerOnPageChangeCallback(object: ViewPager2.OnPageChangeCallback(){
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                val imgCounter = "${position + 1} / ${binding.vwPagerDescr.adapter?.itemCount}"
+                binding.txVwDescrCountImg.text = imgCounter
+            }
+        })
+    }
+
 }
