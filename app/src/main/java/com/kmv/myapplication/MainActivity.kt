@@ -20,6 +20,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.common.api.ApiException
 import com.google.android.material.navigation.NavigationView
@@ -58,6 +59,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         initViewModel()
         firebaseViewModel.loadAllAds()
         bottomMenuOnClick()
+        scrollListener()
     }
 
     override fun onResume() {
@@ -232,11 +234,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         adapter.updateAdapter(list)
     }*/
 
-    companion object{
-        const val EDIT_STATE = "edit_state"
-        const val ADS_DATA = "ads_data"
-    }
-
     override fun onDelItem(ad: AdData) {
         firebaseViewModel.delItem(ad)
     }
@@ -266,6 +263,25 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         spanAccSet.setSpan(ForegroundColorSpan(ContextCompat.getColor(this@MainActivity,
             R.color.my_color_red)), 0, accSet.title.length, 0)
         accSet.title = spanAccSet
+    }
+
+    private fun scrollListener() = with(binding.mainContent){
+        RVmainContent.addOnScrollListener(object: RecyclerView.OnScrollListener(){
+            override fun onScrollStateChanged(recView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recView, newState)
+                if (!recView.canScrollVertically(SCROLL_DOWN) && newState ==
+                    RecyclerView.SCROLL_STATE_IDLE){
+
+                }
+            }
+        })
+    }
+
+    //end
+    companion object{
+        const val EDIT_STATE = "edit_state"
+        const val ADS_DATA = "ads_data"
+        const val SCROLL_DOWN = 1
     }
 
 }
