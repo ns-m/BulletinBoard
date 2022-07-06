@@ -47,6 +47,7 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
         binding.selectCountry.adapter = adapter*/
         init()
         checkEditState()
+        imgChangeCounter()
     }
 
     private fun checkEditState(){
@@ -240,11 +241,11 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
     }
 
     private fun imgChangeCounter(){
-        binding.vwPagerDescr.registerOnPageChangeCallback(object: ViewPager2.OnPageChangeCallback(){
+        binding.viewPagePics.registerOnPageChangeCallback(object: ViewPager2.OnPageChangeCallback(){
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
-                val imgCounter = "${position + 1} / ${binding.vwPagerDescr.adapter?.itemCount}"
-                binding.txVwDescrCountImg.text = imgCounter
+                val imgCounter = "${position + 1} / ${binding.viewPagePics.adapter?.itemCount}"
+                binding.txVwImgCounter.text = imgCounter
             }
         })
     }
