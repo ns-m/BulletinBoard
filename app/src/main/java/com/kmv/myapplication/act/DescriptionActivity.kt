@@ -1,9 +1,11 @@
 package com.kmv.myapplication.act
 
+import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.graphics.Bitmap
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.core.net.toUri
 import com.kmv.myapplication.R
 import com.kmv.myapplication.adapters.ImageAdapter
 import com.kmv.myapplication.databinding.ActivityDescriptionBinding
@@ -23,8 +25,8 @@ class DescriptionActivity : AppCompatActivity() {
         binding = ActivityDescriptionBinding.inflate(layoutInflater)
         setContentView(binding.root)
         init()
-        binding.floatingActBttnPhone.setOnClickListener{}
-        binding.floatingActBttnEmail.setOnClickListener{}
+        binding.floatingActBttnPhone.setOnClickListener{callAction()}
+        binding.floatingActBttnEmail.setOnClickListener{emailAction()}
     }
 
     private fun init(){
@@ -76,9 +78,22 @@ class DescriptionActivity : AppCompatActivity() {
     private fun callAction(){
         val callUri = "phone:${adData?.phone}"
         val intntCall = Intent(Intent.ACTION_DIAL)
+        intntCall.data = callUri.toUri()
+        startActivity(intntCall)
     }
 
     private fun emailAction(){
+        val intntSendEmail = Intent(Intent.ACTION_SEND)
+        intntSendEmail.type = "message/rfc822"
+        intntSendEmail.apply {
+            putExtra(Intent.EXTRA_EMAIL, arrayOf(adData?.email))
+            putExtra(Intent.EXTRA_SUBJECT, "About your ad - ${arrayOf(adData?.title)}")
+            putExtra(Intent.EXTRA_TEXT, "I am interested your ad - ${arrayOf(adData?.description)}")
+        }
+        try {
+            startActivity(Intent.createChooser(intntSendEmail, "Open with that app"))
+        }catch (exc: ActivityNotFoundException){
 
+        }
     }
 }
