@@ -6,6 +6,7 @@ import android.graphics.Bitmap
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.core.net.toUri
+import androidx.viewpager2.widget.ViewPager2
 import com.kmv.myapplication.R
 import com.kmv.myapplication.adapters.ImageAdapter
 import com.kmv.myapplication.databinding.ActivityDescriptionBinding
@@ -35,6 +36,7 @@ class DescriptionActivity : AppCompatActivity() {
             vwPagerDescr.adapter = adapter
         }
         getIntentFromMainAct()
+        imgChangeCounter()
     }
 
     private fun getIntentFromMainAct(){
@@ -43,7 +45,7 @@ class DescriptionActivity : AppCompatActivity() {
     }
 
     private fun updateUI(adData: AdData) {
-        fillImagesArray(adData)
+        ImageManager.fillImagesArray(adData, adapter)
         fillTextViews(adData)
     }
 
@@ -63,13 +65,13 @@ class DescriptionActivity : AppCompatActivity() {
         return if (withDelivery) getString(R.string.tx_yes) else getString(R.string.tx_no)
     }
 
-    private fun fillImagesArray(adData: AdData){
+    /*private fun fillImagesArray(adData: AdData){
         val listUris = listOf(adData.mainImage, adData.image2, adData.image3)
         CoroutineScope(Dispatchers.Main).launch {
             val bitMapList = ImageManager.getBitmapFromUris(listUris)
-            adapter.update(bitMapList as ArrayList<Bitmap> /* = java.util.ArrayList<android.graphics.Bitmap> */)
+            adapter.update(bitMapList as ArrayList<Bitmap> *//* = java.util.ArrayList<android.graphics.Bitmap> *//*)
         }
-    }
+    }*/
 
     companion object{
         const val OBJECT_AD = "AD"
@@ -96,4 +98,15 @@ class DescriptionActivity : AppCompatActivity() {
 
         }
     }
+
+    private fun imgChangeCounter(){
+        binding.vwPagerDescr.registerOnPageChangeCallback(object: ViewPager2.OnPageChangeCallback(){
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                val imgCounter = "${position + 1} / ${binding.vwPagerDescr.adapter?.itemCount}"
+                binding.txVwDescrCountImg.text = imgCounter
+            }
+        })
+    }
+
 }

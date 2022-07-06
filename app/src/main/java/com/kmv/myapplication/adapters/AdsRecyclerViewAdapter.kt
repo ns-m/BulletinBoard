@@ -66,11 +66,11 @@ class AdsRecyclerViewAdapter(val activity: MainActivity): RecyclerView.Adapter<A
             imgBttnDeleteAd.setOnClickListener {
                 activity.onDelItem(ad)
             }
-            itemView.setOnClickListener {
+            /*itemView.setOnClickListener {
                 val intnt = Intent(binding.root.context, DescriptionActivity::class.java)
                 intnt.putExtra(OBJECT_AD, ad)
                 binding.root.context.startActivity(intnt)
-            }
+            }*/
         }
 
         private fun isFavor(ad: AdData){

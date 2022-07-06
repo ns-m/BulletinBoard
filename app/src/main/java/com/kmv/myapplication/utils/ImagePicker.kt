@@ -1,14 +1,8 @@
 package com.kmv.myapplication.utils
 
-import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
 import android.view.View
-import androidx.activity.result.ActivityResult
-import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import com.kmv.myapplication.R
 import com.kmv.myapplication.act.EditAdsAct
 import io.ak1.pix.helpers.PixEventCallback
@@ -137,7 +131,7 @@ object ImagePicker {
                 editAA.binding.progressBarEditAds.visibility = View.VISIBLE
                 val bitmapArray = ImageManager.imageResize(uris as ArrayList<Uri>, editAA) as ArrayList<Bitmap>
                 editAA.binding.progressBarEditAds.visibility = View.GONE
-                editAA.imageAdapter.update(bitmapArray)
+                editAA.adapter.update(bitmapArray)
                 closePixFragment(editAA)
                 }
             }

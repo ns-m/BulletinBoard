@@ -16,6 +16,7 @@ import com.kmv.myapplication.databinding.ActivityEditAdsBinding
 import com.kmv.myapplication.dialogs_support.DialogSpinner
 import com.kmv.myapplication.fragments.FragmentCloseInterface
 import com.kmv.myapplication.fragments.ImageListFragment
+import com.kmv.myapplication.utils.ImageManager
 import com.kmv.myapplication.utils.ImagePicker
 import com.kmv.myapplication.utils.ImagePicker.MAX_IMAGE_COUNT
 import com.kmv.myapplication.utils.TreatmentCityList
@@ -26,7 +27,7 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
     var chooseImageFragment: ImageListFragment? = null
     lateinit var binding: ActivityEditAdsBinding
     private val dialog = DialogSpinner()
-    lateinit var imageAdapter: ImageAdapter
+    lateinit var adapter: ImageAdapter
     private val dbManager = DbManager()
     var editImagePositions = 0
     private var imageIndex = 0
@@ -69,11 +70,12 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
         textViewSelectCategory.text = ad.category
         textViewInputPrice.setText(ad.price)
         textViewDescription.setText(ad.description)
+        ImageManager.fillImagesArray(ad, adapter)
     }
 
     private fun init() {
-        imageAdapter = ImageAdapter()
-        binding.viewPagePics.adapter = imageAdapter
+        adapter = ImageAdapter()
+        binding.viewPagePics.adapter = adapter
         /*launcherMultiSelectImages = ImagePicker.getMultiSelectImages(this)
         launcherForSingleSelectImage = ImagePicker.getLauncherForSingleSelectImage(this)*/
     }
@@ -131,11 +133,11 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
 
     fun onClickSelectImages(view: View) {
 //        ImagePicker.getImages(this)
-        if (imageAdapter.mainArray.size == 0){
+        if (adapter.mainArray.size == 0){
             ImagePicker.getMultiImages(this, MAX_IMAGE_COUNT)
         }else{
             openChooseImageFragment(null)
-            chooseImageFragment?.updateAdapterFromEdit(imageAdapter.mainArray)
+            chooseImageFragment?.updateAdapterFromEdit(adapter.mainArray)
         }
 
     }
@@ -181,7 +183,7 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
 ////
     override fun onFragmentClose(list: ArrayList<Bitmap>) {
         binding.scrollViewMain.visibility = View.VISIBLE
-        imageAdapter.update(list)
+        adapter.update(list)
         chooseImageFragment = null
     }
 
@@ -195,11 +197,11 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
     }
 
     private fun uploadImages(){
-        if (imageAdapter.mainArray.size == imageIndex){
+        if (adapter.mainArray.size == imageIndex){
             dbManager.publishAd(ad!!, onPublishFinish())
             return
         }
-        val byteArr = prepareImageByteArray(imageAdapter.mainArray[imageIndex])
+        val byteArr = prepareImageByteArray(adapter.mainArray[imageIndex])
         uploadOneImage(byteArr){
             //dbManager.publishAd(ad.copy(mainImage = it.result.toString()), onPublishFinish())
             //dbManager.publishAd(ad!!, onPublishFinish())

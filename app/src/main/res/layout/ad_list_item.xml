@@ -22,50 +22,59 @@
             android:orientation="vertical"
             android:paddingBottom="5dp">
 
-            <TextView
-                android:id="@+id/txVwAdListItemTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/edit_image_button"
-                android:fontFamily="@font/amiko"
-                android:paddingStart="5dp"
-                android:paddingTop="3dp"
-                android:paddingEnd="5dp"
-                android:paddingBottom="3dp"
-                android:text="@string/text_default"
-                android:textColor="@color/my_color_dark_blue_tx"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
-                android:id="@+id/imgVwMainAdImg"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="5dp"
-                android:background="@color/my_color_light_grayblue"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txVwAdListItemTitle"
-                tools:srcCompat="@drawable/ic_default_image" />
+                android:layout_height="match_parent"
+                android:gravity="right"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/txVwDescription"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="5dp"
-                android:fontFamily="@font/amiko"
-                android:gravity="center_horizontal"
-                android:text="@string/vw_text_description"
-                android:textColor="@color/my_color_dark_blue_tx" />
+                <TextView
+                    android:id="@+id/txVwAdListItemTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="5dp"
+                    android:background="@drawable/edit_image_button"
+                    android:fontFamily="@font/amiko"
+                    android:paddingStart="5dp"
+                    android:paddingTop="3dp"
+                    android:paddingEnd="5dp"
+                    android:paddingBottom="3dp"
+                    android:text="@string/text_default"
+                    android:textColor="@color/my_color_dark_blue_tx"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/imgVwMainAdImg"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="5dp"
+                    android:background="@color/my_color_light_grayblue"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txVwAdListItemTitle"
+                    tools:srcCompat="@drawable/ic_default_image" />
+
+                <TextView
+                    android:id="@+id/txVwDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/amiko"
+                    android:gravity="clip_horizontal"
+                    android:maxLines="4"
+                    android:text="@string/vw_text_description"
+                    android:textColor="@color/my_color_dark_blue_tx" />
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"

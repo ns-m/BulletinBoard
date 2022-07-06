@@ -20,6 +20,7 @@ import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.kmv.myapplication.act.DescriptionActivity
 import com.kmv.myapplication.act.EditAdsAct
 import com.kmv.myapplication.adapters.AdsRecyclerViewAdapter
 import com.kmv.myapplication.authentication.AccountAuthentication
@@ -213,6 +214,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onAdViewed(ad: AdData) {
         firebaseViewModel.adViewed(ad)
+        val intnt = Intent(this, DescriptionActivity::class.java)
+        intnt.putExtra(DescriptionActivity.OBJECT_AD, ad)
+        startActivity(intnt)
     }
 
     override fun onFavorClicked(ad: AdData) {
