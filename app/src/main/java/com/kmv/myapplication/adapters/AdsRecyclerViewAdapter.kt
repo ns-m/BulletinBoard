@@ -44,6 +44,13 @@ class AdsRecyclerViewAdapter(val activity: MainActivity): RecyclerView.Adapter<A
         /*notifyDataSetChanged()*/
     }
 
+    fun updateAdapterWithClear(newList: List<AdData>){
+        val diffResult = DiffUtil.calculateDiff(DiffUtilHelper(adArray, newList))
+        diffResult.dispatchUpdatesTo(this)
+        adArray.clear()
+        adArray.addAll(newList)
+    }
+
     class AdHolder(val binding: AdListItemBinding, val activity: MainActivity): RecyclerView.ViewHolder(binding.root) {
 
         fun setData(ad: AdData) = with(binding) {

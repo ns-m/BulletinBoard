@@ -48,6 +48,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     val adapter = AdsRecyclerViewAdapter(this)
     lateinit var googleSignInLauncher: ActivityResultLauncher<Intent>
     private val firebaseViewModel: FirebaseViewModel by viewModels()
+    private var clearUpdate: Boolean = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -113,7 +114,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     private fun initViewModel(){
         firebaseViewModel.liveAdsData.observe(this, {
-            adapter.updateAdapter(it)
+            if (!clearUpdate)adapter.updateAdapter(it)
             binding.mainContent.layoutNoFavorAds.visibility = if(it.isEmpty()) View.VISIBLE
             else View.GONE
         })
