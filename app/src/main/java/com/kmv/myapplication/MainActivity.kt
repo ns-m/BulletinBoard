@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         initRecyclerView()
         //dbManager.readDataFromDB()
         initViewModel()
-        firebaseViewModel.loadAllAds()
+        //firebaseViewModel.loadAllAds("0")
         bottomMenuOnClick()
         scrollListener()
     }
@@ -153,7 +153,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     mainContent.toolbarAds.title = getString(R.string.my_favorite_ads)
                 }
                 R.id.id_home_bottom_main_menu -> {
-                    firebaseViewModel.loadAllAds()
+                    firebaseViewModel.loadAllAds("0")
                     mainContent.toolbarAds.title = getString(R.string.main_ads_screen)
                 }
             }
@@ -271,7 +271,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 super.onScrollStateChanged(recView, newState)
                 if (!recView.canScrollVertically(SCROLL_DOWN) && newState ==
                     RecyclerView.SCROLL_STATE_IDLE){
-
+                    val adsList = firebaseViewModel.liveAdsData.value!!
+                    if (adsList.isNotEmpty()) {
+                        adsList[adsList.size - 1].let { firebaseViewModel.loadAllAds(it.time) }
+                    }
                 }
             }
         })

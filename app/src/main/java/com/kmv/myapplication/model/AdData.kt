@@ -15,6 +15,7 @@ data class AdData(
     val description: String? = null,
     val key: String? = null,
     val uid: String? = null,
+    var time: String = "0",
     val mainImage: String? = null,
     val image2: String? = null,
     val image3: String? = null,

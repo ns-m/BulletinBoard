@@ -71,8 +71,10 @@ class DbManager {
         readDataFromDB(query, readDataCallback)
     }
 
-    fun getAllAds(readDataCallback: ReadDataCallback?){
-        val query = db.orderByChild(auth.uid + "/ad/price").equalTo(auth.uid)
+    fun getAllAds(lastTime: String, readDataCallback: ReadDataCallback?){
+        /*val query = db.orderByChild(auth.uid + "/ad/time").equalTo(auth.uid)*/
+        val query = db.orderByChild(auth.uid + "/ad/time").startAfter(lastTime)
+            .limitToFirst(ADS_LIMIT)
         readDataFromDB(query, readDataCallback)
     }
 
@@ -125,5 +127,6 @@ class DbManager {
         const val INFO_NODE = "info"
         const val MAIN_NODE = "main"
         const val FAVORS_NODE = "favors"
+        const val ADS_LIMIT = 3
     }
 }
