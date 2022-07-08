@@ -114,9 +114,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     private fun initViewModel(){
         firebaseViewModel.liveAdsData.observe(this, {
-            if (!clearUpdate)adapter.updateAdapter(it)
-            binding.mainContent.layoutNoFavorAds.visibility = if(it.isEmpty()) View.VISIBLE
-            else View.GONE
+            if (!clearUpdate){
+                adapter.updateAdapter(it)
+            }else{
+                adapter.updateAdapterWithClear(it)
+            }
+            binding.mainContent.layoutNoFavorAds.visibility = if(it.isEmpty()) View.VISIBLE else View.GONE
         })
     }
 
@@ -140,6 +143,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     private fun bottomMenuOnClick()= with(binding){
         mainContent.bttmNavVwMainContent.setOnNavigationItemSelectedListener { item ->
+            clearUpdate = true
             when(item.itemId){
                 R.id.id_new_ad -> {
                     val intent = Intent(this@MainActivity, EditAdsAct::class.java)
@@ -170,6 +174,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        clearUpdate = true
         when (item.itemId) {
             R.id.id_my_ads -> {
                 Toast.makeText(this, "Pushed key ${item.itemId.toString()}", Toast.LENGTH_LONG)
@@ -272,6 +277,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 super.onScrollStateChanged(recView, newState)
                 if (!recView.canScrollVertically(SCROLL_DOWN) && newState ==
                     RecyclerView.SCROLL_STATE_IDLE){
+                    clearUpdate = false
                     val adsList = firebaseViewModel.liveAdsData.value!!
                     if (adsList.isNotEmpty()) {
                         adsList[adsList.size - 1].let { firebaseViewModel.loadAllAds(it.time) }
