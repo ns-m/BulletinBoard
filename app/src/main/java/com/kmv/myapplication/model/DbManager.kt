@@ -19,8 +19,12 @@ class DbManager {
         /*if (auth.uid != null)db.child(auth.uid!!).child(ad.key ?: "none").child("element").setValue(ad)*/
         if (auth.uid != null)db.child(ad.key ?: "empty").child(auth.uid!!).child(AD_NODE)
             .setValue(ad).addOnCompleteListener {
+                val adFilter = AdFilter(ad.time, "${ad.category}_${ad.time}")
+                db.child(ad.key ?: "empty").child(auth.uid!!).child(FILTER_NODE)
+                    .setValue(adFilter).addOnCompleteListener{
                 /*if (it.isSuccessful)*/
                 doneUploadsDataListener.onFinish()
+                    }
             }
     }
 
@@ -124,6 +128,7 @@ class DbManager {
 
     companion object{
         const val AD_NODE = "ad"
+        const val FILTER_NODE = "adFilter"
         const val INFO_NODE = "info"
         const val MAIN_NODE = "main"
         const val FAVORS_NODE = "favors"
