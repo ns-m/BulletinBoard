@@ -181,16 +181,21 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     .show()
             }
             R.id.id_ads_car -> {
-                Toast.makeText(this, "Pushed key ${item.itemId}", Toast.LENGTH_LONG).show()
+                /*Toast.makeText(this, "Pushed key ${item.itemId}", Toast.LENGTH_LONG).show()*/
+                getAdsFromCat(getString(R.string.ads_car))
+
             }
             R.id.id_ads_pc -> {
-                Toast.makeText(this, "Pushed key ${item.itemId}", Toast.LENGTH_LONG).show()
+                /*Toast.makeText(this, "Pushed key ${item.itemId}", Toast.LENGTH_LONG).show()*/
+                getAdsFromCat(getString(R.string.ads_pc))
             }
             R.id.id_ads_smartphone -> {
-                Toast.makeText(this, "Pushed key ${item.itemId}", Toast.LENGTH_LONG).show()
+                /*Toast.makeText(this, "Pushed key ${item.itemId}", Toast.LENGTH_LONG).show()*/
+                getAdsFromCat(getString(R.string.ads_smartphone))
             }
             R.id.id_ads_household_appliance -> {
-                Toast.makeText(this, "Pushed key ${item.itemId}", Toast.LENGTH_LONG).show()
+                /*Toast.makeText(this, "Pushed key ${item.itemId}", Toast.LENGTH_LONG).show()*/
+                getAdsFromCat(getString(R.string.ads_household_appliance))
             }
             R.id.id_set_ac_sign_up -> {
                 dialogSupport.createSingDialog(DialogConsts.SIGN_UP_STATE)
@@ -210,6 +215,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
         binding.drawerLayout.closeDrawer(GravityCompat.START)
         return true
+    }
+
+    private fun getAdsFromCat(cat: String){
+        val catTime = "${cat}_0"
+        firebaseViewModel.loadAllAdsFromCat(catTime)
     }
 
     fun uiUpdate(user: FirebaseUser?) {
@@ -280,11 +290,23 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     clearUpdate = false
                     val adsList = firebaseViewModel.liveAdsData.value!!
                     if (adsList.isNotEmpty()) {
-                        adsList[adsList.size - 1].let { firebaseViewModel.loadAllAds(it.time) }
+                        /*adsList[adsList.size - 1].let { firebaseViewModel.loadAllAds(it.time) }*/
+                        getAdsFromCat(adsList)
                     }
                 }
             }
         })
+    }
+
+    private fun getAdsFromCat(adsList: ArrayList<AdData>){
+        adsList[adsList.size - 1].let {
+            if (it.category == getString(R.string.main_ads_screen)) {
+                firebaseViewModel.loadAllAds(it.time)
+            } else {
+                val catTime = "${it.category}_${it.time}"
+                firebaseViewModel.loadAllAdsFromCat(catTime)
+            }
+        }
     }
 
     //end
