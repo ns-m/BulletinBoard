@@ -119,7 +119,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }else{
                 adapter.updateAdapterWithClear(it)
             }
-            binding.mainContent.layoutNoFavorAds.visibility = if(it.isEmpty()) View.VISIBLE else View.GONE
+            binding.mainContent.layoutNoFavorAds.visibility = if(adapter.itemCount == 0) View.VISIBLE else View.GONE
         })
     }
 
