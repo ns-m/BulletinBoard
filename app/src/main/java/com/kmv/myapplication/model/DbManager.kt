@@ -75,16 +75,26 @@ class DbManager {
         readDataFromDB(query, readDataCallback)
     }
 
-    fun getAllAds(lastTime: String, readDataCallback: ReadDataCallback?){
+    fun getAllAdsFirstPage(readDataCallback: ReadDataCallback?){
         /*val query = db.orderByChild(auth.uid + "/ad/time").equalTo(auth.uid)*/
-        val query = db.orderByChild(FILTER_PATH).startAfter(lastTime)
-            .limitToFirst(ADS_LIMIT)
+        val query = db.orderByChild(FILTER_PATH).limitToLast(ADS_LIMIT)
         readDataFromDB(query, readDataCallback)
     }
 
-    fun getAllAdsFromCat(lastCatTime: String, readDataCallback: ReadDataCallback?){
-        val query = db.orderByChild(FILTER_CAT_PATH).startAfter(lastCatTime)
-            .limitToFirst(ADS_LIMIT)
+    fun getAllAdsNextPage(time: String, readDataCallback: ReadDataCallback?){
+        val query = db.orderByChild(FILTER_PATH).endBefore(time).limitToLast(ADS_LIMIT)
+        readDataFromDB(query, readDataCallback)
+    }
+
+    fun getAllAdsFromCatFirstPage(cat: String, readDataCallback: ReadDataCallback?){
+        val query = db.orderByChild(FILTER_CAT_PATH).startAt(cat).endAt(cat + "_\uf8ff")
+            .limitToLast(ADS_LIMIT)
+        readDataFromDB(query, readDataCallback)
+    }
+
+    fun getAllAdsFromCatNextPage(catTime: String, readDataCallback: ReadDataCallback?){
+        val query = db.orderByChild(FILTER_CAT_PATH).endBefore(catTime)
+            .limitToLast(ADS_LIMIT)
         readDataFromDB(query, readDataCallback)
     }
 
@@ -138,7 +148,7 @@ class DbManager {
         const val INFO_NODE = "info"
         const val MAIN_NODE = "main"
         const val FAVORS_NODE = "favors"
-        const val ADS_LIMIT = 3
+        const val ADS_LIMIT = 4
         const val FILTER_PATH = "/adFilter/time"
         const val FILTER_CAT_PATH = "/adFilter/catgTime"
     }
