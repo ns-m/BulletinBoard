@@ -15,9 +15,9 @@
     </style>
     <style name="AppTheme.NoActionBar" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
-        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorPrimary">@color/color_header_main</item>
+        <item name="colorPrimaryVariant">@color/my_color_dark_grayblue</item>
+        <item name="colorOnPrimary">@color/my_color_red</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:windowFullscreen">true</item>
@@ -30,5 +30,12 @@
         <!-- Primary brand color. -->
         <item name="android:colorControlNormal">@color/surface_color_pix</item>
         <item name="fontFamily">@font/amiko</item>
+    </style>
+    <style name="AppTheme.Filter" parent="Theme.MaterialComponents.Light">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/color_header_main</item>
+        <item name="colorPrimaryVariant">@color/my_color_dark_grayblue</item>
+        <item name="colorOnPrimary">@color/my_color_red</item>
+        <item name="android:windowFullscreen">true</item>
     </style>
 </resources>

@@ -14,13 +14,14 @@
         tools:replace="android:theme"
         tools:targetApi="r">
         <activity
-            android:name=".FilterActivity"
+            android:name=".act.FilterActivity"
+            android:theme="@style/AppTheme.Filter"
             android:exported="false" />
         <activity
-            android:name=".DescriptionActivity"
+            android:name=".act.DescriptionActivity"
             android:exported="false" />
         <activity
-            android:name=".EditAdsAct"
+            android:name=".act.EditAdsAct"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
