@@ -82,6 +82,7 @@
     <string name="vw_text_delivery">Delivery :</string>
     <string name="choose_delivery">With delivery</string>
     <string name="vw_text_publish">Publish</string>
+    <string name="vw_text_filter_apply">Apply</string>
     <string name="vw_text_count_default">0</string>
     <string name="ad_list_element_descr_default">Default description</string>
 </resources>
