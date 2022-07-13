@@ -57,7 +57,20 @@ class FilterActivity : AppCompatActivity() {
     }
 
     private fun createFilter(): String = with(binding){
-        val
+        val stringBuilder = StringBuilder()
+        val tempFilterArray = listOf(
+            textViewSelectCountry.text,
+            textViewSelectCity.text,
+            textViewInputZipcode.text,
+            checkDelivery.isChecked.toString()
+        )
+        for ((indx, strg) in tempFilterArray.withIndex()){
+            if (strg != getString(R.string.select_country) && strg != getString(R.string.select_city)
+                        && strg.isNotEmpty()){
+                stringBuilder.append(strg)
+                if (indx != tempFilterArray.size - 1)stringBuilder.append("_")}
+        }
+        return stringBuilder.toString()
     }
 
     fun actionBarSettings(){

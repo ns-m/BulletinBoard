@@ -73,6 +73,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.id_filter)
         return super.onOptionsItemSelected(item)
+        return true
     }
 
     override fun onResume() {
